@@ -1,0 +1,4 @@
+typst compile rapport.typ
+
+
+typst compile rapport.typ exports/document_final.pdf
