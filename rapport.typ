@@ -33,7 +33,6 @@
 
   #v(0.5cm) // Espace vertical entre la ligne du haut et le logo du bas
 
-  // --- BLOC INTERMÉDIAIRE : Le troisième logo plus long et centré ---
   #align(center)[
     // Ajout du '#' devant rect car on est repassé en mode contenu dans les crochets []
     #rect(width: 60%, height: 95pt, stroke: 0.5pt + gray, radius: 2pt)[
@@ -49,27 +48,28 @@
 
   // Section Titre du Rapport
   #align(center)[
-    #text(size: 26pt, weight: "bold")[Projet de fin d'études] \
+    #text(size: 26pt, weight: "bold")[Projet de fin d'étude] \
     #v(0.5cm)
-    #text(size: 14pt, style: "italic", fill: gray)[TODO: Ajouter le sous-titre du rapport ici] \
+    #text(size: 14pt, style: "italic")[TODO: Ajouter le sous-titre du rapport ici] \
   ]
 
   #v(6cm)
 
-  #line(length: 100%, stroke: 0.5pt + gray)
+  #line(length: 100%, stroke: 1.5pt + gray)
   #v(0.2cm)
   
   #grid(
     columns: (1fr, 1fr),
     gutter: 1cm,
     [
-      #text(size: 10pt, weight: "bold", fill: gray)[AUTEUR] \
+      #text(size: 10pt, weight: "bold")[AUTEUR] \
       #v(0.1cm)
+      
       #text(size: 12pt, weight: "bold")[Enzo LE BODO] \
       #text(size: 10pt)[Apprenti Ingénieur]
     ],
     [
-      #text(size: 10pt, weight: "bold", fill: gray)[ENCADREMENT] \
+      #text(size: 10pt, weight: "bold")[ENCADREMENT] \
       #v(0.1cm)
       
       #text(size: 11pt, weight: "bold")[Pierre LEBRETON] \
@@ -91,7 +91,7 @@
 #pagebreak()
 
 #set page(
-  header: align(right)[Projet de fin d'études Enzo LE BODO IDIA2026],
+  header: align(right)[Projet de fin d'étude Enzo LE BODO IDIA2026],
   footer: context [
     #align(center)[
       #counter(page).display("1 / 1", both: true)
@@ -118,7 +118,6 @@
 
 
 = Introduction <intro>
-Ce document sert de guide de référence pour utiliser les fonctionnalités avancées de Typst. Nous verrons comment structurer le document, insérer des éléments complexes et faire des renvois dynamiques. Comme mentionné dans l'introduction (@intro), la structure est entièrement automatisée.
 
 == Contexte
 Le secteur de la vidéo à la demande VOD a connu un essor très important notamment avec l’arrivée de nombreuses plateformes de contenu. Contrairement à la TNT où une seule antenne émet un signal capté par un grand nombre de foyers sans coût énergétique supplémentaire par spectateur, la VOD nécessite une connexion point à point. Chaque clic sur "Play" sur Netflix ou Amazon prime génère un flux dédié depuis un serveur (souvent via un Content Delivery Network CDN), augmentant fortement la consommation de bande passante et d'énergie. 
@@ -150,8 +149,60 @@ L’équipe se compose actuellement :
 d’un responsable scientifique, un responsable opérationnel (également mon tuteur industriel), deux  ingénieures de recherche (une ancienne doctorante au sein de l’IPI et une ancienne stagiaire) un autre ingénieur de recherche (ancien doctorant dans une autre équipe de recherche), deux apprentis ingénieurs dont je fais partie et un stagiaire.
 
 
+= Organisation du projet
 
+== Contexte du projet
+Ce projet est en lien avec Amazon Elemental, filiale d’Amazon. Ce groupe s'intéresse aux problématiques liées à la vidéo notamment dû aux différents services qu’ils proposent tel que prime vidéo. Ce projet prend part dans une collaboration à plus long terme et fait suite à d’autres projets en lien avec cet organisme.
+Ce projet a pour ambition d’étudier le sujet de l’IA dans le cadre de l’optimisation vidéo, cela prend la forme d’une preuve de concept, où les études réalisées seront présentées à l’entreprise cliente afin de définir la faisabilité d’une telle optimisation. Pour ce faire différents jalons sont posés, quels outils permettent au mieux d’évaluer la qualité d’un contenu vidéo. Par la suite des FOM (Figure Of Merit) devront définir les méthodes d’évaluation de la réussite d’une optimisation. Ces premiers jalons donnent une base solide qui sera réutilisable pour les étapes d’optimisation. D’autres aspects du projet consiste aussi dans l’évaluation des méthodes d’optimisation par IA. C’est d’ailleurs dans cette partie que ce projet de fin d’étude prend place, le but est de définir les outils possibles pour ce genre d'optimisation, comment répondre aux différentes problématiques posées par les outils de codage vidéo classiques pour l’apprentissage. Il sera alors question d’implémenter des solutions et d’évaluer leurs performances et pertinence dans le projet. Ces tests sont aussi liés à l’évaluation des différents outils de mesures de qualité car ils seront la clé d’un apprentissage réussi.
+Par la suite, une fois les différentes études menées sur l’outillage nécessaire à une optimisation réussie, l’objectif final sera de réaliser, sur des cas contrôlés d'image, de mettre ces outils en œuvre afin d’évaluer les possibles optimisations obtenues.
+Il est important de rappeler que ce PFE s’intègre dans le projet et que différentes analyses seront réalisées plus tard, dans la suite du projet.
 
+== Planning
+
+== Les membres du projet
+
+Dans la section précédente nous avons évoqué les différents membres de la cellule, ici nous verrons combien de personnes participent à ce projet et les rôles de chacun. De plus cela va permettre de mettre en avant la répartition des premiers jalons du projet.
+
+*Patrick LE CALLET (Responsable scientifique)*
+
+Il assure le bon déroulement du projet et les discussions avec le client afin d’aboutir aux exigences du projet de départ.
+
+*Pierre LEBRETON (Ingénieur et responsable cellule)*
+
+Encadrant des membres participant au projet, il est au quotidien le garant de la qualité des actions liées au projet, il en est aussi le référent technique. Son rôle est plus polyvalent, il travaille sur les différents aspects du projet.
+
+*Lina GUEMBRI (Ingénieure)*
+
+Son rôle se trouve majoritairement dans l’évaluation des métriques de qualité vidéo, l’étude de leurs défauts et les solutions permettant d’y échapper.
+
+*Jipeng XIA (Stagiaire)*
+Il travaille sur la thématique des outils d’optimisation de compression vidéo en particulier en étudiant l’état de l’art des solutions actuelles.
+
+*Mon rôle*
+
+En tant qu’alternant, ce projet a commencé pour moi par une première étude sur l’utilisation d’une métrique de qualité vidéo dans le cas de l'entraînement d’un codec neuronal. L’objectif était de faire ressortir des possibles améliorations mathématiques de cette métrique afin d’en améliorer la pertinence et son utilisation durant l’apprentissage. Cela était un premier pas dans ce domaine et m’a permis d’apprendre de nombreuses notions importantes.
+
+Par la suite, dans le cadre de mon PFE, je travaille majoritairement sur les analyses et implémentations d’outils d’optimisation, plus particulièrement sur l’aspect proxy de codec afin de contourner les limitations des outils classiques en d’autres termes créer un jumeau des outils classiques qui guidera l’apprentissage. La thématique des outils de mesure de qualité vidéo étant directement liée à ce sujet, ma mission réside aussi dans l’étude des meilleurs outils pour ce cas d’utilisation.
+
+= Compréhension des codecs 
+Dans cette section, nous allons comprendre les codecs, leur utilité et la théorie de base qui permet de comment ces outils fonctionnent sera un prérequis pour certaines sections de ce document.
+
+== Du diffuseur jusqu’au salon
+La chaîne VOD est un processus complexe qui transforme une scène captée en une vidéo diffusée mondialement. Cette chaîne se décompose en cinq étapes majeures :
+
+- *La source*: Les caméras et microphones enregistrent la vidéo et l'audio bruts. Un appareil de capture convertit ces signaux physiques en un format numérique exploitable par un ordinateur, il se passe alors aussi un grand nombre de traitements (montage) afin d’obtenir un résultat satisfaisant.
+- *Encodage* (Compression) : C'est ici qu'intervient le premier rôle clé du codec. Comme les données brutes sont trop volumineuses, l'encodeur les compresse (en utilisant des standards comme H.264, H.265 ou AV1) pour optimiser le poids du fichier sans sacrifier la qualité. Cette étape se situe côté fournisseur, avant de transmettre la vidéo.
+- *Serveur* : Le serveur reçoit le flux, le traite et le convertit en plusieurs versions (transcodage) pour s'adapter à différents appareils et débits.
+- *CDN (Distribution)* : Un réseau de serveurs répartis mondialement stocke des copies du contenu. Cela permet de diffuser le flux depuis le serveur le plus proche de l'utilisateur, réduisant ainsi la latence et les interruptions.
+- *Lecteur/Décodeur* : C'est l'étape finale. Le lecteur (application, navigateur) reçoit le flux compressé. Le codec intervient ici : le décodeur transforme les données compressées en images et sons lisibles pour l'écran de l'utilisateur. Cette étape se situe côté utilisateur.
+
+#align(center)[
+  #figure(
+    image("images\VODtransfr.png", width: 80%, height: 110pt)
+    ,
+    caption: [Schéma illustrant la chaîne de transmission d'une vidéo à la demande (VOD)]
+  ) <vod_transmission>
+]
 
 == Tableaux de données
 Les tableaux se définissent via la fonction `table`. Les entêtes sont automatiquement mises en évidence.

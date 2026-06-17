@@ -1,0 +1,112 @@
+Intro
+- Contexte VOD et la demande croissante et enjeux et présentation succincte des "codecs" (présenter les évolutions et pourquoi HEVC ainsi que les limites d'évolutions des outils en place)
+Placer ici les schémas de la pipeline VOD, et placer la
+
+- Problématique détaillée mais non technique
+
+Environnement du projet
+
+-Capacités /labo
+-Présenter le client et le lien avec la cellule
+-Présenter le contexte économique et du projet (lien avec la croissance de l'équipe notamment)
+-Présenter le planning, détailler les jalons et la répartition actuelle des membres sur ces jalons et globalement
+-Présenter l'organisation globale de la cellule (réunion pop échange aussi sur les différents outils, utilisation de gitlab pour sauvegarder les proejts, utilisation de serveurs et notamment glicid) mais aussi les spécifités liées à ce projet (réunions, retour du client sur les analyses des métriques (bien préciser que c'est pas ma partie aussi)) 
+
+Adaptation aux outils
+
+Expliquer l'adaptation nécessaire pour moi et l'équipe à des outils comme glicid
+Expliquer les avantages de les utiliser pour nous (financier car en lien avec le labo, pas de maintenance pour nous etc, et gain énergétique et en ressources de l'utilisation d'un serveur partagé)
+
+Expliquer les limites : maintenance et pas maml de jours où l'outil n'est plus accessible
+
+La compression vidéo dans le projet
+
+Contexte 
+
+Expliquer la nécessité d'apprendre des notions très théorique indispensable au projet, revenir sur l'aspect jeune de l'équipe. Expliquer que cet apprentissage vient aussi des échanges de papiers, d'outils, de conseils , qui permettent de se plonger bien plus rapidement dans le sujet
+
+Evoquer l'évolution rapide du domaine
+lien avec des géants du numérique => domaine avec beaucoup de recherche notamment financé par ces entreprises
+Mettre en avant des chiffres du secteur et le poids que ça représente
+Evoquer le lien avec notre cellule qui travail énormément avec ces entreprises
+L'impact sur la veille constante nécessaire pour rester suivre les évolutions.
+
+
+Encodage : la réduction d'informations transmisent
+
+	-Redondance d'images qui se suivent
+	remplacer fps par plusieurs images successives rapidement
+	=> Introduire le concept d'image inter
+	
+	- Introduire la redondance des pixel dans l'image
+
+	- Expliquer l'utilisation de l'œil humain pour mieux compresser
+
+	- Introduire simplement la notion d'une information qui est plus 	fréquente coute moins cher
+	
+	- Ouverture en expliquant les gains potentiels liés à ces points et en 	quoi l'IA est intéressante
+	Comment rendre l'information plus condensée/plus facile à prédire sans 	perdre en qualité perçue
+
+Comment évaluer le contenue vidéo
+
+- Introduire les notions importantes de tests, de métriques
+Expliquer le lien avec notre cellule et en quoi cela demande une organisation pour la gestion du panel etc (bien préciser que c'est pas mon rôle)
+
+- Expliquer les différences entre les métriques
+
+Les limitations pour l'apprentissage
+
+	-les limitations mathématique liées au codec et à l'apprentissage
+	(arrondi, choix du meilleur bloc, introduire alors le concept de 	différentiabilité)
+
+	Introduire l'impossibilité d'utiliser les codecs comme tel pour 	l'apprentissage (pas prévu pour trop d'opérations bloquantes etc)
+
+	-Les solutions à ces problèmes
+	(expliquer la logique du graphe créer durant l'apprentissage et comment 	on peut différencier descente et montée => deux figures qui montrent un 	exemple clair de chaque (montée/descente du graphe)
+	La possibilité d'utiliser un codec neuronal entrainer à reproduire
+	Créer une version simplifiée d'un codec pour avoir un environnement qui 	permet au filtre de comprendre la logique pour simplifier
+
+Les solutions misent en place
+
+Objectif et difficultés
+
+Introduire l'objectif d'être capable d'avoir plusieurs outils pour comparer les approches existantes
+
+Evoquer la difficulté de reproduire fidèlement une implémentation d'un papier de recherche, il faut donc souvent reprendre certains aspects depuis le début, c'est aussi une grosse partie du travail
+
+Pipeline globale (filtre proxy métrique) schema 
+
+- Codec neuronal entrainer sur H265
+Expliquer les limites mais aussi les atouts
+
+- Version simplifié d'un codec et choix réalisés pour suivre au mieux H265
+Limites et atouts de solutions de la littérature et ce qui a été modifié pour suivre au mieux H265
+
+-Expliquer le choix de métriques simple pour le moment la suite du projet ayant pour but de développer aussi cet aspect
+
+Résultats
+
+En tant que proxy (fidélité)
+
+Réduction face aux métriques
+
+Limites des résultats
+
+Conclusion
+
+
+
+
+	
+
+	
+	
+	
+
+
+
+
+
+
+ 
+
