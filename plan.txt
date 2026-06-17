@@ -10,21 +10,23 @@ Environnement du projet
 -Présenter le client et le lien avec la cellule
 -Présenter le contexte économique et du projet (lien avec la croissance de l'équipe notamment)
 -Présenter le planning, détailler les jalons et la répartition actuelle des membres sur ces jalons et globalement
--Présenter l'organisation globale de la cellule (réunion pop échange aussi sur les différents outils, utilisation de gitlab pour sauvegarder les proejts, utilisation de serveurs et notamment glicid) mais aussi les spécifités liées à ce projet (réunions, retour du client sur les analyses des métriques (bien préciser que c'est pas ma partie aussi)) 
+-Présenter l'organisation globale de la cellule (réunion pop échange aussi sur les différents outils, utilisation de gitlab pour sauvegarder les proejts, utilisation de serveurs et notamment glicid, interculturalité de l'équipe (discussion parfois en anglais ce qui est bénéfique pour un alternant)) mais aussi les spécifités liées à ce projet (réunions, retour du client sur les analyses des métriques (bien préciser que c'est pas ma partie aussi)) 
 
 Adaptation aux outils
 
 Expliquer l'adaptation nécessaire pour moi et l'équipe à des outils comme glicid
-Expliquer les avantages de les utiliser pour nous (financier car en lien avec le labo, pas de maintenance pour nous etc, et gain énergétique et en ressources de l'utilisation d'un serveur partagé)
-
-Expliquer les limites : maintenance et pas maml de jours où l'outil n'est plus accessible
+Expliquer les avantages de les utiliser pour nous (financier car accès en lien avec le labo, pas de maintenance pour nous etc, et gain énergétique et en ressources de l'utilisation d'un serveur partagé)
+Evolution à venir => Possibilité de test sur des modèles plus gros/lourd
+Expliquer les limites : maintenance et pas mal de jours où l'outil n'est plus accessible, cota et limitations
+mais ça sera un coût enorme d'avoir de tels ressouces pour l'entreprise
 
 La compression vidéo dans le projet
 
 Contexte 
 
 Expliquer la nécessité d'apprendre des notions très théorique indispensable au projet, revenir sur l'aspect jeune de l'équipe. Expliquer que cet apprentissage vient aussi des échanges de papiers, d'outils, de conseils , qui permettent de se plonger bien plus rapidement dans le sujet
-
+Mettre en avant les différents seminaires où des présentations sont faites /soutenances de thèses dans l'équipe ce qui permet aussi d'apprendre
+Evoquer le fait qu'au début je ne comprenais rien et ajd je comprends beaucoup mieux les différents enjeux et notions.
 Evoquer l'évolution rapide du domaine
 lien avec des géants du numérique => domaine avec beaucoup de recherche notamment financé par ces entreprises
 Mettre en avant des chiffres du secteur et le poids que ça représente
@@ -88,11 +90,19 @@ Résultats
 
 En tant que proxy (fidélité)
 
-Réduction face aux métriques
+Réduction du cout des images face aux métriques
 
 Limites des résultats
 
 Conclusion
+
+Glossaire 
+
+Annexes
+
+Remerciements
+
+Résumé
 
 
 

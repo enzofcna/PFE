@@ -1,0 +1,6 @@
+downlaod le dataset BVI-DVC
+
+Tester et avoir les résultats de la fidélité en tant que proxy
+Corrélation au débit/à l'image
+
+Finaliser les analyses entre les différentes versions
