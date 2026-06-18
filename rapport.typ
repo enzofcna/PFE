@@ -64,7 +64,7 @@
       #v(0.1cm)
       
       #text(size: 12pt, weight: "bold")[Enzo LE BODO] \
-      #text(size: 10pt)[Apprenti Ingénieur]
+      #text(size: 10pt)[Étudiant]
     ],
     [
       #text(size: 10pt, weight: "bold")[ENCADREMENT] \
@@ -186,7 +186,7 @@ Le choix d’une cible d’optimisation réaliste et qui prend en compte ces dif
 
 === Les enjeux économiques de la VOD et liens avec la recherche
 
-Expliquer les enjeux, les acteurs, leurs poids et en quoi sela influe directement notre cellule car la majorité des projets sont en lien avec ces acteurs et leurs besoins.
+Expliquer les enjeux, les acteurs, leurs poids et en quoi sela influe directement notre cellule car la majorité des projets sont en lien avec ces acteurs et leurs besoins. Prendre l'exemple de l'étude qui met en avant le challenge lié au stockage comme priorité n°1 @challengesVOD
 Les aspects open source et open access sont aussi à mettre en avant, car ils permettent de faire évoluer les outils de compression mais aussi d'avoir un accès à des outils de mesure de qualité vidéo, qui sont pourtant des outils complexes et développés parfois en interne par ces entreprises.
 TODO
 
@@ -235,11 +235,11 @@ Dans la section précédente nous avons évoqué les différents membres de la c
 
 *Patrick LE CALLET (Responsable scientifique)*
 
-Il assure le bon déroulement du projet et les discussions avec le client afin d’aboutir aux exigences du projet de départ.
+Il assure le bon déroulement du projet et les discussions avec le client afin d’aboutir aux exigences du projet de départ. Il est aussi moteur des idées amenant à ce projet.
 
 *Pierre LEBRETON (Ingénieur et responsable cellule)*
 
-Encadrant des membres participant au projet, il est au quotidien le garant de la qualité des actions liées au projet, il en est aussi le référent technique. Son rôle est plus polyvalent, il travaille sur les différents aspects du projet.
+Encadrant des membres de la cellule et donc des participants au projet, il est au quotidien le garant de la qualité des actions liées au projet, il en est aussi le référent technique. Son rôle est plus polyvalent, il travaille sur des implémentations techniques mais aussi la gestion des différents aspects du projet.
 
 *Lina GUEMBRI (Ingénieure)*
 
@@ -326,7 +326,7 @@ Evoquer la difficulté de reproduire fidèlement une implémentation d'un papier
 == Codage neuronal
 Expliquer la logique suivie pour utiliser un codec neuronal pour reproduire H265, les choix de conception et les limitations de ce codec neuronal dans ce rôle de proxy
 == Codage simplifié
-expliquer les bases utilisées pour reproduire un codec simplifié, les choix de conception et les limitations de ce codec simplifié.
+expliquer les bases utilisées pour reproduire un codec simplifié qui peremt d'avoir un environnement d'apprentissage qui reprend les contraintes d'un veritbale codec, les choix de conception et les limitations de cette version simplifiée.
 
 == Guide d'optimisation
 Expliquer le choix de métriques simple pour le moment la suite du projet mais pertinente ayant pour but de développer aussi cet aspect dans la suite du projet.
@@ -367,13 +367,21 @@ Difficulté d'évaluer les résultats.
 #pagebreak()
 
 = Annexes
+== Annexe 1 : Étude sur les plus gros challenges du secteur
+#align(center)[
+  #figure(
+    image("images\prioriteEtude.png", width: 100%, height: 450pt)
+    ,
+    caption: [Illustration des cahllenges principaux face à un panel d'entreprise du secteur Streaming/VOD pouur l'année 2024-2025) @bitmovin2024report]
+  ) <challengesVOD>
+]
 
 #page(flipped: true)[
   // On applique l'alignement centré sur toute la page paysage
   #set align(center + horizon)
   
   // On place le titre directement ici pour qu'il soit sur la page inclinée
-  == Annexe 1 : Planning prévisionnel du projet <planning>
+  == Annexe 2 : Planning prévisionnel du projet <planning>
   
   #v(1cm) // Un peu d'espace vertical entre le titre et le planning
 
