@@ -127,7 +127,7 @@ On comprend alors que dans ce contexte les outils de compression visant à dimin
 La chaîne VOD est un processus complexe qui transforme une scène captée en une vidéo diffusée mondialement. Cette chaîne se décompose en cinq étapes majeures :
 
 - *La source*: Les caméras et microphones enregistrent la vidéo et l'audio bruts. Un appareil de capture convertit ces signaux physiques en un format numérique exploitable par un ordinateur, il se passe alors aussi un grand nombre de traitements (montage) afin d’obtenir un résultat satisfaisant.
-- *Encodage* (Compression) : C'est ici qu'intervient le premier rôle clé des algorithmes de compression  (codec). Comme les données brutes sont trop volumineuses, l'encodeur les compresse (en utilisant des standards comme H.264, H.265 ou AV1) pour optimiser le poids du fichier sans sacrifier la qualité. Cette étape se situe côté fournisseur, avant de transmettre la vidéo.
+- *Encodage* (Compression de la vidéo) : C'est ici qu'intervient le premier rôle clé des algorithmes de compression  (codec). Comme les données brutes sont trop volumineuses, l'encodeur les compresse (en utilisant des standards comme H.264, H.265 ou AV1) pour optimiser le poids du fichier sans sacrifier la qualité. Cette étape se situe côté fournisseur, avant de transmettre la vidéo.
 - *Serveur* : Le serveur reçoit le flux, le traite et le convertit en plusieurs versions (transcodage) pour s'adapter à différents appareils et débits.
 - *CDN (Distribution)* : Un réseau de serveurs répartis mondialement stocke des copies du contenu. Cela permet de diffuser le flux depuis le serveur le plus proche de l'utilisateur, réduisant ainsi la latence et les interruptions.
 - *Lecteur/Décodeur* : C'est l'étape finale. Le lecteur (application, navigateur) reçoit le flux compressé. Le codec intervient ici : le décodeur transforme les données compressées en images et sons lisibles pour l'écran de l'utilisateur. Cette étape se situe côté utilisateur.
@@ -137,7 +137,7 @@ La chaîne VOD est un processus complexe qui transforme une scène captée en un
   #figure(
     image("images\VODtransfr.png", width: 80%, height: 110pt)
     ,
-    caption: [Schéma illustrant la chaîne de transmission d'une vidéo à la demande (VOD)]
+    caption: [Schéma illustrant la chaîne de transmission d'une vidéo à la demande (VOD) @coffie2025streaming]
   ) <vod_transmission>
 ]
 
@@ -159,16 +159,16 @@ Pour mieux comprendre les éléments suivants, voici un bref historique des outi
   #figure(
     image("images\historique_codec.png", width: 100%, height: 125pt)
     ,
-    caption: [Historique et évolution des outils de compression vidéo (codecs) entre 1990 et 2017]
+    caption: [Historique et évolution des outils de compression vidéo (codecs) entre 1990 et 2017 @moreira2022digitalvideo]
   ) <historiqueCodec>
 ]
 
-Afin de mettre en avnat la difficulté d'évolution des outils de compression par les entreprises concernées, les figures suivantes illustrent la répartition d'utilisation des outils de compression en 2023 et 2024 sur un panel d'entreprises. On peut y voir que les outils les plus récents ne sont pas encore adoptés par la majorité des entreprises, ce qui montre la difficulté d'évolution de ces outils.
+Afin de mettre en avant la difficulté d'évolution des outils de compression par les entreprises concernées, les figures suivantes illustrent la répartition d'utilisation des outils de compression en 2023 et 2024 sur un panel d'entreprises. On peut y voir que les outils les plus récents ne sont pas encore adoptés par la majorité des entreprises, ce qui montre la difficulté d'évolution de ces outils.
 #align(center)[
   #figure(
     image("images\Codecs_2023.png", width: 80%, height: 200pt)
     ,
-    caption: [Illustration de la répartition d'utilisation des outils de compression en 2023 (Streaming & VOD) sur un panel d'entreprises (en rouge : l'outil envisagé pour l'année suivante)]
+    caption: [Illustration de la répartition d'utilisation des outils de compression en 2023-2024 (Streaming & VOD) sur un panel d'entreprises (en rouge : l'outil envisagé pour l'année suivante) @bitmovin2023report]
   ) <utilisationCodec2023>
 ]
 
@@ -176,7 +176,7 @@ Afin de mettre en avnat la difficulté d'évolution des outils de compression pa
   #figure(
     image("images\Codecs_2024.png", width: 90%, height: 200pt)
     ,
-    caption: [Illustration de la répartition d'utilisation des outils de compression en 2024-2025 (VOD) sur un panel d'entreprises (en rouge : l'outil envisagé pour l'année suivante)]
+    caption: [Illustration de la répartition d'utilisation des outils de compression en 2024-2025 (VOD) sur un panel d'entreprises (en rouge : l'outil envisagé pour l'année suivante) @bitmovin2024report]
   ) <utilisationCodec2024>
 ]
 
@@ -193,12 +193,12 @@ TODO
 == Problématique
 Nous avons vu que la diffusion de contenu vidéo était soumise à de fortes contraintes, notamment de part les limitations matérielles côté utilisateur.
 Ce projet vient donc d'une volonté d'optimiser les performances des outils de compression vidéo, en particulier H265, afin de réduire la taille des flux transmis tout en maintenant une qualité visuelle acceptable pour l'utilisateur final.Une optimisation, permettent d'améliorer l'efficacité de la compression sans nécessiter de modifications matérielles côté utilisateur.
-Pour ce faire, l'utilisation de l'intelligence artificielle (IA) est envisagée comme un moyen d'apporter des améliorations significatives aux codecs existants. L'idée est d'explorer comment l'IA peut être utilisée pour prétraiter les vidéos avant la compression, rendant ainsi le contenu plus facile à compresser et potentiellement réduisant la taille des fichiers tout en maintenant une qualité visuelle satisfaisante. L'IA semble répondre à un réel défis dans la compression vidéo, s'adapter à la diversité des contenus qui rendent difficile l'optimisation par des méthodes traditionnelles. L'IA peut apprendre à identifier les caractéristiques visuelles importantes et à ajuster l'image en conséquence, offrant ainsi une approche qui pourrait s'avérer plus adaptative Ou au moins moins complexe ques des optimisations complexes très couteuses en calcul.
+Pour ce faire, l'utilisation de l'intelligence artificielle (IA) est envisagée comme un moyen d'apporter des améliorations significatives aux codecs existants. L'idée est d'explorer comment l'IA peut être utilisée pour prétraiter les vidéos avant la compression, rendant ainsi le contenu plus facile à compresser et potentiellement réduisant la taille des fichiers tout en maintenant une qualité visuelle satisfaisante. L'IA semble répondre à un réel défis dans la compression vidéo, s'adapter à la diversité des contenus qui rendent difficile l'optimisation par des méthodes traditionnelles. L'IA peut apprendre à identifier les caractéristiques visuelles importantes et à ajuster l'image en conséquence, offrant ainsi une approche qui pourrait s'avérer plus adaptative ou au moins moins complexe ques des optimisations poussées très couteuses en calcul.
 
-Cependant, l'apprentissage de modèles d'IA dans ce contexte pose des défis particuliers. Les outils de compression vidéo traditionnels ne sont pas conçus pour être utilisés dans un processus d'apprentissage, ce qui complique l'intégration de l'IA dans le flux de travail existant. Il est donc nécessaire de développer des méthodes et des outils spécifiques pour permettre à l'IA d'interagir efficacement avec les codecs vidéo, ce qui permettra d'apprendre de manière efficace et de comprendre les limites des outils de compression actuels.
+Cependant, l'apprentissage de modèles d'IA dans ce contexte pose des défis particuliers. Les outils de compression vidéo traditionnels ne sont pas conçus pour être utilisés dans un processus d'apprentissage, ce qui complique l'intégration de l'IA dans le flux de travail existant. Il est donc nécessaire de développer des méthodes et des outils spécifiques pour permettre à l'IA d'interagir efficacement avec les codecs vidéo, ce qui permettra d'apprendre de manière efficace et de comprendre les limites des outils de compression actuels. De plus la majorité des cas d'application de l'IA sont liés à des mesures simples, qui facilitent l'apprentissage par des directions claires, mais ne prennent pas en compte les spécificités de la perception visuelle humaine.
 
 En résumé, ce sujet questionne alors la faisabilité de l'utilisation de l'IA pour optimiser la compression vidéo, en particulier dans le contexte des codecs existants comme H265. Il s'agit d'explorer comment l'IA peut être intégrée dans le processus de compression pour améliorer les performances tout en respectant les contraintes matérielles et les exigences de qualité visuelle. Pour ce faire la question princiaple réside dans la défintion des moyens les plus pertinents pour répondre aux limitations des outils de compression vidéo classiques, pour permettre à l'IA d'apprendre efficacement.
-De plus, des questions liées au projet dans sa globalité viennent s'ajouter, par exemple, comment évaluer la qualité d'une vidéo optimisée par IA, là où les outils classiques sont conçues pour évaluer la qualité d'une vidéo encodée par un codec classique. Il reste aussi à savoir quels commet guider l'apprentissage pour simuler la satisfaction d'un utilisateur final, ce qui est aussi un point clé de l'optimisation. Il est donc nécessaire de définir les outils et méthodes d'évaluation adaptés à ce contexte particulier pour répondre aux enjeux du projet final. Ce qui seront alors des aspects étudiés en parrallèle à l'implémentation des outils d'optimisation.
+De plus, des questions liées au projet dans sa globalité viennent s'ajouter, par exemple, comment évaluer la qualité d'une vidéo optimisée par IA, là où les outils classiques sont conçues pour évaluer la qualité d'une vidéo encodée par un codec classique. Il reste aussi à savoir quels commet guider l'apprentissage pour simuler la satisfaction d'un utilisateur final, ce qui est aussi un point clé de l'optimisation mais est aussi un défis de taille car les outils existants ne sont pas non plus pensés pour ça. Il est donc nécessaire de définir les outils et méthodes d'évaluation adaptés à ce contexte particulier pour répondre aux enjeux du projet final. Ce seront alors, des aspects étudiés en parrallèle à l'étude du dépassement des verrous liés aux algorithmes de codages classique.
 
 = Présentation de l'environnement de travail
 
@@ -210,7 +210,7 @@ Je travaille au sein de la cellule IXPEL, qui est intégrée au sein de l’équ
 
 Les clients de notre cellule sont des grandes entreprises du numérique comme Meta, Netflix ou Amazon. L’équipe IPI et la cellule IXPEL sont reconnues pour les tests subjectifs et la qualité expérience c’est notamment pour ce genre de sujets que les projets avec ces entreprises portent. Les tests permettent par exemple de recueillir des données sur la satisfaction d’utilisateurs face à des contenus vidéo, ce qui permet par la suite d’évaluer des méthodes et solutions mises en place. Nous avons également comme client le laboratoire lui-même. Quand le laboratoire montre un besoin de programmation ou autres tâches d'ingénierie pour un des projets en cours, Ils vont alors faire appel à notre cellule si cela reste dans nos domaines de compétences. D’autres clients plus ponctuels peuvent aussi faire appel à notre cellule pour une mise en place d'outils liés à la vision par ordinateur et à l’image plus généralement.
 
-Cet environnement facilite donc les échanges avec le laboratoire ce qui fluidifie l'avancement des projets de recherche mais apporte aussi à notre cellule un lien fort avec les thématiques de recherche actuelles ce qui pour nous est un argument très important car cela montre la possibilité de travailler sur des solutions innovantes. Ce lien est donc bénéfique pour les deux parties.
+Cet environnement facilite donc les échanges avec le laboratoire, ce qui fluidifie l'avancement des projets de recherche mais apporte aussi à notre cellule un lien fort avec les thématiques de recherche actuelles ce qui pour nous est un argument très important car cela montre la possibilité de travailler sur des solutions innovantes. Ce lien est donc bénéfique pour les deux parties.
 
 === Les membres de la cellule
 La cellule est actuellement composée de 8 membres, ce chiffre évolue fréquemment, notamment de par l'arrivée de stagiaires ou encore selon la durée des contrats en cours.
@@ -254,13 +254,14 @@ Encadrant des membres participant au projet, il est au quotidien le garant de la
 Son rôle se trouve majoritairement dans l’évaluation des métriques de qualité vidéo, l’étude de leurs défauts et les solutions permettant d’y échapper.
 
 *Jipeng XIA (Stagiaire)*
+
 Il travaille sur la thématique des outils d’optimisation de compression vidéo en particulier en étudiant l’état de l’art des solutions actuelles.
 
 *Mon rôle*
 
 En tant qu’alternant, ce projet a commencé pour moi par une première étude sur l’utilisation d’une métrique de qualité vidéo dans le cas de l'entraînement d’un codec neuronal. L’objectif était de faire ressortir des possibles améliorations mathématiques de cette métrique afin d’en améliorer la pertinence et son utilisation durant l’apprentissage. Cela était un premier pas dans ce domaine et m’a permis d’apprendre de nombreuses notions importantes.
 
-Par la suite, dans le cadre de mon PFE, je travaille majoritairement sur les analyses et implémentations d’outils d’optimisation, plus particulièrement sur l’aspect proxy de codec afin de contourner les limitations des outils classiques en d’autres termes créer un jumeau des outils classiques qui guidera l’apprentissage. La thématique des outils de mesure de qualité vidéo étant directement liée à ce sujet, ma mission réside aussi dans l’étude des meilleurs outils pour ce cas d’utilisation et leurs spécificités.
+Par la suite, dans le cadre de mon PFE, je travaille majoritairement sur les analyses et implémentations d’outils d’optimisation, plus particulièrement sur l’aspect proxy de codec afin de contourner les limitations des outils classiques en d’autres termes créer un jumeau des outils classiques qui guidera l’apprentissage. SI l'on s'en fie au planning, cette tache fait partie du Work package n°3 concernant l'étude des cas d'utilisation des métriques, dans ce cas le filtrage d'iamges en pre-compression. La thématique des outils de mesure de qualité vidéo étant directement liée à ce sujet, ma mission réside aussi dans l’étude des meilleurs outils pour ce cas d’utilisation et leurs spécificités, ce qui fait lien avec les différents autres jalons du projet.
 
 == Outils et méthodes de travail
 
@@ -353,6 +354,9 @@ Difficulté d'évaluer les résultats.
 = Conclusion
 
 = Glossaire
+
+
+#bibliography("ref.bib", style: "ieee", title: "Références bibliographiques")
 
 = Remerciements
 
