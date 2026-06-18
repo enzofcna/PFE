@@ -26,7 +26,7 @@ Comment évaluer les résultats face à des images modifiées par IA
 
     Présenter les objectifs et en particulier ma contribution et la volonté de fournir des outils réutilisables par la suite du projet
 
-3La compression  et qualité vidéo dans le projet
+3Compression et qualité vidéo : défis et solutions
 
 3.1 Contexte 
 

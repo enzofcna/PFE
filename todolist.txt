@@ -4,3 +4,15 @@ Tester et avoir les résultats de la fidélité en tant que proxy
 Corrélation au débit/à l'image
 
 Finaliser les analyses entre les différentes versions
+
+=> comparer crf22 vs qp 22 pour fidélité proxy pus détails des perfs pour autres qp (montrer que c'est moins bon dues aux opti complexes d'un veritable proxy plus on baisse de qualité)
+
+=> peut-être tester sans H265 en forward pour voir si une des deux fonctionne sans ce mécanisme (prouve que le proxy est un bon jumeau si on apprend sur lui on apprend sur H265)
+
+=> Montrer les scores avec full options (meilleur de chaque version)
+
+=> Voir l'impact de travailler sur plusieurs qp (avec et sans du coup)
+
+=> Montrer quelques exemples visuels des optimisations réalisés
+
+=> Expliquer la difficulté de comparer les deux approches
