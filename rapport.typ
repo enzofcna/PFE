@@ -160,7 +160,7 @@ Pour mieux comprendre les éléments suivants, voici un bref historique des outi
     image("images\historique_codec.png", width: 100%, height: 125pt)
     ,
     caption: [Historique et évolution des outils de compression vidéo (codecs) entre 1990 et 2017]
-  ) <vod_transmission>
+  ) <historiqueCodec>
 ]
 
 Afin de mettre en avnat la difficulté d'évolution des outils de compression par les entreprises concernées, les figures suivantes illustrent la répartition d'utilisation des outils de compression en 2023 et 2024 sur un panel d'entreprises. On peut y voir que les outils les plus récents ne sont pas encore adoptés par la majorité des entreprises, ce qui montre la difficulté d'évolution de ces outils.
@@ -169,7 +169,7 @@ Afin de mettre en avnat la difficulté d'évolution des outils de compression pa
     image("images\Codecs_2023.png", width: 80%, height: 200pt)
     ,
     caption: [Illustration de la répartition d'utilisation des outils de compression en 2023 (Streaming & VOD) sur un panel d'entreprises (en rouge : l'outil envisagé pour l'année suivante)]
-  ) <vod_transmission>
+  ) <utilisationCodec2023>
 ]
 
 #align(center)[
@@ -177,7 +177,7 @@ Afin de mettre en avnat la difficulté d'évolution des outils de compression pa
     image("images\Codecs_2024.png", width: 90%, height: 200pt)
     ,
     caption: [Illustration de la répartition d'utilisation des outils de compression en 2024-2025 (VOD) sur un panel d'entreprises (en rouge : l'outil envisagé pour l'année suivante)]
-  ) <vod_transmission>
+  ) <utilisationCodec2024>
 ]
 
 Il est intéressant de noter que les chiffres évoluent peu, ce qui prouve l’écart entre la volonté d’évolution et la faisabilité réelle. On voit que le codec le plus utilisé en 2025 reste H264, pourtant créé en 2003. Cependant H265 et AV1 représentent les candidats des prochaines années d’après ces sondages.
@@ -228,6 +228,14 @@ Il est important de rappeler que ce PFE s’intègre dans le projet et que diff�
 
 
 == Planning
+
+#align(center)[
+  #figure(
+    image("images\planning.png", width: 80%, height: 110pt)
+    ,
+    caption: [Planning du projet dans sa globalité, avec les différentes étapes et jalons à atteindre]
+  ) <planning>
+]
 
 == Les membres du projet
 
@@ -294,7 +302,6 @@ Evoquer le graphe forward et backarda vec plusieurs schema et en quoi on pour le
 
 === Les méthodes existantes
 Evoquer la littérature sur le sujet et ce qui a été fait et en quoi tout n'est pas applicable à notre cas d'utilisation, les limites de ces méthodes et ce qu'elles apportent.
-
 
 = Implémentation
 
