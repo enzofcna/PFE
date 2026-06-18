@@ -45,12 +45,10 @@
   #v(2cm)
   
 
-
-  // Section Titre du Rapport
   #align(center)[
     #text(size: 26pt, weight: "bold")[Projet de fin d'étude] \
     #v(0.5cm)
-    #text(size: 14pt, style: "italic")[Filtrage d'images grâce à l'intelligence artificielle pour assister l'optimisation de la compression vidéo] \
+    #text(size: 14pt, style: "italic")[Assister l'optimisation de la compression vidéo grâce à l'intelligence artificielle] \
   ]
 
   #v(6cm)
@@ -186,8 +184,10 @@ Un point important, énoncé dans la section précédente, le matériel actuel e
 Le choix d’une cible d’optimisation réaliste et qui prend en compte ces différents éléments semble donc clair, H265 est aujourd'hui très intéressante pour ce cas d'utilisation pour tous les points évoqués.
 
 
-=== Les enjeux économiques de la VOD
+=== Les enjeux économiques de la VOD et liens avec la recherche
 
+Expliquer les enjeux, les acteurs, leurs poids et en quoi sela influe directement notre cellule car la majorité des projets sont en lien avec ces acteurs et leurs besoins.
+Les aspects open source et open access sont aussi à mettre en avant, car ils permettent de faire évoluer les outils de compression mais aussi d'avoir un accès à des outils de mesure de qualité vidéo, qui sont pourtant des outils complexes et développés parfois en interne par ces entreprises.
 TODO
 
 == Problématique
@@ -212,11 +212,7 @@ Les clients de notre cellule sont des grandes entreprises du numérique comme Me
 
 Cet environnement facilite donc les échanges avec le laboratoire, ce qui fluidifie l'avancement des projets de recherche mais apporte aussi à notre cellule un lien fort avec les thématiques de recherche actuelles ce qui pour nous est un argument très important car cela montre la possibilité de travailler sur des solutions innovantes. Ce lien est donc bénéfique pour les deux parties.
 
-=== Les membres de la cellule
 La cellule est actuellement composée de 8 membres, ce chiffre évolue fréquemment, notamment de par l'arrivée de stagiaires ou encore selon la durée des contrats en cours.
-L’équipe se compose actuellement : 
-d’un responsable scientifique, un responsable opérationnel (également mon tuteur industriel), deux  ingénieures de recherche (une ancienne doctorante au sein de l’IPI et une ancienne stagiaire) un autre ingénieur de recherche (ancien doctorant dans une autre équipe de recherche), deux apprentis ingénieurs dont je fais partie et un stagiaire.
-
 
 = Organisation du projet
 
@@ -228,14 +224,10 @@ Il est important de rappeler que ce PFE s’intègre dans le projet et que diff�
 
 
 == Planning
+Le projet est structuré autour de trois Work Packages complémentaires, s'étalant d'avril 2026 à mars 2027. 
 
-#align(center)[
-  #figure(
-    image("images\planning.png", width: 80%, height: 110pt)
-    ,
-    caption: [Planning du projet dans sa globalité, avec les différentes étapes et jalons à atteindre]
-  ) <planning>
-]
+L'articulation globale des tâches ainsi que l'enchaînement des différents jalons de validation sont détaillés dans le diagramme de Gantt disponible à la fin du document (voir @planning en annexe).
+
 
 == Les membres du projet
 
@@ -280,11 +272,25 @@ Reste indispensable pour notre équipe.
 
 === Méthodes de suivi et de travail
 
+Explications des réunions, méthode POP et comment s'organise les taches.
+Pour l'entreprise outil de suivie (laboxy pour préciser les projets auquels on participe et les taches réalisées)
+
 = Compression et qualité vidéo : défis et solutions
 
 == Context et formation pour l'équipe
+Equipe jeune, formation sur les sujets (compression, deep learning notamment) et veille constante car le domaine évolue rapidement.
+environnement facilitant le partage de connaissance au sein de la cellule mais aussia de par le labo (seminaires, outils développés etc)
 
 == Encodage : la réduction d'informations transmises
+Remettre le contexte qu'une vidéo est une suite d'images et qu'il est possible de réduire la quantité en utilisant la redondance entre chauqe image.
+Et que les images contiennent des informations redondantes entre elles, ce qui permet de réduire la quantité d'information transmise.
+
+== Utilisateur et compression
+reprendre la logique simplement de l'utilisation de la compréhenssion de l'utilisateur pour simplifier les vidéos sans pertes importantes
+
+== Coûts des vidéos : logique et théorie
+Expliquer la logique de la taille des vidéos (information prédictible => peu couteuse)
+Expliquer les mécanisme utilisés pour rendre les données plus simples transformation et quantification (expliquer la logique de la quantification et comment elle est utilisée pour réduire la taille des données)
 
 == Évaluer le contenu vidéo
 
@@ -299,10 +305,10 @@ Impossibilité d'utiliser les codecs comme tel pour 	l'apprentissage (pas prévu
 
 === Deep learning et méthodes de remplacement
 
-Evoquer le graphe forward et backarda vec plusieurs schema et en quoi on pour les séparer et ce que ça permet de faire
+Evoquer le graphe forward et backward avec plusieurs schemas simple et en quoi on peur séparer ces étapes et ce que ça permet de faire (mettre un calcul non optimisable dans la boucle)
 
 === Les méthodes existantes
-Evoquer la littérature sur le sujet et ce qui a été fait et en quoi tout n'est pas applicable à notre cas d'utilisation, les limites de ces méthodes et ce qu'elles apportent.
+Evoquer la littérature sur le sujet et ce qui a été fait et en quoi tout n'est pas applicable à notre cas d'utilisation (filtre aussi en post processing coté utilisateur), les limites de ces méthodes et ce qu'elles apportent.
 
 = Implémentation
 
@@ -318,7 +324,7 @@ Evoquer la difficulté de reproduire fidèlement une implémentation d'un papier
 (filtre proxy métrique) schema et explications
 
 == Codage neuronal
-expliquer la logique suivie pour utiliser un codec neuronal pour reproduire H265, les choix de conception et les limitations de ce codec neuronal dans ce rôle de proxy
+Expliquer la logique suivie pour utiliser un codec neuronal pour reproduire H265, les choix de conception et les limitations de ce codec neuronal dans ce rôle de proxy
 == Codage simplifié
 expliquer les bases utilisées pour reproduire un codec simplifié, les choix de conception et les limitations de ce codec simplifié.
 
@@ -355,9 +361,27 @@ Difficulté d'évaluer les résultats.
 
 = Glossaire
 
-
 #bibliography("ref.bib", style: "ieee", title: "Références bibliographiques")
 
+
+#pagebreak()
+
+= Annexes
+
+#page(flipped: true)[
+  // On applique l'alignement centré sur toute la page paysage
+  #set align(center + horizon)
+  
+  // On place le titre directement ici pour qu'il soit sur la page inclinée
+  == Annexe 1 : Planning prévisionnel du projet <planning>
+  
+  #v(1cm) // Un peu d'espace vertical entre le titre et le planning
+
+  #figure(
+    image("images/planning.png", width: 110%, height: 255pt),
+    caption: [Planning global du projet (2026-2027)]
+  )
+]
 = Remerciements
 
 = Résumé
