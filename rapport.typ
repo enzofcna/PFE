@@ -180,7 +180,7 @@ Afin de mettre en avant la difficulté d'évolution des outils de compression pa
   #figure(
     image("images/Codecs_2023.png", width: 80%, height: 200pt)
     ,
-    caption: [Illustration de la répartition d'utilisation des outils de compression en 2023-2024 (Streaming & #gls("vod", "VOD")) sur un panel d'entreprises (en rouge : l'outil envisagé pour l'année suivante) @bitmovin2023report]
+    caption: [Illustration de la répartition d'utilisation des outils de compression en 2023-2024 (Streaming & #gls("vod", "VOD")) pour un panel d'entreprises (en rouge : l'outil envisagé pour l'année suivante) @bitmovin2023report]
   ) <utilisationCodec2023>
 ]
 
@@ -188,7 +188,7 @@ Afin de mettre en avant la difficulté d'évolution des outils de compression pa
   #figure(
     image("images/Codecs_2024.png", width: 90%, height: 200pt)
     ,
-    caption: [Illustration de la répartition d'utilisation des outils de compression en 2024-2025 uniquement pour la #gls("vod", "VOD") sur un panel d'entreprises (en rouge : l'outil envisagé pour l'année suivante) @bitmovin2024report]
+    caption: [Illustration de la répartition d'utilisation des outils de compression en 2024-2025 uniquement pour la #gls("vod", "VOD") pour un panel d'entreprises (en rouge : l'outil envisagé pour l'année suivante) @bitmovin2024report]
   ) <utilisationCodec2024>
 ]
 
@@ -226,6 +226,8 @@ La cellule est actuellement composée de 8 membres, ce chiffre évolue fréquemm
 
 == Contexte du projet
 Ce projet est en lien avec Amazon Elemental, filiale d’Amazon. Ce groupe s'intéresse aux problématiques liées à la vidéo notamment dû aux différents services qu’ils proposent tel que prime vidéo. Ce projet prend part dans une collaboration à plus long terme et fait suite à d’autres projets en lien avec cet organisme.
+
+Expliquer le lien avec la situation de la cellule, au niveau des recrutements notamment
 
 Ce projet a pour ambition d’étudier le sujet de l’IA dans le cadre de l’optimisation vidéo, cela prend la forme d’une preuve de concept, où les études réalisées seront présentées à l’entreprise cliente afin de définir la faisabilité d’une telle optimisation. Pour ce faire différents jalons sont posés, quels outils permettent au mieux d’évaluer la qualité d’un contenu vidéo. Par la suite des FOM (Figure Of Merit) devront définir les méthodes d’évaluation de la réussite d’une optimisation. Ces premiers jalons donnent une base solide qui sera réutilisable pour les étapes d’optimisation. D’autres aspects du projet consiste aussi dans l’évaluation des méthodes d’optimisation par IA. C’est d’ailleurs dans cette partie que ce projet de fin d’étude prend place, le but est de définir les outils possibles pour ce genre d'optimisation, comment répondre aux différentes problématiques posées par les outils de codage vidéo classiques pour l’apprentissage. Il sera alors question d’implémenter des solutions et d’évaluer leurs performances et pertinence dans le projet. Ces tests sont aussi liés à l’évaluation des différents outils de mesures de qualité car ils seront la clé d’un apprentissage réussi.
 Par la suite, une fois les différentes études menées sur l’outillage nécessaire à une optimisation réussie, l’objectif final sera de réaliser, sur des cas contrôlés de vidéo, de mettre ces outils en œuvre afin d’évaluer les possibles optimisations obtenues.
