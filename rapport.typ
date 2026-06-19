@@ -2,6 +2,10 @@
   paper: "a4",
   margin: (x: 2.5cm, top: 2.5cm, bottom: 2.5cm)
 )
+
+// Notre fonction maison pour faire des liens vers le glossaire
+#let gls(id, mot) = link(label(id))[#text(fill: blue, mot)]
+
 #set text(
   font: "Liberation Serif",
   size: 11pt,
@@ -10,20 +14,30 @@
 
 #set par(justify: true)
 
+// Règle d'interception pour les références du glossaire
+#show ref: it => {
+  let el = it.element
+  if el != none and el.func() == terms.item {
+    // Si la cible est un terme du glossaire, on crée un lien avec le nom du terme
+    link(it.target)[#el.term]
+  } else {
+    // Sinon, on garde le comportement normal (pour les figures, titres, etc.)
+    it
+  }
+}
+
 #place(top + left, scope: "column")[
   #grid(
-    columns: (1fr, 1fr), // Deux colonnes égales
-    gutter: 1cm,         // Espace horizontal entre les deux logos
+    columns: (1fr, 1fr),
+    gutter: 1cm,
     align: center + horizon,
     
-    // Premier logo (ex: popo)
     rect(width: 100%, height: 120pt, stroke: 0.5pt + gray, radius: 2pt)[
       #align(center + horizon)[
         #image("images/logos/capa.webp", width: 90%)
       ]
     ],
     
-    // Deuxième logo (ex: ITII)
     rect(width: 100%, height: 120pt, stroke: 0.5pt + gray, radius: 2pt)[
       #align(center + horizon)[
         #image("images/logos/ITII.webp", width: 70%)
@@ -31,10 +45,9 @@
     ]
   )
 
-  #v(0.5cm) // Espace vertical entre la ligne du haut et le logo du bas
+  #v(0.5cm)
 
   #align(center)[
-    // Ajout du '#' devant rect car on est repassé en mode contenu dans les crochets []
     #rect(width: 60%, height: 95pt, stroke: 0.5pt + gray, radius: 2pt)[
       #align(center + horizon)[
         #image("images/logos/popo.webp", width: 95%)
@@ -43,12 +56,11 @@
   ]
 
   #v(2cm)
-  
 
   #align(center)[
     #text(size: 26pt, weight: "bold")[Projet de fin d'étude] \
     #v(0.5cm)
-    #text(size: 14pt, style: "italic")[Assister l'optimisation de la compression vidéo grâce à l'intelligence artificielle] \
+    #text(size: 14pt, style: "italic")[Optimiser la compression vidéo par prétraitement IA : contourner les limites des outils classiques] \
   ]
 
   #v(6cm)
@@ -118,24 +130,23 @@
 = Introduction <intro>
 
 == Contexte
-Le secteur de la vidéo à la demande VOD a connu un essor très important notamment avec l’arrivée de nombreuses plateformes de contenu. Contrairement à la TNT où une seule antenne émet un signal capté par un grand nombre de foyers sans coût énergétique supplémentaire par spectateur, la VOD nécessite une connexion point à point. Chaque clic sur "Play" sur Netflix ou Amazon prime génère un flux dédié depuis un serveur (souvent via un Content Delivery Network CDN), augmentant fortement la consommation de bande passante et d'énergie. 
-On comprend alors que dans ce contexte les outils de compression visant à diminuer la taille de l’information transmise de manière optimisée : les "codecs", deviennent de plus en plus importants. L’évolution de leurs performances à permis de rendre accessible ces services à de nombreuses personnes. Mais la difficulté d’évolution d’architecture rend l'adoption des nouvelles versions plus complexe, ce qui pousse souvent à l’utilisation d'outils n'étant pas les plus optimisés.
+Le secteur de la #gls("vod", "vidéo à la demande (VOD)") a connu un essor très important notamment avec l’arrivée de nombreuses plateformes de contenu. Contrairement à la TNT où une seule antenne émet un signal capté par un grand nombre de foyers sans coût énergétique supplémentaire par spectateur, la VOD nécessite une connexion point à point. Chaque clic sur "Play" sur Netflix ou Amazon prime génère un flux dédié depuis un serveur (souvent via un #gls("cdn", "Content Delivery Network CDN")), augmentant fortement la consommation de bande passante et d'énergie. 
+On comprend alors que dans ce contexte les outils de compression visant à diminuer la taille de l’information transmise de manière optimisée : les "#gls("codec", "codecs")", deviennent de plus en plus importants. L’évolution de leurs performances a permis de rendre accessible ces services à de nombreuses personnes. Mais la difficulté d’évolution d’architecture rend l'adoption des nouvelles versions plus complexe, ce qui pousse souvent à l’utilisation d'outils n'étant pas les plus optimisés.
 
 === Du diffuseur jusqu’au salon
-La chaîne VOD est un processus complexe qui transforme une scène captée en une vidéo diffusée mondialement. Cette chaîne se décompose en cinq étapes majeures :
+La chaîne #gls("vod", "VOD") est un processus complexe qui transforme une scène captée en une vidéo diffusée mondialement. Cette chaîne se décompose en cinq étapes majeures :
 
 - *La source*: Les caméras et microphones enregistrent la vidéo et l'audio bruts. Un appareil de capture convertit ces signaux physiques en un format numérique exploitable par un ordinateur, il se passe alors aussi un grand nombre de traitements (montage) afin d’obtenir un résultat satisfaisant.
-- *Encodage* (Compression de la vidéo) : C'est ici qu'intervient le premier rôle clé des algorithmes de compression  (codec). Comme les données brutes sont trop volumineuses, l'encodeur les compresse (en utilisant des standards comme H.264, H.265 ou AV1) pour optimiser le poids du fichier sans sacrifier la qualité. Cette étape se situe côté fournisseur, avant de transmettre la vidéo.
+- *Encodage* (Compression de la vidéo) : C'est ici qu'intervient le premier rôle clé des algorithmes de compression (#gls("codec", "codec")). Comme les données brutes sont trop volumineuses, l'encodeur les compresse (en utilisant des standards comme H.264, #gls("hevc", "H.265") ou AV1) pour optimiser le poids du fichier sans sacrifier la qualité. Cette étape se situe côté fournisseur, avant de transmettre la vidéo.
 - *Serveur* : Le serveur reçoit le flux, le traite et le convertit en plusieurs versions (transcodage) pour s'adapter à différents appareils et débits.
-- *CDN (Distribution)* : Un réseau de serveurs répartis mondialement stocke des copies du contenu. Cela permet de diffuser le flux depuis le serveur le plus proche de l'utilisateur, réduisant ainsi la latence et les interruptions.
-- *Lecteur/Décodeur* : C'est l'étape finale. Le lecteur (application, navigateur) reçoit le flux compressé. Le codec intervient ici : le décodeur transforme les données compressées en images et sons lisibles pour l'écran de l'utilisateur. Cette étape se situe côté utilisateur.
-
+- *#gls("cdn", "CDN") (Distribution)* : Un réseau de serveurs répartis mondialement stocke des copies du contenu. Cela permet de diffuser le flux depuis le serveur le plus proche de l'utilisateur, réduisant ainsi la latence et les interruptions.
+- *Lecteur/Décodeur* : C'est l'étape finale. Le lecteur (application, navigateur) reçoit le flux compressé. Le #gls("codec", "codec") intervient ici : le décodeur transforme les données compressées en images et sons lisibles pour l'écran de l'utilisateur. Cette étape se situe côté utilisateur.
 
 #align(center)[
   #figure(
     image("images\VODtransfr.png", width: 80%, height: 110pt)
     ,
-    caption: [Schéma illustrant la chaîne de transmission d'une vidéo à la demande (VOD) @coffie2025streaming]
+    caption: [Schéma illustrant la chaîne de transmission d'une vidéo à la demande #gls("vod", "VOD"), @coffie2025streaming]
   ) <vod_transmission>
 ]
 
@@ -143,7 +154,7 @@ Ces processus concernent les données vidéos mais aussi audio, dans notre cas u
 
 Il est important de mettre en avant la différence et le déséquilibre aux moments clés de l’encodage et du décodage.
 
-Côté Fournisseur : L'encodage est une opération réalisée sur les serveurs du diffuseur, ce qui techniquement, est alors plus simple pour implémenter de nouvelles méthodes, car le diffuseur possède le contrôle total de son infrastructure. Bien qu' évolutive, cette infrastructure répond tout de même à une logique d’optimisation des coûts, une solution trop gourmande en calcule pourrait faire exploser les coûts pour les fournisseurs, ou encore une solution n’apportant pas une grande optimisation mais demandant de modifier toute l’architecture sera aussi difficilement acceptable de ce point de vue.
+Côté Fournisseur : L'encodage est une opération réalisée sur les serveurs du diffuseur, ce qui techniquement, est alors plus simple pour implémenter de nouvelles méthodes, car le diffuseur possède le contrôle total de son infrastructure. Bien qu' évolutive, cette infrastructure répond tout de même à une logique d’optimisation des coûts, une solution trop gourmande en calculs pourrait faire exploser les coûts pour les fournisseurs, ou encore une solution n’apportant pas une grande optimisation mais demandant de modifier toute l’architecture sera aussi difficilement acceptable de ce point de vue.
 Côté utilisateur : Le décodage est effectué directement par l'appareil de l'utilisateur (TV, smartphone). Ces appareils utilisent des puces de décodage matériel conçues pour être économes en énergie et rapides. Ces puces sont figées lors de la fabrication. La seule alternative, pour un appareil dépourvu du circuit adéquat, est le décodage logiciel, ce qui signifie faire exécuter le calcul de décodage par le processeur général. Cette voie est universelle mais bien moins efficace. Il est donc extrêmement complexe de modifier le comportement de ce décodage ou d'y introduire de nouvelles méthodes, car cela nécessiterait de mettre à jour le matériel ou d'imposer des contraintes incompatibles avec les appareils existants. Cette limite s’explique notamment car les nouvelles solutions, apportant une optimisation sont accompagnées d’un nombre plus important de calculs, ce qui n’est pas toujours supporté par l’ensemble des appareils.
 
 On comprend alors que la balance se trouve, à court terme, dans des solutions d’optimisations peu gourmandes en ressources. Cela permet alors de combler l’optimisation des coûts de l'entreprise, mais aussi répondre aux limites matérielles côté utilisateurs. On peut aussi prédire des modifications futures plus importantes advenant à la suite d’une maturité suffisante des outils nécessitant cette évolution.
@@ -157,7 +168,7 @@ Pour mieux comprendre les éléments suivants, voici un bref historique des outi
   #figure(
     image("images\historique_codec.png", width: 100%, height: 125pt)
     ,
-    caption: [Historique et évolution des outils de compression vidéo (codecs) entre 1990 et 2017 @moreira2022digitalvideo]
+    caption: [Historique et évolution des outils de compression vidéo (#gls("codec", "codecs")) entre 1990 et 2017 @moreira2022digitalvideo]
   ) <historiqueCodec>
 ]
 
@@ -166,7 +177,7 @@ Afin de mettre en avant la difficulté d'évolution des outils de compression pa
   #figure(
     image("images\Codecs_2023.png", width: 80%, height: 200pt)
     ,
-    caption: [Illustration de la répartition d'utilisation des outils de compression en 2023-2024 (Streaming & VOD) sur un panel d'entreprises (en rouge : l'outil envisagé pour l'année suivante) @bitmovin2023report]
+    caption: [Illustration de la répartition d'utilisation des outils de compression en 2023-2024 (Streaming & #gls("vod", "VOD")) sur un panel d'entreprises (en rouge : l'outil envisagé pour l'année suivante) @bitmovin2023report]
   ) <utilisationCodec2023>
 ]
 
@@ -174,17 +185,17 @@ Afin de mettre en avant la difficulté d'évolution des outils de compression pa
   #figure(
     image("images\Codecs_2024.png", width: 90%, height: 200pt)
     ,
-    caption: [Illustration de la répartition d'utilisation des outils de compression en 2024-2025 (VOD) sur un panel d'entreprises (en rouge : l'outil envisagé pour l'année suivante) @bitmovin2024report]
+    caption: [Illustration de la répartition d'utilisation des outils de compression en 2024-2025 uniquement pour la #gls("vod", "VOD") sur un panel d'entreprises (en rouge : l'outil envisagé pour l'année suivante) @bitmovin2024report]
   ) <utilisationCodec2024>
 ]
 
-Il est intéressant de noter que les chiffres évoluent peu, ce qui prouve l’écart entre la volonté d’évolution et la faisabilité réelle. On voit que le codec le plus utilisé en 2025 reste H264, pourtant créé en 2003. Cependant H265 et AV1 représentent les candidats des prochaines années d’après ces sondages.
-Un point important, énoncé dans la section précédente, le matériel actuel est aussi un point important à prendre en compte. A ce jour il existe beaucoup plus de matériel capable de décoder H265 nativement, ce qui le rend plus efficace et moins énergivore. Sans ce décodage natif, la tâche devient plus complexe pour des appareils plus anciens car ils doivent se débrouiller avec la puissance CPU en place, ce qui, notamment avec AV1, qui demande plus de calcul, devient plus compliqué voire impossible.
+Il est intéressant de noter que les chiffres évoluent peu, ce qui prouve l’écart entre la volonté d’évolution et la faisabilité réelle. On voit que le #gls("codec", "codec") le plus utilisé en 2025 reste H.264, pourtant créé en 2003. Cependant #gls("hevc", "H.265") et AV1 représentent les candidats des prochaines années d’après ces sondages.
+Un point important, énoncé dans la section précédente, le matériel actuel est aussi un point important à prendre en compte. À ce jour il existe beaucoup plus de matériel capable de décoder #gls("hevc", "H.265") nativement, ce qui le rend plus efficace et moins énergivore. Sans ce décodage natif, la tâche devient plus complexe pour des appareils plus anciens car ils doivent se débrouiller avec la puissance CPU en place, ce qui, notamment avec AV1, qui demande plus de calcul, devient plus compliqué voire impossible.
 
-Le choix d’une cible d’optimisation réaliste et qui prend en compte ces différents éléments semble donc clair, H265 est aujourd'hui très intéressante pour ce cas d'utilisation pour tous les points évoqués.
+Le choix d’une cible d’optimisation réaliste et qui prend en compte ces différents éléments semble donc clair, #gls("hevc", "H.265") est aujourd'hui très intéressante pour ce cas d'utilisation pour tous les points évoqués.
 
 
-=== Les enjeux économiques de la VOD et liens avec la recherche
+=== Les enjeux économiques de la #gls("vod", "VOD") et liens avec la recherche
 
 Expliquer les enjeux, les acteurs, leurs poids et en quoi sela influe directement notre cellule car la majorité des projets sont en lien avec ces acteurs et leurs besoins. Prendre l'exemple de l'étude qui met en avant le challenge lié au stockage comme priorité n°1 @challengesVOD
 Les aspects open source et open access sont aussi à mettre en avant, car ils permettent de faire évoluer les outils de compression mais aussi d'avoir un accès à des outils de mesure de qualité vidéo, qui sont pourtant des outils complexes et développés parfois en interne par ces entreprises.
@@ -192,13 +203,13 @@ TODO
 
 == Problématique
 Nous avons vu que la diffusion de contenu vidéo était soumise à de fortes contraintes, notamment de part les limitations matérielles côté utilisateur.
-Ce projet vient donc d'une volonté d'optimiser les performances des outils de compression vidéo, en particulier H265, afin de réduire la taille des flux transmis tout en maintenant une qualité visuelle acceptable pour l'utilisateur final.Une optimisation, permettent d'améliorer l'efficacité de la compression sans nécessiter de modifications matérielles côté utilisateur.
-Pour ce faire, l'utilisation de l'intelligence artificielle (IA) est envisagée comme un moyen d'apporter des améliorations significatives aux codecs existants. L'idée est d'explorer comment l'IA peut être utilisée pour prétraiter les vidéos avant la compression, rendant ainsi le contenu plus facile à compresser et potentiellement réduisant la taille des fichiers tout en maintenant une qualité visuelle satisfaisante. L'IA semble répondre à un réel défis dans la compression vidéo, s'adapter à la diversité des contenus qui rendent difficile l'optimisation par des méthodes traditionnelles. L'IA peut apprendre à identifier les caractéristiques visuelles importantes et à ajuster l'image en conséquence, offrant ainsi une approche qui pourrait s'avérer plus adaptative ou au moins moins complexe ques des optimisations poussées très couteuses en calcul.
+Ce projet vient donc d'une volonté d'optimiser les performances des outils de compression vidéo, en particulier #gls("hevc", "H.265"), afin de réduire la taille des flux transmis tout en maintenant une qualité visuelle acceptable pour l'utilisateur final. Une optimisation, permettant d'améliorer l'efficacité de la compression sans nécessiter de modifications matérielles côté utilisateur.
+Pour ce faire, l'utilisation de l'intelligence artificielle (IA) est envisagée comme un moyen d'apporter des améliorations significatives aux #gls("codec", "codecs") existants. L'idée est d'explorer comment l'IA peut être utilisée pour prétraiter les vidéos avant la compression, rendant ainsi le contenu plus facile à compresser et potentiellement réduisant la taille des fichiers tout en maintenant une qualité visuelle satisfaisante. L'IA semble répondre à un réel défi dans la compression vidéo, s'adapter à la diversité des contenus qui rendent difficile l'optimisation par des méthodes traditionnelles. L'IA peut apprendre à identifier les caractéristiques visuelles importantes et à ajuster l'image en conséquence, offrant ainsi une approche qui pourrait s'avérer plus adaptative ou au moins moins complexe que des optimisations poussées très coûteuses en calcul.
 
-Cependant, l'apprentissage de modèles d'IA dans ce contexte pose des défis particuliers. Les outils de compression vidéo traditionnels ne sont pas conçus pour être utilisés dans un processus d'apprentissage, ce qui complique l'intégration de l'IA dans le flux de travail existant. Il est donc nécessaire de développer des méthodes et des outils spécifiques pour permettre à l'IA d'interagir efficacement avec les codecs vidéo, ce qui permettra d'apprendre de manière efficace et de comprendre les limites des outils de compression actuels. De plus la majorité des cas d'application de l'IA sont liés à des mesures simples, qui facilitent l'apprentissage par des directions claires, mais ne prennent pas en compte les spécificités de la perception visuelle humaine.
+Cependant, l'apprentissage de modèles d'IA dans ce contexte pose des défis particuliers. Les outils de compression vidéo traditionnels ne sont pas conçus pour être utilisés dans un processus d'apprentissage, ce qui complique l'intégration de l'IA dans le flux de travail existant. Il est donc nécessaire de développer des méthodes et des outils spécifiques pour permettre à l'IA d'interagir efficacement avec les #gls("codec", "codecs") vidéo, ce qui permettra d'apprendre de manière efficace et de comprendre les limites des outils de compression actuels. De plus la majorité des cas d'application de l'IA sont liés à des mesures simples, qui facilitent l'apprentissage par des directions claires, mais ne prennent pas en compte les spécificités de la perception visuelle humaine.
 
-En résumé, ce sujet questionne alors la faisabilité de l'utilisation de l'IA pour optimiser la compression vidéo, en particulier dans le contexte des codecs existants comme H265. Il s'agit d'explorer comment l'IA peut être intégrée dans le processus de compression pour améliorer les performances tout en respectant les contraintes matérielles et les exigences de qualité visuelle. Pour ce faire la question princiaple réside dans la défintion des moyens les plus pertinents pour répondre aux limitations des outils de compression vidéo classiques, pour permettre à l'IA d'apprendre efficacement.
-De plus, des questions liées au projet dans sa globalité viennent s'ajouter, par exemple, comment évaluer la qualité d'une vidéo optimisée par IA, là où les outils classiques sont conçues pour évaluer la qualité d'une vidéo encodée par un codec classique. Il reste aussi à savoir quels commet guider l'apprentissage pour simuler la satisfaction d'un utilisateur final, ce qui est aussi un point clé de l'optimisation mais est aussi un défis de taille car les outils existants ne sont pas non plus pensés pour ça. Il est donc nécessaire de définir les outils et méthodes d'évaluation adaptés à ce contexte particulier pour répondre aux enjeux du projet final. Ce seront alors, des aspects étudiés en parrallèle à l'étude du dépassement des verrous liés aux algorithmes de codages classique.
+En résumé, ce sujet questionne alors la faisabilité de l'utilisation de l'IA pour optimiser la compression vidéo, en particulier dans le contexte des #gls("codec", "codecs") existants comme #gls("hevc", "H.265"). Il s'agit d'explorer comment l'IA peut être intégrée dans le processus de compression pour améliorer les performances tout en respectant les contraintes matérielles et les exigences de qualité visuelle. Pour ce faire la question principale réside dans la définition des moyens les plus pertinents pour répondre aux limitations des outils de compression vidéo classiques, pour permettre à l'IA d'apprendre efficacement.
+De plus, des questions liées au projet dans sa globalité viennent s'ajouter, par exemple, comment évaluer la qualité d'une vidéo optimisée par IA, là où les outils classiques sont conçus pour évaluer la qualité d'une vidéo encodée par un #gls("codec", "codec") classique. Il reste aussi à savoir comment guider l'apprentissage pour simuler la satisfaction d'un utilisateur final, ce qui est aussi un point clé de l'optimisation mais est aussi un défi de taille car les outils existants ne sont pas non plus pensés pour ça. Il est donc nécessaire de définir les outils et méthodes d'évaluation adaptés à ce contexte particulier pour répondre aux enjeux du projet final. Ce seront alors des aspects étudiés en parallèle à l'étude du dépassement des verrous liés aux algorithmes de codage classiques.
 
 = Présentation de l'environnement de travail
 
@@ -208,7 +219,7 @@ Capacités SAS est une filiale privée de valorisation de la recherche de Nantes
 == La cellule IXPEL
 Je travaille au sein de la cellule IXPEL, qui est intégrée au sein de l’équipe de recherche IPI (Image Perception Interaction) qui appartient au LS2N (Laboratoire des Sciences du Numérique de Nantes). L’équipe est spécialisée dans l’intelligence artificielle appliquée à l’image et la qualité d’expérience. On y retrouve par exemple des sujets liés à l'imagerie médicale, au traitement de documents manuscrits et l’expérience/qualité utilisateur face à du contenu vidéo, l’équipe est reconnue mondialement sur ce dernier sujet ce qui lui permet de travailler en collaboration avec les plus grandes entreprises du secteur et en particulier avec leurs équipes de recherche.
 
-Les clients de notre cellule sont des grandes entreprises du numérique comme Meta, Netflix ou Amazon. L’équipe IPI et la cellule IXPEL sont reconnues pour les tests subjectifs et la qualité expérience c’est notamment pour ce genre de sujets que les projets avec ces entreprises portent. Les tests permettent par exemple de recueillir des données sur la satisfaction d’utilisateurs face à des contenus vidéo, ce qui permet par la suite d’évaluer des méthodes et solutions mises en place. Nous avons également comme client le laboratoire lui-même. Quand le laboratoire montre un besoin de programmation ou autres tâches d'ingénierie pour un des projets en cours, Ils vont alors faire appel à notre cellule si cela reste dans nos domaines de compétences. D’autres clients plus ponctuels peuvent aussi faire appel à notre cellule pour une mise en place d'outils liés à la vision par ordinateur et à l’image plus généralement.
+Les clients de notre cellule sont des grandes entreprises du numérique comme Meta, Netflix ou Amazon. L’équipe IPI et la cellule IXPEL sont reconnues pour les tests subjectifs et la qualité expérience c’est notamment pour ce genre de sujets que les projets avec ces entreprises portent. Les tests permettent par exemple de recueillir des données sur la satisfaction d’utilisateurs face à des contenus vidéo, ce qui permet par la suite d’évaluer des méthodes et solutions mises en place. Nous avons également comme client le laboratoire lui-même. Quand le laboratoire montre un besoin de programmation ou autres tâches d'ingénierie pour un des projets en cours, ils vont alors faire appel à notre cellule si cela reste dans nos domaines de compétences. D’autres clients plus ponctuels peuvent aussi faire appel à notre cellule pour une mise en place d'outils liés à la vision par ordinateur et à l’image plus généralement.
 
 Cet environnement facilite donc les échanges avec le laboratoire, ce qui fluidifie l'avancement des projets de recherche mais apporte aussi à notre cellule un lien fort avec les thématiques de recherche actuelles ce qui pour nous est un argument très important car cela montre la possibilité de travailler sur des solutions innovantes. Ce lien est donc bénéfique pour les deux parties.
 
@@ -243,7 +254,7 @@ Encadrant des membres de la cellule et donc des participants au projet, il est a
 
 *Lina GUEMBRI (Ingénieure)*
 
-Son rôle se trouve majoritairement dans l’évaluation des métriques de qualité vidéo, l’étude de leurs défauts et les solutions permettant d’y échapper.
+Son rôle se trouve majoritairement dans l’évaluation des #gls("metrique", "métriques") de qualité vidéo, l’étude de leurs défauts et les solutions permettant d’y échapper.
 
 *Jipeng XIA (Stagiaire)*
 
@@ -251,61 +262,61 @@ Il travaille sur la thématique des outils d’optimisation de compression vidé
 
 *Mon rôle*
 
-En tant qu’alternant, ce projet a commencé pour moi par une première étude sur l’utilisation d’une métrique de qualité vidéo dans le cas de l'entraînement d’un codec neuronal. L’objectif était de faire ressortir des possibles améliorations mathématiques de cette métrique afin d’en améliorer la pertinence et son utilisation durant l’apprentissage. Cela était un premier pas dans ce domaine et m’a permis d’apprendre de nombreuses notions importantes.
+En tant qu’alternant, ce projet a commencé pour moi par une première étude sur l’utilisation d’une #gls("metrique", "métrique") de qualité vidéo dans le cas de l'entraînement d’un #gls("codec", "codec") neuronal. L’objectif était de faire ressortir des possibles améliorations mathématiques de cette métrique afin d’en améliorer la pertinence et son utilisation durant l’apprentissage. Cela était un premier pas dans ce domaine et m’a permis d’apprendre de nombreuses notions importantes.
 
-Par la suite, dans le cadre de mon PFE, je travaille majoritairement sur les analyses et implémentations d’outils d’optimisation, plus particulièrement sur l’aspect proxy de codec afin de contourner les limitations des outils classiques en d’autres termes créer un jumeau des outils classiques qui guidera l’apprentissage. SI l'on s'en fie au planning, cette tache fait partie du Work package n°3 concernant l'étude des cas d'utilisation des métriques, dans ce cas le filtrage d'iamges en pre-compression. La thématique des outils de mesure de qualité vidéo étant directement liée à ce sujet, ma mission réside aussi dans l’étude des meilleurs outils pour ce cas d’utilisation et leurs spécificités, ce qui fait lien avec les différents autres jalons du projet.
+Par la suite, dans le cadre de mon PFE, je travaille majoritairement sur les analyses et implémentations d’outils d’optimisation, plus particulièrement sur l'aspect #gls("proxy", "proxy") de #gls("codec", "codec") afin de contourner les limitations des outils classiques en d’autres termes créer un jumeau des outils classiques qui guidera l’apprentissage. Si l'on s'en fie au planning, cette tâche fait partie du Work package n°3 concernant l'étude des cas d'utilisation des métriques, dans ce cas le filtrage d'images en pré-compression. La thématique des outils de mesure de qualité vidéo étant directement liée à ce sujet, ma mission réside aussi dans l’étude des meilleurs outils pour ce cas d’utilisation et leurs spécificités, ce qui fait lien avec les différents autres jalons du projet.
 
 == Outils et méthodes de travail
 
 === Outils de communication et de suivi
 Présenter les outils de communications en ligne utilisés mattermost gitlab uncloud et serveur commun (partage de fichiers lourds notamment)
 === Adaptation aux outils
-Présenter glicid et l'aspect fromation nécessaire pour s'adapter à l'outil
+Présenter glicid et l'aspect formation nécessaire pour s'adapter à l'outil
 
 === Impact des outils utilisés
 Parler de l'aspect collaboratif et commun avec le labo
-Utilisation de glicid = reduction des infrastructures necessaires pour le projet, Optimisation des ressource (pas utilisées que par nous gain economique/écologique)
+Utilisation de glicid = reduction des infrastructures nécessaires pour le projet, Optimisation des ressources (pas utilisées que par nous, gain économique/écologique)
 
-Les limites de l'outils (maintenance parfois longues) = Perte de temps et de fléxibilité d'organisation des taches
+Les limites de l'outil (maintenance parfois longue) = Perte de temps et de flexibilité d'organisation des tâches
 
 Reste indispensable pour notre équipe.
 
 === Méthodes de suivi et de travail
 
-Explications des réunions, méthode POP et comment s'organise les taches.
-Pour l'entreprise outil de suivie (laboxy pour préciser les projets auquels on participe et les taches réalisées)
+Explications des réunions, méthode POP et comment s'organisent les tâches.
+Pour l'entreprise outil de suivi (laboxy pour préciser les projets auxquels on participe et les tâches réalisées)
 
 = Compression et qualité vidéo : défis et solutions
 
 == Context et formation pour l'équipe
 Equipe jeune, formation sur les sujets (compression, deep learning notamment) et veille constante car le domaine évolue rapidement.
-environnement facilitant le partage de connaissance au sein de la cellule mais aussia de par le labo (seminaires, outils développés etc)
+Environnement facilitant le partage de connaissance au sein de la cellule mais aussi de par le labo (séminaires, outils développés etc)
 
 == Encodage : la réduction d'informations transmises
-Remettre le contexte qu'une vidéo est une suite d'images et qu'il est possible de réduire la quantité en utilisant la redondance entre chauqe image.
+Remettre le contexte qu'une vidéo est une suite d'images et qu'il est possible de réduire la quantité en utilisant la redondance entre chaque image.
 Et que les images contiennent des informations redondantes entre elles, ce qui permet de réduire la quantité d'information transmise.
 
 == Utilisateur et compression
-reprendre la logique simplement de l'utilisation de la compréhenssion de l'utilisateur pour simplifier les vidéos sans pertes importantes
+Reprendre la logique simplement de l'utilisation de la compréhension de l'utilisateur pour simplifier les vidéos sans pertes importantes
 
 == Coûts des vidéos : logique et théorie
-Expliquer la logique de la taille des vidéos (information prédictible => peu couteuse)
-Expliquer les mécanisme utilisés pour rendre les données plus simples transformation et quantification (expliquer la logique de la quantification et comment elle est utilisée pour réduire la taille des données)
+Expliquer la logique de la taille des vidéos (information prédictible => peu coûteuse)
+Expliquer les mécanismes utilisés pour rendre les données plus simples transformation et #gls("quantification", "quantification") (expliquer la logique de la #gls("quantification", "quantification") et comment elle est utilisée pour réduire la taille des données)
 
 == Évaluer le contenu vidéo
 
 == Les limitations pour l'apprentissage
 
 === Limites mathématique des outils pour l'apprentissage
-	(arrondi, choix du meilleur bloc, introduire alors le concept de différentiabilité)
-Impossibilité d'utiliser les codecs comme tel pour 	l'apprentissage (pas prévu pour, trop d'opérations bloquantes etc)
+  (arrondi, choix du meilleur bloc, introduire alors le concept de différentiabilité)
+Impossibilité d'utiliser les #gls("codec", "codecs") comme tel pour l'apprentissage (pas prévu pour, trop d'opérations bloquantes etc)
 
 
 == Solutions existantes
 
 === Deep learning et méthodes de remplacement
 
-Evoquer le graphe forward et backward avec plusieurs schemas simple et en quoi on peur séparer ces étapes et ce que ça permet de faire (mettre un calcul non optimisable dans la boucle)
+Evoquer le graphe forward et backward avec plusieurs schémas simples et en quoi on peut séparer ces étapes et ce que ça permet de faire (mettre un calcul non optimisable dans la boucle)
 
 === Les méthodes existantes
 Evoquer la littérature sur le sujet et ce qui a été fait et en quoi tout n'est pas applicable à notre cas d'utilisation (filtre aussi en post processing coté utilisateur), les limites de ces méthodes et ce qu'elles apportent.
@@ -321,15 +332,15 @@ Evoquer la difficulté de reproduire fidèlement une implémentation d'un papier
 
 == Mise en place globale 
 
-(filtre proxy métrique) schema et explications
+(filtre #gls("proxy", "proxy") #gls("metrique", "métrique")) schéma et explications
 
 == Codage neuronal
-Expliquer la logique suivie pour utiliser un codec neuronal pour reproduire H265, les choix de conception et les limitations de ce codec neuronal dans ce rôle de proxy
+Expliquer la logique suivie pour utiliser un #gls("codec", "codec") neuronal pour reproduire #gls("hevc", "H.265"), les choix de conception et les limitations de ce #gls("codec", "codec") neuronal dans ce rôle de #gls("proxy", "proxy")
 == Codage simplifié
-expliquer les bases utilisées pour reproduire un codec simplifié qui peremt d'avoir un environnement d'apprentissage qui reprend les contraintes d'un veritbale codec, les choix de conception et les limitations de cette version simplifiée.
+Expliquer les bases utilisées pour reproduire un #gls("codec", "codec") simplifié qui permet d'avoir un environnement d'apprentissage qui reprend les contraintes d'un véritable #gls("codec", "codec"), les choix de conception et les limitations de cette version simplifiée.
 
 == Guide d'optimisation
-Expliquer le choix de métriques simple pour le moment la suite du projet mais pertinente ayant pour but de développer aussi cet aspect dans la suite du projet.
+Expliquer le choix de #gls("metrique", "métriques") simples pour le moment la suite du projet mais pertinente ayant pour but de développer aussi cet aspect dans la suite du projet.
 
 Et la logique suivie pour valider plus simplement les résultats.
 
@@ -341,25 +352,70 @@ Expliquer les choix de tests et leurs raisons
 
 = Résultats et analyses
 
-== En tant que proxy 
-Evaluer la fidélité des iamges face au vrai codec
+== En tant que #gls("proxy", "Proxy")
+Evaluer la fidélité des images face au vrai #gls("codec", "codec")
 
 == Résultats face aux métriques
-Expliquer le choix des métriques utilisées pour l'évaluation et les résultats obtenus, 
+Expliquer le choix des #gls("metrique", "métriques") utilisées pour l'évaluation et les résultats obtenus, 
 
 == Test Visuel
 
-Quelques exemples pour visualisaer les effets des optimisations.
+Quelques exemples pour visualiser les effets des optimisations.
 
 == Limites et perspectives
 
-les limites de ces métriques pour ce contenu modifié
+Les limites de ces #gls("metrique", "métriques") pour ce contenu modifié
 Difficulté d'évaluer les résultats.
 
 
 = Conclusion
 
+#pagebreak()
 = Glossaire
+
+/ VOD <vod>: *Video On Demand.* Vidéo à la demande. Mode de diffusion où chaque utilisateur déclenche un flux vidéo dédié au moment qu'il choisit, par opposition à une diffusion unique captée simultanément par tous comme la TNT.
+
+/ CDN <cdn>: *Content Delivery Network.* Réseau de diffusion de contenu. Serveurs répartis mondialement qui stockent des copies de la vidéo pour la diffuser depuis le serveur le plus proche de l'utilisateur, réduisant la latence et les coûts.
+
+/ Codec <codec>: *Coder-decoder.* Outil chargé de compresser la vidéo à l'encodage (côté fournisseur) et de la reconstituer au décodage (côté utilisateur).
+
+/ HEVC / H.265 <hevc>: *High Efficiency Video Coding.* Norme de compression vidéo, successeur de H.264, offrant une efficacité accrue à qualité égale. C'est le codec ciblé par ce projet, retenu pour son support matériel répandu.
+
+/ CABAC <cabac>: *Context-Adaptive Binary Arithmetic Coding.* Méthode de codage entropique utilisée par H.265, combinant deux optimisations : le choix de probabilités selon le contexte (les coefficients voisins) et leur mise à jour adaptative au fil du codage.
+
+/ Proxy <proxy>: *Modèle de substitution.* Dans ce projet, modèle de substitution différentiable reproduisant le comportement d'un codec réel, afin de pouvoir guider l'apprentissage d'un réseau de neurones là où le codec d'origine ne le permettrait pas.
+
+/ DCT <dct>: *Discrete Cosine Transform.* Transformée en cosinus discrète. Transformation appliquée aux blocs de l'image qui réorganise l'information par fréquences, séparant les zones lisses (basses fréquences) des zones de détail (hautes fréquences), sans perte d'information.
+
+/ Quantification <quantification>: *Réduction de précision.* Étape de la compression qui réduit la précision des coefficients issus de la DCT (division puis arrondi). C'est l'étape où l'information est volontairement perdue, principalement sur les hautes fréquences, pour alléger le poids de la vidéo.
+
+/ GOP <gop>: *Group Of Pictures.* Groupe d'images. Ensemble d'images consécutives codées ensemble, organisé autour d'une image de référence (intra) dont dépendent les images suivantes (prédites). Limiter sa taille évite de s'appuyer sur une image d'une autre scène.
+
+/ FPS <fps>: *Frames Per Second.* Images par seconde. Nombre d'images affichées chaque seconde dans une vidéo (couramment 30 ou 60). Plus il est élevé, plus la redondance temporelle entre images consécutives est forte.
+
+/ CRF / QP <crf-qp>: *Constant Rate Factor / Quantization Parameter.* Paramètres réglant l'intensité de la compression : plus leur valeur est élevée, plus la quantification est forte, donc plus la vidéo est légère mais dégradée. Le CRF vise une qualité constante tandis que le QP fixe un niveau de quantification rigide.
+
+/ RGB <rgb>: *Red, Green, Blue.* Espace de représentation des couleurs où chaque pixel est décrit par trois valeurs (rouge, vert, bleu). Ces canaux sont fortement corrélés, ce qui le rend peu efficace pour la compression.
+
+/ YUV <yuv>: *Luminance / Chrominance.* Espace de représentation séparant l'intensité lumineuse (luminance) des informations de couleur (chrominances). Mieux adapté à la compression que le RGB, car il permet de réduire la couleur sans trop affecter la perception.
+
+/ Chrominance <chrominance>: *Composantes de couleur.* Composantes d'une image portant l'information de couleur (chrominance bleue et chrominance rouge). L'œil y étant moins sensible, elles sont fortement sous-échantillonnées lors de la compression.
+
+/ Luminance <luminance>: *Intensité lumineuse.* Composante d'une image représentant son intensité lumineuse (les niveaux de gris). L'œil humain y est très sensible. C'est sur cette composante que se concentre le filtre développé dans ce projet.
+
+/ Métrique <metrique>: *Évaluation de qualité.* Mesure visant à évaluer la qualité d'une vidéo, le plus souvent en cherchant à prédire le jugement qu'en porterait un utilisateur humain.
+
+/ VMAF <vmaf>: *Video Multimethod Assessment Fusion.* Métrique de qualité développée par Netflix, devenue un standard de l'industrie. Elle combine plusieurs indicateurs extraits de l'image et du mouvement via un modèle appris (SVR) pour prédire la note qu'un utilisateur moyen donnerait. Elle ne traite que la luminance.
+
+/ SVR <svr>: *Support Vector Regression.* Modèle d'apprentissage automatique "frugal" (peu coûteux par rapport à un réseau de neurones), utilisé notamment par la métrique VMAF pour relier les caractéristiques extraites d'une vidéo à un score de qualité.
+
+/ MOS <mos>: *Mean Opinion Score.* Note d'opinion moyenne. Moyenne des notes de qualité attribuées par un panel d'utilisateurs à un contenu vidéo. C'est la référence "humaine" à laquelle on compare les métriques pour évaluer leur fiabilité.
+
+/ VLM <vlm>: *Vision Language Model.* Modèle vision-langage. Modèle d'IA récent combinant compréhension d'image et de texte, offrant une analyse plus fine du contenu, mais coûteux en mémoire et difficile à utiliser comme guide d'apprentissage.
+
+/ STE <ste>: *Straight Through Estimator.* Technique permettant de faire traverser une opération non dérivable. On exécute l'opération réelle à l'aller (forward) et on lui substitue une approximation dérivable au retour (backward). C'est ce qui rend possible l'usage d'un codec au cœur de l'apprentissage.
+
+#pagebreak()
 
 #bibliography("ref.bib", style: "ieee", title: "Références bibliographiques")
 
@@ -372,7 +428,7 @@ Difficulté d'évaluer les résultats.
   #figure(
     image("images\prioriteEtude.png", width: 100%, height: 450pt)
     ,
-    caption: [Illustration des cahllenges principaux face à un panel d'entreprise du secteur Streaming/VOD pouur l'année 2024-2025) @bitmovin2024report]
+    caption: [Illustration des challenges principaux face à un panel d'entreprise du secteur Streaming/#gls("vod", "VOD") pour l'année 2024-2025) @bitmovin2024report]
   ) <challengesVOD>
 ]
 
@@ -393,8 +449,3 @@ Difficulté d'évaluer les résultats.
 = Remerciements
 
 = Résumé
-
-
-
-
-
