@@ -271,16 +271,17 @@ Par la suite, dans le cadre de mon PFE, je travaille majoritairement sur les ana
 
 === Outils de communication et de suivi
 Présenter les outils de communications en ligne utilisés mattermost gitlab uncloud et serveur commun (partage de fichiers lourds notamment)
-=== Adaptation aux outils
-Présenter glicid et l'aspect formation nécessaire pour s'adapter à l'outil
+=== Adaptation Impact des outils utilisés
+Parmis les outils utilisés durant ce projet, un outil en particulier permet de nous affranchir d'un besoin matériel important : Glicid.
+C'est un cluster de calcul partagé, accessible à un ensemble de projets de recherche et aux entreprises qui en paie l'accès. Glicid fourni alors différentes environnments permettant d'accéser à des processeurs puissants ou carte graphique. Ces éléments sont essentiels pour travailler avec des outils d'intelligence artificielle comme nous le faisons. Cette palteforme permet donc de centraliser les ressources matéreilles nécessaires à de nombreux projets, ce qui rend ces ressources plus accessible financièrement mais aussi limite l'impact écologique de chaque projet, chaque envirronement est utilisé pleinement, ce qui permet d'en optimiser l'utilisation, quand un test est terminé un nouveau peut-être lancé. De plus les outils proposés évoluent, ce qui mutualise les besoins et facilitent l'accès à des nouvelles technologies couteuses.
 
-=== Impact des outils utilisés
-Parler de l'aspect collaboratif et commun avec le labo
-Utilisation de glicid = reduction des infrastructures nécessaires pour le projet, Optimisation des ressources (pas utilisées que par nous, gain économique/écologique)
+Cet outil necessite cependant une adaptation pour une utilisation optimale, différents envrionnements, comprendre les différents éléments, comment bien réaliser la demande pour un envirronmeent qui répond aux besoins du test en cours.
+Cela fait donc partie de nos missions, s'adapter aux outils utilisés et à leur évolutions au fil du temps.
 
-Les limites de l'outil (maintenance parfois longue) = Perte de temps et de flexibilité d'organisation des tâches
+Pour notre cellule on peut facilement se partager des astuces ou bonnes pratiques pour parvenir à mieux appréhender ce genre d'outil. C'est devenu un indispensable pour certains membres de l'équipe et permet de mieux gérer nos ressources internes. Glicid est aussi maintenu ce qui facilite la tâche car pour des ressources internes, cela reposerait alors sur notre travail.
 
-Indispensable pour notre équipe.
+Cependant ces amitnenance imposent aussi des moments d'arrets de Glicid, un grand nombre de jours durant ce projet ont été privés de cette resssource pour maintenance ou innaccessibilité de la plateforme.
+
 
 === Méthodes de suivi et de travail
 
