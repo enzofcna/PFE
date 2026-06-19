@@ -4,13 +4,14 @@
 )
 
 // Notre fonction maison pour faire des liens vers le glossaire
-#let gls(id, mot) = link(label(id))[#text(fill: blue, mot)]
+#let gls(id, mot) = link(label(id))[#text(weight: "semibold", mot)]
 
 #set text(
   font: "Liberation Serif",
   size: 11pt,
   lang: "fr"
 )
+
 
 #set par(justify: true)
 
