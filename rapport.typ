@@ -1,6 +1,7 @@
+#import "@preview/cetz:0.4.2": canvas, draw
 #set page(
   paper: "a4",
-  margin: (x: 2.5cm, top: 2.5cm, bottom: 2.5cm)
+  margin: (x: 2.5cm, top: 2.5cm, bottom: 2.5cm),
 )
 
 // Notre fonction maison pour faire des liens vers le glossaire
@@ -9,7 +10,7 @@
 #set text(
   font: "Liberation Serif",
   size: 11pt,
-  lang: "fr"
+  lang: "fr",
 )
 
 
@@ -29,18 +30,18 @@
     columns: (1fr, 1fr),
     gutter: 1cm,
     align: center + horizon,
-    
+
     rect(width: 100%, height: 120pt, stroke: 0.5pt + gray, radius: 2pt)[
       #align(center + horizon)[
         #image("images/logos/capa.webp", width: 90%)
       ]
     ],
-    
+
     rect(width: 100%, height: 120pt, stroke: 0.5pt + gray, radius: 2pt)[
       #align(center + horizon)[
         #image("images/logos/ITII.webp", width: 70%)
       ]
-    ]
+    ],
   )
 
   #v(0.5cm)
@@ -58,41 +59,44 @@
   #align(center)[
     #text(size: 26pt, weight: "bold")[Projet de fin d'étude] \
     #v(0.5cm)
-    #text(size: 14pt, style: "italic")[Optimiser la compression vidéo par prétraitement IA : contourner les limites des outils classiques] \
+    #text(
+      size: 14pt,
+      style: "italic",
+    )[Optimiser la compression vidéo par prétraitement IA : contourner les limites des outils classiques] \
   ]
 
   #v(6cm)
 
   #line(length: 100%, stroke: 1.5pt + gray)
   #v(0.2cm)
-  
+
   #grid(
     columns: (1fr, 1fr),
     gutter: 1cm,
     [
       #text(size: 10pt, weight: "bold")[AUTEUR] \
       #v(0.1cm)
-      
+
       #text(size: 12pt, weight: "bold")[Enzo LE BODO] \
       #text(size: 10pt)[Étudiant]
     ],
     [
       #text(size: 10pt, weight: "bold")[ENCADREMENT] \
       #v(0.1cm)
-      
+
       #text(size: 11pt, weight: "bold")[Pierre LEBRETON] \
       #text(size: 9.5pt, style: "italic")[Tuteur Entreprise]
-      
+
       #v(0.3cm)
-      
+
       #text(size: 11pt, weight: "bold")[Matthieu PERREIRA DA SILVA] \
       #text(size: 9.5pt, style: "italic")[Tuteur Académique]
-      
+
       #v(0.3cm)
-      
+
       #text(size: 11pt, weight: "bold")[Bruno THEILLAC] \
       #text(size: 9.5pt, style: "italic")[Référent Apprentissage]
-    ]
+    ],
   )
 ]
 
@@ -104,7 +108,7 @@
     #align(center)[
       #counter(page).display("1 / 1", both: true)
     ]
-  ]
+  ],
 )
 #counter(page).update(1)
 
@@ -119,7 +123,7 @@
 #v(0.3cm)
 #outline(
   title: none,
-  indent: 1.5em
+  indent: 1.5em,
 )
 
 #pagebreak()
@@ -128,7 +132,7 @@
 = Introduction <intro>
 
 == Contexte
-Le secteur de la #gls("vod", "vidéo à la demande (VOD)") a connu un essor très important notamment avec l’arrivée de nombreuses plateformes de contenu. Contrairement à la TNT où une seule antenne émet un signal capté par un grand nombre de foyers sans coût énergétique supplémentaire par spectateur, la VOD nécessite une connexion point à point. Chaque clic sur "Play" sur Netflix ou Amazon prime génère un flux dédié depuis un serveur (souvent via un #gls("cdn", "Content Delivery Network CDN")), augmentant fortement la consommation de bande passante et d'énergie. 
+Le secteur de la #gls("vod", "vidéo à la demande (VOD)") a connu un essor très important notamment avec l’arrivée de nombreuses plateformes de contenu. Contrairement à la TNT où une seule antenne émet un signal capté par un grand nombre de foyers sans coût énergétique supplémentaire par spectateur, la VOD nécessite une connexion point à point. Chaque clic sur "Play" sur Netflix ou Amazon prime génère un flux dédié depuis un serveur (souvent via un #gls("cdn", "Content Delivery Network CDN")), augmentant fortement la consommation de bande passante et d'énergie.
 On comprend alors que dans ce contexte les algorithmes de compression visant à diminuer la taille de l’information transmise de manière optimisée : les "#gls("codec", "codecs")", deviennent de plus en plus importants. L’évolution de leurs performances a permis de rendre accessible ces services à de nombreuses personnes. Mais la difficulté d’évolution d’architecture rend l'adoption des nouvelles versions plus complexe, ce qui pousse souvent à l’utilisation d'outils n'étant pas les plus optimisés.
 
 === Du diffuseur jusqu’au salon
@@ -142,9 +146,8 @@ La chaîne #gls("vod", "VOD") est un processus complexe qui transforme une scèn
 
 #align(center)[
   #figure(
-    image("images/VODtransfr.png", width: 80%, height: 110pt)
-    ,
-    caption: [Schéma illustrant la chaîne de transmission d'une vidéo à la demande #gls("vod", "VOD"), @coffie2025streaming]
+    image("images/VODtransfr.png", width: 80%, height: 110pt),
+    caption: [Schéma illustrant la chaîne de transmission d'une vidéo à la demande #gls("vod", "VOD"), @coffie2025streaming],
   ) <vod_transmission>
 ]
 
@@ -170,26 +173,23 @@ Pour mieux comprendre les éléments suivants, voici un bref historique des outi
 
 #align(center)[
   #figure(
-    image("images/historique_codec.png", width: 100%, height: 125pt)
-    ,
-    caption: [Historique et évolution des outils de compression vidéo (#gls("codec", "codecs")) entre 1990 et 2017 @moreira2022digitalvideo]
+    image("images/historique_codec.png", width: 100%, height: 125pt),
+    caption: [Historique et évolution des outils de compression vidéo (#gls("codec", "codecs")) entre 1990 et 2017 @moreira2022digitalvideo],
   ) <historiqueCodec>
 ]
 
 Afin de mettre en avant la difficulté d'évolution des outils de compression par les entreprises concernées, les figures suivantes illustrent la répartition d'utilisation des outils de compression en 2023 et 2024 sur un panel d'entreprises. On peut y voir que les outils les plus récents ne sont pas encore adoptés par la majorité des entreprises, ce qui montre la difficulté d'évolution de ces outils.
 #align(center)[
   #figure(
-    image("images/Codecs_2023.png", width: 80%, height: 200pt)
-    ,
-    caption: [Illustration de la répartition d'utilisation des outils de compression en 2023-2024 (Streaming & #gls("vod", "VOD")) pour un panel d'entreprises (en rouge : l'outil envisagé pour l'année suivante) @bitmovin2023report]
+    image("images/Codecs_2023.png", width: 80%, height: 200pt),
+    caption: [Illustration de la répartition d'utilisation des outils de compression en 2023-2024 (Streaming & #gls("vod", "VOD")) pour un panel d'entreprises (en rouge : l'outil envisagé pour l'année suivante) @bitmovin2023report],
   ) <utilisationCodec2023>
 ]
 
 #align(center)[
   #figure(
-    image("images/Codecs_2024.png", width: 90%, height: 200pt)
-    ,
-    caption: [Illustration de la répartition d'utilisation des outils de compression en 2024-2025 uniquement pour la #gls("vod", "VOD") pour un panel d'entreprises (en rouge : l'outil envisagé pour l'année suivante) @bitmovin2024report]
+    image("images/Codecs_2024.png", width: 90%, height: 200pt),
+    caption: [Illustration de la répartition d'utilisation des outils de compression en 2024-2025 uniquement pour la #gls("vod", "VOD") pour un panel d'entreprises (en rouge : l'outil envisagé pour l'année suivante) @bitmovin2024report],
   ) <utilisationCodec2024>
 ]
 
@@ -212,7 +212,7 @@ En résumé, ce projet questionne la faisabilité d'une optimisation de la compr
 = Présentation de l'environnement de travail
 
 == L'entreprise
-Capacités SAS est une filiale privée de valorisation de la recherche de Nantes Université. Créée en 2005, elle emploie aujourd’hui environ une centaine de collaborateurs. L’entreprise est détenue à 93 % par Nantes Université et 7 % par la chambre de Commerce et d’Industrie de Nantes Saint-Nazaire. L’entreprise est présente sur 3 villes du Grand Ouest : La Roche Sur Yon, Saint Nazaire et Nantes. Capacités est divisé en 13 cellules d'expertise. Les cellules portent des projets d’entreprise au sein des laboratoires auxquelles elles sont rattachées pour avoir accès à une expertise et être au plus près de la découverte scientifique. Elles apportent aussi un support à la recherche lors d’un besoin en ingénierie. Les cellules sont composées de chercheurs, ingénieurs et techniciens. Chaque équipe possède ses propres clients et gère une partie de son budget pour l’attribuer selon les ressources nécessaires. Il existe également des projets inter cellules pour regrouper plusieurs domaines d’expertise sur les sujets pluridisciplinaires. 
+Capacités SAS est une filiale privée de valorisation de la recherche de Nantes Université. Créée en 2005, elle emploie aujourd’hui environ une centaine de collaborateurs. L’entreprise est détenue à 93 % par Nantes Université et 7 % par la chambre de Commerce et d’Industrie de Nantes Saint-Nazaire. L’entreprise est présente sur 3 villes du Grand Ouest : La Roche Sur Yon, Saint Nazaire et Nantes. Capacités est divisé en 13 cellules d'expertise. Les cellules portent des projets d’entreprise au sein des laboratoires auxquelles elles sont rattachées pour avoir accès à une expertise et être au plus près de la découverte scientifique. Elles apportent aussi un support à la recherche lors d’un besoin en ingénierie. Les cellules sont composées de chercheurs, ingénieurs et techniciens. Chaque équipe possède ses propres clients et gère une partie de son budget pour l’attribuer selon les ressources nécessaires. Il existe également des projets inter cellules pour regrouper plusieurs domaines d’expertise sur les sujets pluridisciplinaires.
 
 == La cellule IXPEL
 Je travaille au sein de la cellule IXPEL, qui est intégrée au sein de l’équipe de recherche IPI (Image Perception Interaction) qui appartient au LS2N (Laboratoire des Sciences du Numérique de Nantes). L’équipe est spécialisée dans l’intelligence artificielle appliquée à l’image et la qualité d’expérience. On y retrouve par exemple des sujets liés à l'imagerie médicale, au traitement de documents manuscrits et l’expérience/qualité utilisateur face à du contenu vidéo, l’équipe est reconnue mondialement sur ce dernier sujet ce qui lui permet de travailler en collaboration avec les plus grandes entreprises du secteur et en particulier avec leurs équipes de recherche.
@@ -236,7 +236,7 @@ Il est important de rappeler que ce PFE s’intègre dans le projet et que diff�
 
 
 == Planning
-Le projet est structuré autour de trois Work Packages complémentaires, s'étalant d'avril 2026 à mars 2027. 
+Le projet est structuré autour de trois Work Packages complémentaires, s'étalant d'avril 2026 à mars 2027.
 
 L'articulation globale des tâches ainsi que l'enchaînement des différents jalons de validation sont détaillés dans le diagramme de Gantt disponible à la fin du document (voir @planning en annexe).
 
@@ -269,34 +269,93 @@ Par la suite, dans le cadre de mon PFE, je travaille majoritairement sur les ana
 
 == Outils et méthodes de travail
 
+=== Méthodes de suivi et de travail
+
+Au sein de la cellule, les projets ne regroupent que peu de personnes à chauqe fois et les missions peuvent parfois ne pas nécessiter une communication quotidienne poussée, cependant il reste important de garder en tête les avancés de chacuns, c'est pourquoi nous faisons des réunions hebdomadaires. Nous suivons la méthode POP, une méthode qui simplifie la gestion de ses réunions en les rendant plus dynamique. Tous les lundi, face à un tableau prévu à cet effet, représentant la semaine actuelle et la semaine passée, nous précisons alors ce que nous avons réalisé la semaine précedante et ce que nous envisageons de faire pour la semaine en cours. On utilise aussi des post-it qui permettent de garder un trace des points clés évoqués et de pouvoir suivre ce qui était prévu et ce qui a été fait d'une semaine à l'autre.
+C'est un moement où l'on peut plus facilement débloquer de situations, se donner des conseils et établir une oragnisation des tâches plus cohérente car tous les membres sont bien disponibles.
+
+Le reste du temps les échanges concernant les différents projets sont plus informels, facilité par notre proximité dans les locaux. Il est aussi fréquent de faire des points ou présentation pour mettre au clair un avancement, des idées, ou des besoins spécifiques pour un projet. des moments qui sont alors essentiels quand le proejt regroupe plusieurs personnes.
+
+Les échanges sont majoritairement en français mais ponctuellement en anglais en raison de l'aisance de chacun avec le français.
+
 === Outils de communication et de suivi
-Présenter les outils de communications en ligne utilisés mattermost gitlab uncloud et serveur commun (partage de fichiers lourds notamment)
+Notre cellule étant de petite taille, la communication y est facilité nous travaillons tous dans le même bureau, cependant nous faisons parti de deux autres organismes, le laboratoire de recherche, pour lequel nous partageons les mêmes locaux et l'entreprise. Cela entraine donc des besoins de communication et gestion par de canaux différents, concernant le labo nous avons des canaux liés à l'université, notamment l'outil mattermost permettant de réaliser des échanges en lignes sous forme de chat, en groupe notamment pour les différents projets ou seul. D'autres outils liés à l'université nous sont mis à disposition : UnCloud, qui permet d'avoir un stockage cloud et de partager facilement des documents volumineux. Webmail, un service de mail en ligne en lien avec l'université. Glicid, un cluster de calcul partagé disponible pour la recherche dans la région Nantaise en particulier.
+Concernant le lien entreprise est lui plus distant, et des outils et protocoles sont mis en place pour suivre l'évolution des projets par les responsables et services de gestion de l'entreprise. Lucca qui permet la gestion des congés et autres absences, de partager des documents RH aux employés, Laboxy qui permet d'attribuer les heures effectuées aux projets concernés.
+
+=== Outil internes
+
+AU sien du laboratoire et en particulier de la cellule nous possedons aussi des serveurs de calcul qui permettent alors de repartir les membres de l'équipe et en particulier de stocker des dossiers volumineux notamment des vidéos sources qui peuvent parfois devenir très encombrantes.
+Ces outils sont alors important mais demande une organisation particulière pour une utilisation par plusieurs personnes, création de session différentes limite d'utilisation des ressource processeurs ou graphique par chacun. Le nombre de membres au sein de l'équipe ayant augmenté, ces outils internes ne suffisent pas pour que chacun puisse les utilsier quotidiennement mais ce sont pas les seuls outils à disposition.
+
 === Adaptation Impact des outils utilisés
 Parmis les outils utilisés durant ce projet, un outil en particulier permet de nous affranchir d'un besoin matériel important : Glicid.
-C'est un cluster de calcul partagé, accessible à un ensemble de projets de recherche et aux entreprises qui en paie l'accès. Glicid fourni alors différentes environnments permettant d'accéser à des processeurs puissants ou carte graphique. Ces éléments sont essentiels pour travailler avec des outils d'intelligence artificielle comme nous le faisons. Cette palteforme permet donc de centraliser les ressources matéreilles nécessaires à de nombreux projets, ce qui rend ces ressources plus accessible financièrement mais aussi limite l'impact écologique de chaque projet, chaque envirronement est utilisé pleinement, ce qui permet d'en optimiser l'utilisation, quand un test est terminé un nouveau peut-être lancé. De plus les outils proposés évoluent, ce qui mutualise les besoins et facilitent l'accès à des nouvelles technologies couteuses.
+C'est un cluster de calcul partagé, accessible à un ensemble de projets de recherche et aux entreprises qui en paie l'accès. Glicid fourni alors différentes environnments permettant d'accéder à des processeurs puissants ou carte graphique, deux moyens d'effectuer un grand nombre de calculs et faire executer différents algorithmes. Ce qui est essentiel pour travailler avec des outils d'intelligence artificielle comme nous le faisons. Cette plateforme permet donc de centraliser les ressources matéreilles nécessaires à de nombreux projets. cela rend alors ces ressources plus accessible financièrement mais aussi limite l'impact écologique de chaque projet, chaque envirronement est utilisé pleinement, ce qui permet d'en optimiser l'utilisation, quand un test est terminé un nouveau peut-être lancé. De plus les outils proposés évoluent, ce qui mutualise les besoins et facilitent l'accès à des nouvelles technologies couteuses.
 
 Cet outil necessite cependant une adaptation pour une utilisation optimale, différents envrionnements, comprendre les différents éléments, comment bien réaliser la demande pour un envirronmeent qui répond aux besoins du test en cours.
 Cela fait donc partie de nos missions, s'adapter aux outils utilisés et à leur évolutions au fil du temps.
 
-Pour notre cellule on peut facilement se partager des astuces ou bonnes pratiques pour parvenir à mieux appréhender ce genre d'outil. C'est devenu un indispensable pour certains membres de l'équipe et permet de mieux gérer nos ressources internes. Glicid est aussi maintenu ce qui facilite la tâche car pour des ressources internes, cela reposerait alors sur notre travail.
+Pour notre cellule on peut facilement se partager des astuces ou bonnes pratiques pour parvenir à mieux appréhender ce genre d'outil. C'est devenu un indispensable pour certains membres de l'équipe et permet de mieux gérer nos ressources internes. Glicid est aussi maintenu ce qui facilite la tâche car pour des ressources internes, cela demanderait plus de travail.
 
-Cependant ces amitnenance imposent aussi des moments d'arrets de Glicid, un grand nombre de jours durant ce projet ont été privés de cette resssource pour maintenance ou innaccessibilité de la plateforme.
+Cependant ces maintenances imposent aussi des moments d'arrets de l'outil, un grand nombre de jours durant ce projet ont été privés de cette resssource pour maintenance ou innaccessibilité de la plateforme. Cela limite alors l'organisation des tâches et peut parfois ralentir l'avancé de certains projets.
 
+De manière général c'est un outil atypique qui modifie la manière de travailler, entre adaptation aux mécanismes spécifiques et contrainte liés à l'accès à la plateforme, l'organisation au quotidien en est alors dépendante.
 
-=== Méthodes de suivi et de travail
-
-Explications des réunions, méthode POP et comment s'organisent les tâches.
-Pour l'entreprise outil de suivi (laboxy pour préciser les projets auxquels on participe et les tâches réalisées)
+=== La vie du laboratoire
+Partagant les memes locaux et faisant partie de l'équipe IPI nous participons aussi aux différents moments conviviaux de l'équipe, pour les repas ou séminaires notamment. Il est assez fréquent que des seminaires d'équipes soient oragnisés où des doctorants, chercheurs ou invités présentent leurs travaux. Ces présentations se déroulent en anglais pour que tout le monde puisse suivre car il est fréquent d'avoir des stagiaires étrangers au sein du laboratoire.
+Au regard des compétences de l'équipe cela apporte pour tous, pour ceux qui présentent, cela leur permet de valider leurs propos et obtenir des idées d'autres chercheurs mais aussi de prendre de l'assurance dans leur présentation. Pour ceux qui écoutent d'apprendre des concepts complexes et de pratiquer l'anglais dans des domaines précis et techniques. C'est un moment d'équipe, humain qui semble annodin mais qui a un intérêt important pour le développement de chacun et indispensable pour les relations dans l'équipe.
 
 = Compression et qualité vidéo : défis et solutions
 
 == Contexte et formation pour l'équipe
-Equipe jeune, formation sur les sujets (compression, deep learning notamment) et veille constante car le domaine évolue rapidement.
-Environnement facilitant le partage de connaissance au sein de la cellule mais aussi de par le labo (séminaires, outils développés etc)
+
+Au sein de la cellule et en particulier les membres concernés par le projet, la jeunesse de l'équipe est à prendre en compte, c'est un très bon point pour se tourner vers l'innovation et facilite le changement, qui sont mieux acceptés par ce publique. Cependant cela demande aussi un montée en compétence rapide pour assimiler des sujets d'expertises poussés. La compression vidéo est un domaine remplie de théorie et de concepts complexes, faire partie d'une équipe experte de ces sujets facilite cette montée en compétence mais une part de se travail doit être fait par des recherches personnelles. Le deep learning en lien avec ce sujet est aussi un domaine complexe qui est aussi un domaine en lien avec l'équipe mais le sujet demande des compétences importantes qui s'acquiert aussi au fil du projet. Il est donc assez évident que cette montée en compétences demande du temps et les évolutions rapides de ces sujets impliquent une veille au quotidien. Ces limites sont, en partie, dûes à la compléxité du projet qui implique des compétences transverses et demande donc un investissement personnel pour combler le manque d'experience dnas ce domaine.
+
+
 
 == Encodage : la réduction d'informations transmises
-Remettre le contexte qu'une vidéo est une suite d'images et qu'il est possible de réduire la quantité en utilisant la redondance des zones similaires d'un image à la suivante.
-Et que les images contiennent des informations redondantes au sein même de l'iamge (zone de ciel bleu), ce qui permet de réduire aussi la quantité d'information transmise pour la première iamge qui sera la base des suivantes.
+
+Le codage vidéo repose sur un grand nombre de principes parfois complexes, le but ici va seulement être de donnée les logiques de bases et certaines éléments importants qui vont permettre une meilleure compréhenssion du sujet et facilité les éléments d'une possible amélioration.
+Une vidéo est une suite d'images qui se suivent, souvent très rapidement (plusieurs par seconde). On peut parfois avoir des vidéos qui contienent 30, 60 voir 120 images par secondes et plus dans certains cas pour certians types de contenus qui demande une grande fluidité. Durant un court laps de temps la scène ne change que très peu. C'est le point principale utilisé pour la compressein vidéo, utiliser cette redondance d'informations de manière efficace.
+Pour bien comprendre les différents concepts il faut aussi avoir en tête que les iamges sont décomposées en blocs, qui peuvent être de taille variable pour une même iamge, dans les exemples, nous garderons une taille fixe pour faciliter la compréhension.
+Pour illuster ce mécanisme voici un exemple simple qui permet de comprendre la logique utilisée.
+
+#align(center)[
+  #figure(
+    image("images/interMotion.png", width: 90%, height: 190pt),
+    caption: [Exemple de mouvement prédit @moreira2022digitalvideo],
+  ) <intermotion>
+]
+
+Le premier point étantt la principale optimisation qui utilise une répétition d'informations mais il faut tout d'abord transmettre un image clée, qui servira de point d'anchrage pour la suite de cette prédiction de mouvement. Une image clée est transmise pour chaque groupe d'image (GOP).
+Ces images clés doivent être transmise entièrement ce uqi peut parfois avoir un coût important. On utilise alors une autre forme de redondance au sein de cette image uniquement, des zones de ciel bleue pourront alors etre transmises simplement car les blocs voisins se ressemblent.
+Pour ce faire il faut dérouler à partir des informations connues de l'iamges, le bloc en haut à gauche est transmis en premier il servira alors de base pour la suite.
+Voici un exemple qui montre la manière dont cela est utilisé.
+
+#align(center)[
+  #figure(
+    image("images/intraExemple.png", width: 80%, height: 220pt),
+    caption: [Exemple de la réutilisation de la partie de l'image connue @moreira2022digitalvideo],
+  ) <intraexemple>
+]
+
+
+Une fois que ces prédictions sont réalisées, l'image prédite n'étant pas parfaite il manque des infroamtions importantes à transmettre pour corriger au mieux cette prédiction. Cette correction est appelé résidu, elle est la différence entre l'image prédite etl'image d'origine.
+
+
+#align(center)[
+  #figure(
+    image("images/rescalcul.png", width: 110%, height: 140pt),
+    caption: [Exemple de calcul du résidu pour le ciel bleu @moreira2022digitalvideo],
+  ) <intraexemple>
+]
+
+#align(center)[
+  #figure(
+    image("images/resExemple.png", width: 50%, height: 220pt),
+    caption: [Exemple visuel de résidu pour l'exemple de mouvement @moreira2022digitalvideo],
+  ) <resexemple>
+]
+
 
 == Utilisateur et compression ciblé
 Reprendre la logique simplement de l'utilisation de la compréhension de l'utilisateur pour simplifier les vidéos sans pertes importantes
@@ -310,7 +369,7 @@ Expliquer les mécanismes utilisés pour rendre les données plus simples transf
 == Les limitations pour l'apprentissage
 
 === Limites mathématique des outils pour l'apprentissage
-  (arrondi, choix du meilleur bloc, introduire alors le concept de différentiabilité)
+(arrondi, choix du meilleur bloc, introduire alors le concept de différentiabilité)
 Impossibilité d'utiliser les #gls("codec", "codecs") comme tel pour l'apprentissage (pas prévu pour, trop d'opérations bloquantes etc)
 
 == Solutions existantes
@@ -320,6 +379,70 @@ Impossibilité d'utiliser les #gls("codec", "codecs") comme tel pour l'apprentis
 Evoquer le graphe forward et backward avec plusieurs schémas simples et en quoi on peut séparer ces étapes et ce que ça permet de faire =>(mettre un calcul non optimisable dans la boucle)
 
 Expliquer la modification de fonctions simples (round par exemple ou argmin) pour regler un problème de zone plate qui ne guide par l'apprentissage (ne donne pas le sens de la pente)
+
+#figure(
+  canvas(length: 1cm, {
+    import draw: *
+
+    // petite fonction pour les flèches
+    let arrow = (start, end) => line(start, end, mark: (end: ">", fill: black, scale: 0.6))
+
+    // hauteurs des 3 entrées (a en haut, y au milieu, b en bas)
+    let ya = 1.6
+    let yy = 0.8
+    let yb = 0
+
+    // ---------- FORWARD ----------
+    let off = 0
+    content((-0.6, yy + off), text(weight: "bold")[Forward], anchor: "east")
+    content((0, ya + off), [a])
+    content((0, yy + off), [y])
+    content((0, yb + off), [b])
+
+    let mulx = (2.6, 0.95 + off)
+    let addx = (4.3, 0.6 + off)
+    let rx = (5.8, 0.6 + off)
+    content(mulx, text(size: 13pt, weight: "bold")[$times$])
+    content(addx, text(size: 15pt, weight: "bold")[$+$])
+    content(rx, text(weight: "bold")[r])
+
+    arrow((0.25, ya + off), (mulx.at(0) - 0.3, mulx.at(1) + 0.15)) // a -> x
+    arrow((0.25, yy + off), (mulx.at(0) - 0.3, mulx.at(1) - 0.05)) // y -> x
+    arrow((mulx.at(0) + 0.3, mulx.at(1)), (addx.at(0) - 0.3, addx.at(1) + 0.1)) // x -> +
+    arrow((0.25, yb + off), (addx.at(0) - 0.3, addx.at(1) - 0.15)) // b -> +
+    arrow((addx.at(0) + 0.3, addx.at(1)), (rx.at(0) - 0.3, rx.at(1))) // + -> r
+
+    // ---------- BACKWARD ----------
+    let off = -2.6
+    content((-0.6, yy + off), text(weight: "bold")[Backward], anchor: "east")
+    content((0, ya + off), [a])
+    content((0, yy + off), [y])
+    content((0, yb + off), [b])
+
+    let mulx = (2.6, 0.95 + off)
+    let addx = (4.3, 0.6 + off)
+    let rx = (5.8, 0.6 + off)
+    content(mulx, text(size: 13pt, weight: "bold")[$times$])
+    content(addx, text(size: 15pt, weight: "bold")[$+$])
+    content(rx, text(weight: "bold")[r])
+
+    arrow((rx.at(0) - 0.3, rx.at(1)), (addx.at(0) + 0.3, addx.at(1))) // r -> +
+    arrow((addx.at(0) - 0.3, addx.at(1) + 0.1), (mulx.at(0) + 0.3, mulx.at(1))) // + -> x
+    arrow((addx.at(0) - 0.3, addx.at(1) - 0.15), (0.25, yb + off)) // + -> b
+    arrow((mulx.at(0) - 0.3, mulx.at(1) - 0.05), (0.25, yy + off)) // x -> y
+    line((mulx.at(0) - 0.3, mulx.at(1) + 0.15), (0.25, ya + off)) // x -> a (coupé)
+
+    // grosse croix rouge : gradient bloqué vers a
+    let cx = 1.2
+    let cy = (ya + off + mulx.at(1) + 0.15) / 2 + 0.06
+    let s = 0.30
+    line((cx - s, cy - s), (cx + s, cy + s), stroke: (paint: red, thickness: 4pt))
+    line((cx - s, cy + s), (cx + s, cy - s), stroke: (paint: red, thickness: 4pt))
+  }),
+  caption: [Graphe de calcul : $r = a y + b$ ($a$ est détaché, son gradient est bloqué au _backward_)],
+) <forward_backward>
+
+
 
 === Les méthodes d'optimisation existantes
 Evoquer la littérature sur le sujet et ce qui a été fait et en quoi tout n'est pas applicable à notre cas d'utilisation (filtre aussi en post processing coté utilisateur par exemple), les limites de ces méthodes et ce qu'elles apportent.
@@ -334,7 +457,7 @@ Mettre en avant les choix pour aller vers H.265
 
 Evoquer la difficulté de reproduire fidèlement une implémentation d'un papier de recherche, il faut donc souvent reprendre certains aspects depuis le début, c'est aussi une grosse partie du travail.
 
-== Architecture globale 
+== Architecture globale
 
 (filtre #gls("proxy", "proxy") #gls("metrique", "métrique")) schéma et explications
 
@@ -432,22 +555,21 @@ Difficulté d'évaluer les résultats car les approches réagissent différemmen
 == Annexe 1 : Étude sur les plus gros challenges du secteur VOD/Streaming
 #align(center)[
   #figure(
-    image("images/prioriteEtude.png", width: 100%, height: 450pt)
-    ,
-    caption: [Illustration des challenges principaux face à un panel d'entreprise du secteur Streaming/#gls("vod", "VOD") pour l'année 2024-2025) @bitmovin2024report]
+    image("images/prioriteEtude.png", width: 100%, height: 450pt),
+    caption: [Illustration des challenges principaux face à un panel d'entreprise du secteur Streaming/#gls("vod", "VOD") pour l'année 2024-2025) @bitmovin2024report],
   ) <challengesVOD>
 ]
 
 #page(flipped: true)[
   #set align(center + horizon)
-  
+
   == Annexe 2 : Planning prévisionnel du projet <planning>
-  
+
   #v(1cm)
 
   #figure(
     image("images/planning.png", width: 110%, height: 255pt),
-    caption: [Planning global du projet (2026-2027)]
+    caption: [Planning global du projet (2026-2027)],
   )
 ]
 = Remerciements
