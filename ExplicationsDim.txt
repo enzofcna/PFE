@@ -1,0 +1,34 @@
+économique :
+-1.1.2 Les enjeux éco de la VOD
+En reprenant le contexte du secteur et le faits que des geants s'interresse à la recherche, ce qui a un impact direct sur la recherche et donc notre organisme.
+Etablir aussi les ordres de grandeurs des impacts de chaque composants dans la boucle VOD si possible
+
+- 3.1 Contexte du projet
+Je compte ajouter plus d'informations sur ce point pour montrer les effets du rpoejt sur l'équipe recrutement combien et l'importance du projet pour la cellule durant sont déroulement.
+
+-3.4.3 Outil interne
+Présentation des outils comme glicid ou serveur et expliquer les avantages économique pour une plus petite structure / Lien avec la partie écologique aussi
+
+
+Organisationnel
+-3.2 Planning, membres du projet
+Les roles et la répartition
+-3.4.1Méthodes de suivi et de travail & 3.4.2 Outils de communication et de suivi
+Expliquer les spécificités de notre organisation comment le projet se reparti, réunion hebdo et la méthode suivie, la distance face à l'entreprise lié au contexte de cellule intégré ua labo et les outils qui permettent de rendre compte de nos taches/projet sur lequel on travail
+
+-Adaptation aux outils internes
+Les effets des outils comme glicid sur l'organisation (maintenance et limites)
+
+Humain
+
+-3.4.4 Adaptation aux outils internes
+La formation lié aux outils
+
+-3.4.5 La vie du laboratoire 4.1 Contexte et formation pour l'équipe
+Mise en avant du partage de connaissance et de la montée en compétence de chacun via les séminaires notamment (anglais techniques, sujets lié deep learning et/ou images) et échanges au quotidien, de l'aspect apssage de connaissance ont réutilise les connaissacances de projets passés.
+Explication des limites d'un équipe jeune / thématiques nouvelles pour nous et en quoi cela à un impact direct sur le projet et sur notre implication (nécessité de veille et apprentissage) et l'importances des responsables et échanges que l'on a pour le bon déroulement du projet.
+Possibilité d'évoquer aussi des études sur la rétitence face aux changements en entreprise (plus socio mais permet d'avoir des sources sur ce point) => Changement d'outils de manière de travailler facilité par une équipe jeune.
+
+4.3 Utilisateur et compression ciblé & Evaluer le contenu vidéo
+
+Moins lié directement à l'humain du projet directement mais tout de même interressant je trouve de montrer la place de l'humain dans la boucle de compression et d'évaluation de la qualité vidéo. Discuter aussi des tests réalisés au laboratoire qui sont directement en lien avec notre organisation donc ça pourra remonter dans des parties du début => importance pour ce projet aussi de valider par des vrais utilisateurs une fois les outils matures
