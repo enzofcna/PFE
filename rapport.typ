@@ -199,9 +199,9 @@ Mais il faut aussi reprendre les éléments de la section précédente @vod_circ
 
 On peut en revanche opposer à cette optimisation un possible effet rebond : un accès plus simple et plus rapide à davantage de ressources #gls("vod", "VOD") pourrait toucher plus d'utilisateurs, ou permettre de proposer du contenu de plus haute qualité. C'est précisément le but des entreprises dans une logique de performance et de qualité de service, mais cela irait à l'encontre des optimisations évoquées du point de vue écologique.
 
-Les acteurs concernés par ce secteur sont parmi les plus gros du numérique, Netflix, Amazon ou Meta, et ce sont précisément les clients de notre cellule. Leurs besoins orientent donc directement nos sujets de recherche : la majorité de nos projets portent sur l'évaluation de nouvelles solutions, souvent confrontées à un panel d'utilisateurs. Les défis remontés par le secteur confortent l'intérêt d'une optimisation agissant directement sur le poids des fichiers : les coûts de licence et de production de contenu sont identifiés comme un obstacle majeur du marché SVOD @gmi2024svod, tandis qu'une étude récente place le stockage comme premier défi des entreprises de streaming interrogées @challengesVOD. Réduire le poids des fichiers agit directement sur ces deux postes, et donc sur les coûts à différents points de la chaîne.
+Les acteurs concernés par ce secteur sont parmi les plus gros du numérique, Netflix, Amazon ou Meta, et ce sont précisément les clients de notre cellule. Leurs besoins orientent donc directement nos sujets de recherche, la majorité de nos projets portent sur l'évaluation ou le développement de nouvelles solutions, souvent confrontées à un panel d'utilisateurs. Les défis remontés par le secteur confortent l'intérêt d'une optimisation agissant directement sur le poids des fichiers, les coûts de licence et de production de contenu sont identifiés comme un obstacle majeur du marché SVOD @gmi2024svod, tandis qu'une étude récente place le stockage comme premier défi des entreprises de streaming interrogées @challengesVOD. Réduire le poids des fichiers agit directement sur ces deux postes, et donc sur les coûts à différents points de la chaîne.
 
-Enfin, un point mérite d'être souligné : l'écosystème open source et open access joue un rôle clé. Il permet de faire évoluer les outils de compression, mais donne aussi accès à des outils de mesure de qualité vidéo complexes, parfois développés en interne par ces entreprises, et dont la disponibilité conditionne en grande partie la recherche dans ce domaine. Cela semble parfois en contradiction avec la volonté générale des entreprises technologiques, qui cherchent à protéger leurs outils pour ne pas aider la concurrence. Cependant, dans ce cas précis, ces entreprises profitent aussi d'une communauté très active autour des contenus vidéo : des utilisateurs ou des groupes de recherche s'emparent de leurs outils et proposent des améliorations que leurs équipes internes ne pourraient pas toutes réaliser. Faire évoluer le secteur permet à ces géants d'en tirer profit. On peut toutefois illustrer la limite de cette logique : ces entreprises partagent peu, voire pas, leurs données, y compris celles utilisées pour produire des outils qui seront ensuite mis en accès libre. Cela montre que cette volonté de partage reste ciblée, éloignée d'une générosité soudaine qui ne correspondrait pas à une logique économique.
+Enfin, un point mérite d'être souligné : l'écosystème open source et open access joue un rôle clé. Il permet de faire évoluer les outils de compression, mais donne aussi accès à des outils de mesure de qualité vidéo complexes, parfois développés en interne par ces entreprises, et dont la disponibilité conditionne en grande partie la recherche dans ce domaine. Cela semble parfois en contradiction avec la volonté générale des entreprises technologiques, qui cherchent à protéger leurs outils pour ne pas aider la concurrence. Cependant, dans ce cas précis, ces entreprises profitent aussi d'une communauté très active autour des contenus vidéo : des utilisateurs ou des groupes de recherche s'emparent de leurs outils et proposent des améliorations que leurs équipes internes ne pourraient pas toutes réaliser. Faire évoluer le secteur permet à ces entreprises d'en tirer profit, nous l'avons vu le secteur est en forte hausse, chaque optimisation compte et cette aide externe, gratuite est intérressante. Cela devient aussi un argument pour les travailleurs de ces entreprises qui peuvent mettre en avant leurs travaux publiquement. On peut toutefois illustrer la limite de cette logique : ces entreprises partagent peu, voire pas, leurs données, y compris celles utilisées pour produire ou entrainer des outils qui seront ensuite mis en accès libre. Cela montre que cette volonté de partage reste ciblée, éloignée d'une générosité soudaine qui ne correspondrait pas à une logique économique.
 
 === Rapport d'utilisation des outils de compression
 Pour mieux comprendre les éléments suivants, voici un bref historique des outils existants.
@@ -213,7 +213,7 @@ Pour mieux comprendre les éléments suivants, voici un bref historique des outi
   ) <historiqueCodec>
 ]
 
-Afin de mettre en avant la difficulté d'évolution des outils de compression par les entreprises concernées, les figures suivantes illustrent la répartition d'utilisation des outils de compression en 2023 et 2024 sur un panel d'entreprises. On peut y voir que les outils les plus récents ne sont pas encore adoptés par la majorité des entreprises, ce qui montre la difficulté d'évolution de ces outils.
+Afin de mettre en avant la difficulté d'évolution des outils de compression par les entreprises concernées, les figures suivantes illustrent la répartition d'utilisation des outils de compression en 2023 et 2024 sur un panel d'entreprises. On peut y voir que les plus récents ne sont pas encore adoptés par la majorité des entreprises, ce qui montre la difficulté d'évolution.
 #align(center)[
   #figure(
     image("images/Codecs_2023.png", width: 80%, height: 200pt),
@@ -229,7 +229,7 @@ Afin de mettre en avant la difficulté d'évolution des outils de compression pa
 ]
 
 Il est intéressant de noter que les chiffres évoluent peu, ce qui prouve l'écart entre la volonté d'évolution et la faisabilité réelle. On voit que le #gls("codec", "codec") le plus utilisé en 2025 reste #gls("h264", "H.264"), pourtant créé en 2003. Cependant, #gls("hevc", "H.265") et #gls("av1", "AV1") représentent les candidats des prochaines années d'après ces sondages.
-Un point important, énoncé dans la section précédente : le matériel actuel est aussi un élément à prendre en compte. À ce jour, il existe beaucoup plus de matériel capable de décoder #gls("hevc", "H.265") nativement, ce qui le rend plus efficace et moins énergivore. Sans ce décodage natif, la tâche devient plus complexe pour des appareils plus anciens, car ils doivent se débrouiller avec la puissance CPU en place, ce qui, notamment avec #gls("av1", "AV1") qui demande plus de calcul, devient plus compliqué, voire impossible.
+Un point important, énoncé dans la section précédente : le matériel actuel est aussi un élément à prendre en compte. À ce jour, il existe beaucoup plus de matériel capable de décoder #gls("hevc", "H.265") nativement, ce qui le rend plus efficace et moins énergivore. Sans ce décodage natif, la tâche devient plus complexe pour des appareils plus anciens, car ils doivent se débrouiller avec la puissance des processeurs en place, ce qui, notamment avec #gls("av1", "AV1") qui demande plus de calcul, cela devient alors plus compliqué, voire impossible.
 
 Le choix d'une cible d'optimisation réaliste et qui prend en compte ces différents éléments semble donc clair : #gls("hevc", "H.265") est aujourd'hui très intéressant pour ce cas d'utilisation, pour tous les points évoqués.
 
@@ -244,12 +244,30 @@ Reste un obstacle majeur. Les codecs vidéo n'ont jamais été pensés pour serv
 
 En résumé, ce projet questionne la faisabilité d'une optimisation de la compression vidéo par IA dans le cadre des codecs existants comme #gls("hevc", "H.265"). Il s'agit d'y intégrer l'IA pour gagner en performance tout en respectant les contraintes matérielles et les exigences de qualité visuelle. Le dépassement des verrous liés aux algorithmes de codage classiques et la définition des bons outils d'évaluation seront donc étudiés en parallèle, comme les deux faces d'un même problème.
 
-Au-delà de ce verrou technique, ce rapport examine également le projet sous trois angles complémentaires : économique, organisationnel et humain. Chacun est introduit par une question, posée à l'endroit le plus pertinent du document et reprise en conclusion.
+Au-delà de ce verrou technique, ce rapport examine également le projet sous trois angles complémentaires : économique, organisationnel et humain.
 
 = Présentation de l'environnement de travail
 
 == L'entreprise
-Capacités SAS est une filiale privée de valorisation de la recherche de Nantes Université. Créée en 2005, elle emploie aujourd'hui environ une centaine de collaborateurs. L'entreprise est détenue à 93 % par Nantes Université et à 7 % par la chambre de Commerce et d'Industrie de Nantes Saint-Nazaire. Elle est présente sur trois villes du Grand Ouest : La Roche-sur-Yon, Saint-Nazaire et Nantes. Capacités est divisée en 13 cellules d'expertise. Les cellules portent des projets d'entreprise au sein des laboratoires auxquels elles sont rattachées, pour avoir accès à une expertise et être au plus près de la découverte scientifique. Elles apportent aussi un support à la recherche lors d'un besoin en ingénierie. Les cellules sont composées de chercheurs, ingénieurs et techniciens. Chaque équipe possède ses propres clients et gère une partie de son budget pour l'attribuer selon les ressources nécessaires. Il existe également des projets inter-cellules pour regrouper plusieurs domaines d'expertise sur les sujets pluridisciplinaires.
+Capacités SAS est une filiale privée de valorisation de la recherche de Nantes Université. Créée en 2005, elle emploie aujourd'hui environ une centaine de collaborateurs. L'entreprise est détenue à 93 % par Nantes Université et à 7 % par la chambre de Commerce et d'Industrie de Nantes Saint-Nazaire. Elle est présente sur trois villes du Grand Ouest : La Roche-sur-Yon, Saint-Nazaire et Nantes.
+
+#align(center)[
+  #figure(
+    image("images/capateams.png", width: 100%),
+    caption: [Cartographie des cellules de Capacités],
+  ) <capateams>
+]
+
+Capacités est divisée en 13 cellules d'expertise. Les cellules portent des projets d'entreprise au sein des laboratoires auxquels elles sont rattachées, pour avoir accès à une expertise et être au plus près de la découverte scientifique.
+
+#align(center)[
+  #figure(
+    image("images/capaExp.png", width: 100%),
+    caption: [Expertises des cellules de Capacités],
+  ) <capateams>
+]
+
+Elles apportent aussi un support à la recherche lors d'un besoin en ingénierie. Les cellules sont composées de chercheurs, ingénieurs et techniciens. Chaque équipe possède ses propres clients et gère une partie de son budget pour l'attribuer selon les ressources nécessaires. Il existe également des projets inter-cellules pour regrouper plusieurs domaines d'expertise sur les sujets pluridisciplinaires.
 
 == La cellule IXPEL
 Je travaille au sein de la cellule IXPEL, intégrée à l'équipe de recherche IPI (Image Perception Interaction), qui appartient au LS2N (Laboratoire des Sciences du Numérique de Nantes). L'équipe est spécialisée dans l'intelligence artificielle appliquée à l'image et la qualité d'expérience. On y retrouve par exemple des sujets liés à l'imagerie médicale, au traitement de documents manuscrits et à l'expérience/qualité utilisateur face à du contenu vidéo ; l'équipe est reconnue mondialement sur ce dernier sujet, ce qui lui permet de travailler en collaboration avec les plus grandes entreprises du secteur et en particulier avec leurs équipes de recherche.
@@ -348,7 +366,7 @@ Partageant les mêmes locaux et faisant partie de l'équipe IPI, nous participon
 
 Ces moments profitent à tous. Pour ceux qui présentent, c'est l'occasion de valider leurs propos, de recueillir des idées d'autres chercheurs et de gagner en assurance. Pour ceux qui écoutent, c'est une façon d'aborder des concepts complexes et de pratiquer l'anglais sur des sujets précis et techniques.
 
-En apparence anodins, ces moments illustrent assez bien ce que la littérature en management appelle l'apprentissage par l'action (_execution-as-learning_), par opposition à une logique de pure exécution @edmondson2012teaming. Edmondson montre notamment qu'une équipe apprend d'autant mieux qu'elle dépasse ses frontières internes (distances physiques, différences de statut, écarts de connaissance), par exemple via des temps d'échange réguliers. Les séminaires jouent exactement ce rôle : ils font circuler les connaissances entre des profils et des projets différents. Une étude menée sur 90 équipes, citée par ces travaux, observe d'ailleurs que les questions et interruptions lors des réunions améliorent le transfert de connaissances et l'acquisition de nouvelles pratiques. Cela suppose toutefois un climat où questionner n'est pas perçu comme une marque d'ignorance, ce que ces auteurs nomment la sécurité psychologique. En faisant le parallèle avec nos réunions, on retrouve une ambiance ouverte pour ces présentations, car c'est l'objectif : questionner sur un sujet que l'on découvre souvent durant la présentation. Il est parfois difficile de rendre les questions utiles pour le sujet en lui-même, et pas uniquement de les orienter pour notre propre compréhension.
+En apparence anodins, ces moments illustrent assez bien ce que la littérature en management appelle l'apprentissage par l'action (_execution-as-learning_), par opposition à une logique de pure exécution @edmondson2012teaming. Edmondson montre notamment qu'une équipe apprend d'autant mieux qu'elle dépasse ses frontières internes (distances physiques, différences de statut, écarts de connaissance), par exemple via des temps d'échange réguliers. Les séminaires jouent exactement ce rôle, ils font circuler les connaissances entre des profils et des projets différents. Une étude menée sur 90 équipes, citée par ces travaux, observe d'ailleurs que les questions et interruptions lors des réunions améliorent le transfert de connaissances et l'acquisition de nouvelles pratiques. Cela suppose toutefois un climat où questionner n'est pas perçu comme une marque d'ignorance, ce que ces auteurs nomment la sécurité psychologique. En faisant le parallèle avec nos réunions, on retrouve une ambiance ouverte pour ces présentations, car c'est l'objectif, questionner sur un sujet que l'on découvre souvent durant la présentation. Il est parfois difficile de rendre les questions utiles pour le sujet en lui-même, et pas uniquement de les orienter pour notre propre compréhension.
 
 = Compression et qualité vidéo : défis et solutions
 
@@ -356,11 +374,11 @@ En apparence anodins, ces moments illustrent assez bien ce que la littérature e
 
 On peut ici se poser une question : comment une équipe jeune vit-elle et monte-t-elle en compétence sur des thématiques de pointe comme le deep learning et la qualité vidéo, entre veille permanente, partage de connaissances et accompagnement ?
 
-La jeunesse de l'équipe est un point à prendre en compte. C'est un atout pour se tourner vers l'innovation et accepter le changement, mais cela suppose aussi une montée en compétence rapide sur des sujets d'expertise pointus. La compression vidéo est un domaine riche en théorie et en concepts complexes ; appartenir à une équipe experte facilite cette montée en compétence, mais une part du travail passe nécessairement par des recherches personnelles. Le deep learning associé à ce sujet est tout aussi exigeant, et certaines compétences ne s'acquièrent qu'au fil du projet. Cette progression demande donc du temps, et l'évolution rapide de ces domaines impose une veille au quotidien.
+La jeunesse de l'équipe est un point à prendre en compte. Cela peut être vu comme un atout pour se tourner vers l'innovation et faciliter l'acceptation aux changements, mais cela demande aussi une montée en compétence rapide sur des sujets d'expertise pointus pour répondre aux attentes du projet. La compression vidéo est un domaine riche en théorie et en concepts complexes, appartenir à une équipe experte facilite cette montée en compétence, mais une part du travail passe nécessairement par des recherches personnelles. Le deep learning associé à ce sujet est tout aussi exigeant, et certaines compétences ne s'acquièrent qu'au fil du projet. Cette progression demande donc du temps, et l'évolution rapide de ces domaines impose une veille au quotidien.
 
-La recherche sur l'adoption des technologies aide à nuancer l'idée, intuitive, qu'une équipe jeune serait simplement « moins réticente ». Étudiant l'adoption d'un nouvel outil logiciel sur cinq mois, Morris et Venkatesh observent surtout que les déterminants de l'usage varient avec l'âge : chez les travailleurs les plus jeunes, la décision d'utiliser l'outil est davantage portée par l'attitude, c'est-à-dire par l'utilité qu'ils lui perçoivent, tandis que pour les plus âgés pèsent davantage l'avis des pairs et la facilité de prise en main @morris2000age. Pour une équipe jeune comme la nôtre, cela suggère que l'adoption d'un nouvel outil ou d'une nouvelle méthode se joue surtout sur sa valeur perçue ; autrement dit, démontrer concrètement ce qu'il apporte est sans doute le meilleur levier. Ces résultats doivent toutefois être pris avec prudence : ils reposent sur un échantillon réduit, et les auteurs eux-mêmes rappellent qu'on ne peut distinguer nettement un effet propre à l'âge d'un simple effet de génération. Cependant, si l'on prend l'exemple concret au sein de notre équipe, nous avons vu arriver il y a quelque temps des accès directement fournis par l'entreprise pour un LLM. Cela permet de centraliser les connaissances sur ce domaine et les outils liés, et de ne pas rendre le sujet tabou, ce qui pourrait amener à des comportements plus difficiles à contrôler : on entend actuellement parler de « shadow AI », phénomène émergent où l'utilisation de ce genre d'outils est réalisée par les employés sans approbation de leurs supérieurs et du service informatique. L'intérêt d'utiliser ces outils pour de jeunes ingénieurs est simple : ils facilitent l'accès à un grand nombre de connaissances et simplifient l'implémentation pour tester des outils rapidement. Leur acceptation est donc rapide, ce qui confirme les résultats obtenus dans l'étude présentée. Il reste tout de même intéressant de rendre les pratiques plus contrôlées et raisonnées pour éviter des dérives, ce que l'entreprise essaie de faire au niveau global pour éviter que chaque cellule ait à le faire.
+La recherche sur l'adoption des technologies aide à nuancer l'idée, intuitive, qu'une équipe jeune serait simplement « moins réticente ». Étudiant l'adoption d'un nouvel outil logiciel sur cinq mois, Morris et Venkatesh observent surtout que les déterminants de l'usage varient avec l'âge, chez les travailleurs les plus jeunes, la décision d'utiliser l'outil est davantage portée par l'attitude, c'est-à-dire par l'utilité qu'ils lui perçoivent, tandis que pour les plus âgés pèsent davantage l'avis des pairs et la facilité de prise en main @morris2000age. Pour une équipe jeune comme la nôtre, cela suggère que l'adoption d'un nouvel outil ou d'une nouvelle méthode se joue surtout sur sa valeur perçue, autrement dit, démontrer concrètement ce qu'il apporte est sans doute le meilleur levier. Ces résultats doivent toutefois être pris avec prudence, ils reposent sur un échantillon réduit, et les auteurs eux-mêmes rappellent qu'on ne peut distinguer nettement un effet propre à l'âge d'un simple effet de génération mais cela montre tout de même une tendance, liée à l'âge ou à la génération, ce qui vient tout de même confirmer qu'une équipe jeune, venant d'une génération proche les uns des autres, pourrait avoir un comportement commun face aux changements. Si l'on prend l'exemple concret au sein de notre équipe, nous avons vu arriver il y a quelque temps des accès directement fournis par l'entreprise pour un outil de chat par IA, qui s'intègre aussi directement dans des projets pour faciliter l'écriture de code informatique. Avoir un outil commun permet de centraliser les connaissances sur ce domaine et les bonnes pratiques, mais surtout, de ne pas rendre le sujet tabou, ce qui pourrait amener à des comportements plus difficiles à contrôler, on entend actuellement parler de « shadow AI », phénomène émergent où l'utilisation de ce genre d'outils est réalisée par les employés sans approbation de leurs supérieurs ou du service informatique. L'intérêt d'utiliser ces outils pour des jeunes ingénieurs est simple, cela facilite l'accès à un grand nombre de connaissances et simplifient l'implémentation pour tester des outils rapidement. L'acceptation semble donc rapide car l'outil est vu comme utile. Cela renforce alors les résultats obtenus dans l'étude présentée. Il reste tout de même intéressant de rendre les pratiques plus contrôlées et raisonnées pour éviter des dérives, ce que l'entreprise essaie de faire au niveau global pour éviter que chaque cellule ait à le faire.
 
-Au-delà de la perception des outils, la montée en compétence dépend fortement de l'environnement de travail. Les travaux d'Edmondson sur le « teaming » montrent qu'un environnement psychologiquement sécurisant, où chacun peut poser des questions, reconnaître ses limites et solliciter de l'aide sans crainte d'être jugé, accélère l'apprentissage collectif @edmondson2012teaming. C'est un point clé pour nous : se sentir dans une équipe où d'autres ont probablement les mêmes questionnements pousse à partager les réponses ou les sources explicatives trouvées. Cet accompagnement, joint à un investissement personnel et à une veille régulière, est ce qui permet de combler progressivement le manque d'expérience sur ces thématiques. Cela reste un processus qui prend du temps, notamment du fait de la complexité du domaine de la compression vidéo et, pour ce projet en particulier, de la complexité du domaine du deep learning.
+Au-delà de la perception des outils, la montée en compétence dépend fortement de l'environnement de travail. Les travaux d'Edmondson sur le « teaming » montrent qu'un environnement psychologiquement sécurisant, où chacun peut poser des questions, reconnaître ses limites et solliciter de l'aide sans crainte d'être jugé, accélère l'apprentissage collectif @edmondson2012teaming. C'est un point clé pour nous, se sentir dans une équipe où d'autres ont probablement les mêmes questionnements, de par un manque logique d'expérience, pousse à partager les réponses ou les sources explicatives trouvées. Ce partage, joint à un investissement personnel et à une veille régulière, est ce qui permet de combler progressivement le manque d'expérience sur ces thématiques. Cela reste un processus qui prend du temps, notamment du fait de la complexité du domaine de la compression vidéo et, pour ce projet en particulier, de la complexité du domaine du deep learning.
 
 
 == Encodage : la réduction d'informations transmises
@@ -368,6 +386,7 @@ Au-delà de la perception des outils, la montée en compétence dépend fortemen
 Le codage vidéo repose sur un grand nombre de principes parfois complexes ; le but ici sera seulement de donner les logiques de base et certains éléments importants qui permettront une meilleure compréhension du sujet et faciliteront l'identification des éléments d'une possible amélioration.
 Une vidéo est une suite d'images qui se suivent, souvent très rapidement (plusieurs par seconde). On peut parfois avoir des vidéos qui contiennent 30, 60, voire 120 images par seconde (#gls("fps", "FPS")), et plus dans certains cas, pour des types de contenus qui demandent une grande fluidité. Durant un court laps de temps, la scène ne change que très peu. C'est le point principal utilisé pour la compression vidéo : exploiter cette redondance d'informations de manière efficace.
 Pour bien comprendre les différents concepts, il faut aussi avoir en tête que les images sont décomposées en blocs, qui peuvent être de taille variable pour une même image. Dans les exemples, nous garderons une taille fixe pour faciliter la compréhension.
+
 Pour illustrer ce mécanisme, voici un exemple simple qui permet de comprendre la logique utilisée.
 
 #align(center)[
@@ -377,9 +396,11 @@ Pour illustrer ce mécanisme, voici un exemple simple qui permet de comprendre l
   ) <intermotion>
 ]
 
-Le premier point est la principale optimisation, qui utilise une répétition d'informations ; mais il faut tout d'abord transmettre une image clé, qui servira de point d'ancrage pour la suite de cette prédiction de mouvement. Une image clé est transmise pour chaque groupe d'images (#gls("gop", "GOP")).
-Ces images clés doivent être transmises entièrement, ce qui peut parfois avoir un coût important. On utilise alors une autre forme de redondance, au sein de cette image uniquement : des zones de ciel bleu pourront être transmises simplement, car les blocs voisins se ressemblent.
-Pour ce faire, il faut dérouler à partir des informations connues de l'image : le bloc en haut à gauche est transmis en premier, il servira alors de base pour la suite.
+Le premier point est la principale optimisation, qui utilise une répétition d'informations, mais il faut tout d'abord transmettre une image clé, qui servira de point d'ancrage pour réaliser cette prédiction de mouvement. Une image clé est transmise pour chaque groupe d'images (#gls("gop", "GOP")).
+Ces images clés doivent être transmises entièrement, ce qui peut parfois avoir un coût important. On utilise alors une autre forme de redondance, au sein d'une même image, des zones simples comme un ciel bleu pourront être transmises simplement, car les blocs voisins se ressemblent.
+Pour ce faire, il faut dérouler à partir des informations connues de l'image, qui sont déjà prédite. Le bloc en haut à gauche est transmis en premier, il servira alors de base pour la suite des prédictions qui vont dérouler jusqu'à terminer l'image.
+Toutes ces prédiction sont réalisées avec comme contrainte de s'éloigner le moins possible de l'image d'origine, ce qui permet de choisir parmis les différentes options qui permettent de dérouler l'image.
+
 Voici un exemple qui montre la manière dont cela est utilisé.
 
 #align(center)[
@@ -390,7 +411,16 @@ Voici un exemple qui montre la manière dont cela est utilisé.
 ]
 
 
-Une fois ces prédictions réalisées, l'image prédite n'étant pas parfaite, il manque des informations importantes à transmettre pour la corriger au mieux. Cette correction est appelée résidu : c'est la différence entre l'image prédite et l'image d'origine, le reste des informations à transmettre pour arriver à l'image d'origine.
+Différentes options permettent de dérouler l'image, dans les outils récents il en existe de nombreuses mais pour comprendre la logique voici quelques exemples simples :
+
+- La prédiction horizontale  : On lisse de gauche à droite.L'encodeur considère que les pixels d'une ligne sont la continuité directe des pixels situés juste à gauche. Il recopie simplement les valeurs de la colonne précédente pour remplir le bloc.
+- La prédiction verticale : On lisse de haut en bas. À l'inverse, l'encodeur estime que les pixels d'une colonne sont identiques à ceux de la ligne située juste au-dessus. Il "tire" l'information vers le bas pour prédire le contenu du bloc.
+- La prédiction par moyenne globale : Dans les zones où les couleurs sont très homogènes (un aplat de couleur par exemple), l'encodeur calcule la moyenne des pixels voisins (en haut et à gauche) et applique cette valeur unique à tout le bloc.
+
+Parmis ces trois options l'exemple imagé utilisait la prédiction verticale.
+
+
+Une fois ces prédictions réalisées, l'image prédite n'étant pas parfaite, il manque des informations importantes à transmettre pour la corriger au mieux. Cette correction est appelée résidu : c'est la différence entre l'image prédite et l'image d'origine, autrement dit, c'est le reste des informations à transmettre pour arriver à l'image d'origine.
 
 
 #align(center)[
@@ -407,6 +437,7 @@ Une fois ces prédictions réalisées, l'image prédite n'étant pas parfaite, i
   ) <resexemple>
 ]
 
+Nous verrons dans la section suivante que ce résidu n'est pas transmis tel quel car il peut parfois contenir encore un grand nombre d'informations.
 
 == Utilisateur et compression ciblée
 
@@ -433,6 +464,17 @@ Pour illustrer la simplification des données, voici aussi un exemple de l'utili
 
 Il est important de noter que ces transformations n'ont d'effet sur les données que si le paramètre de quantification « qstep » est supérieur à 0 ; sinon, les données restent intactes. Cette transformation permet alors de cibler les fréquences de l'image que l'on veut simplifier ; c'est là que repose la majorité des simplifications réalisées par les codecs pour obtenir des données plus compressibles, avec notamment davantage de valeurs simples comme des zéros. Un élément expliqué plus tard, en @th_info.
 
+Pour avoir une idée du résultat obtenu après quantification voici un exemple pour une zone d'image qui permet de voir précisemment les détails. 
+
+#align(center)[
+  #figure(
+    image("images/quantResult.png", width: 100%),
+    caption: [Exemple de résultat après quantification, ici 67.1875% des coefficients sont supprimés @moreira2022digitalvideo],
+  ) <quantif_dct>
+]
+
+On observe donc que cette étape cause une perte en qualité ou ua moins en fidélité à l'image originale. On remarque cependant que malgré une perte de plus de la moitiés des coefficients, l'image reste globalement similaire.
+
 
 Le second mécanisme concerne la couleur. Une image peut être décrite en #gls("rgb", "RGB") (_Red, Green, Blue_), mais on lui préfère l'espace #gls("yuv", "YUV"), qui sépare la #gls("luminance", "luminance") (l'intensité lumineuse) des #gls("chrominance", "chrominances") (la couleur). Là où, en #gls("rgb", "RGB"), cette luminance se retrouve dans chacune des composantes, ce qui empêche de la séparer du reste des informations.
 
@@ -444,15 +486,27 @@ Le second mécanisme concerne la couleur. Une image peut être décrite en #gls(
 ]
 
 
-L'œil étant beaucoup plus sensible à la luminance qu'à la couleur, on peut alors sous-échantillonner cette dernière : c'est le format 4:2:0, où la couleur est transmise à une résolution réduite par rapport à la luminance. La perte est réelle, mais quasiment imperceptible.
+L'œil étant beaucoup plus sensible à la luminance qu'à la couleur, on peut alors sous-échantillonner cette dernière : c'est le format 4:2:0 qui est souvent choisi, où la couleur est transmise à une résolution réduite par rapport à la luminance. La perte est réelle, mais quasiment imperceptible.
+
 Pour comprendre ce point et l'impact qu'il a sur les données, voici un exemple en image :
 
 #align(center)[
   #figure(
     image("images/420_exemple.png", width: 100%),
-    caption: [Exemple de réduction des données en 4:2:0],
+    caption: [Exemple de réduction des données en 4:2:0 et autres formats, @wiki:chroma_subsampling],
   ) <420>
 ]
+
+Pour garder l'exemple du format 4:2:0, on a donc deux couleurs qui sont en fait la concaténation des chrominance rouge et bleu ce qui en réalité, représente 4 informations.
+
+#align(center)[
+  #figure(
+    image("images/420_formats.png", width: 100%),
+    caption: [Exemple visuel en 4:2:0 et autres formats, @wiki:chroma_subsampling],
+  ) <420_visu>
+]
+
+On voit alors que malgré une réduction importante des données pour le format 4:2:0, qui supprime 75% des informations de couleurs permet de retrouver une image qui reste assez simailaire à celle contenant toute les informations (le format 4:4:4). Un autre ordre de grandeur met en avant cette efficacité, avec cette méthode on garde uniquement 50% des données d'origines (4/4 +1/4 + 1/4 = 6/12), on a donc réduit par deux les données sans perdre trop d'information.
 
 Ces deux exemples montrent une chose importante pour la suite : la compression ne cherche pas la fidélité parfaite, mais la fidélité _perçue_. C'est exactement le terrain sur lequel se place ce projet : modifier l'image pour qu'elle coûte moins cher à coder, sans que l'utilisateur final ne le remarque.
 
@@ -462,7 +516,7 @@ La théorie derrière le codage arithmétique est complexe ; l'objectif de cette
 
 Nous venons de voir brièvement comment les informations étaient transmises ; cependant, ces informations peuvent grandement faire varier le poids des fichiers vidéo. Une logique simple repose sur la théorie de l'information : plus une information est prédictible, moins elle coûte cher à transmettre. On comprend alors l'intérêt de la #gls("quantification", "quantification"), qui simplifie les valeurs : on retrouve par exemple un grand nombre de zéros, quasiment gratuits à transmettre.
 
-C'est là qu'intervient le codage entropique, l'outil qui transforme réellement ces valeurs en bits. En #gls("hevc", "H.265"), ce rôle est tenu par le #gls("cabac", "CABAC"). Sans entrer dans le détail, il faut surtout retenir deux idées. D'abord, il est contextuel : pour coder une valeur, il regarde ses voisines déjà codées et s'en sert pour estimer ce qui va probablement suivre. Ensuite, il est adaptatif : au fil du codage, il met à jour ses probabilités en fonction de ce qu'il a réellement rencontré. Autrement dit, plus le contenu est régulier et conforme à ses attentes, plus il devient efficace.
+C'est là qu'intervient le codage entropique, l'outil qui transforme réellement ces valeurs en représentation binaire (en bits). Dans #gls("hevc", "H.265"), ce rôle est tenu par le #gls("cabac", "CABAC"). Sans entrer dans le détail, il faut surtout retenir deux idées. D'abord, il est contextuel, pour coder une valeur, il regarde ses voisines déjà codées et s'en sert pour estimer ce qui va probablement suivre. Ensuite, il est adaptatif, au fil du codage, il met à jour ses probabilités en fonction de ce qu'il a réellement rencontré. Autrement dit, plus le contenu est régulier et conforme à ses attentes, plus il devient efficace.
 
 On voit alors pourquoi avoir des valeurs simples est si important. Une suite de valeurs proches, répétées ou nulles est très prédictible : le #gls("cabac", "CABAC") lui attribue une forte probabilité et la code sur très peu de bits. À l'inverse, des valeurs dispersées et imprévisibles coûtent cher. C'est précisément ce levier que l'on cherche à exploiter : si l'on parvient, en amont, à rendre l'image plus simple à représenter une fois transformée et quantifiée (davantage de zéros, des coefficients plus réguliers), alors le codage final devient moins coûteux, à qualité visuelle comparable. C'est tout l'enjeu de l'optimisation visée dans ce projet.
 
@@ -473,7 +527,7 @@ Si l'on veut optimiser une vidéo, encore faut-il pouvoir mesurer sa qualité. C
 
 La référence reste le jugement humain. En réunissant un panel d'utilisateurs et en moyennant leurs notes, on obtient un #gls("mos", "MOS") (_Mean Opinion Score_), considéré comme la « vérité terrain » de la qualité perçue. C'est d'ailleurs l'une des expertises reconnues de notre équipe, sollicitée pour ce type de tests par de grands acteurs du secteur. Mais ces tests sont coûteux et lents : impossible de les utiliser pour guider, image par image, l'entraînement d'un réseau de neurones.
 
-On s'appuie donc sur des #gls("metrique", "métriques") objectives, c'est-à-dire calculées automatiquement. La plus ancienne, le #gls("psnr", "PSNR"), mesure simplement l'écart pixel à pixel avec la source ; elle est facile à calculer, mais corrèle mal avec la perception humaine.
+On s'appuie donc sur des #gls("metrique", "métriques") objectives, c'est-à-dire calculées automatiquement. La plus ancienne, le #gls("psnr", "PSNR"), mesure simplement l'écart pixel à pixel avec la source, elle est facile à calculer, mais corrèle mal avec la perception humaine. Elle reste pourtant un indicateur intérressant pour mésurer les performances d'un codec à quel point, il reproduit exactement l'image d'origine.
 
 #align(center)[
   #figure(
@@ -484,9 +538,10 @@ On s'appuie donc sur des #gls("metrique", "métriques") objectives, c'est-à-dir
 
 On voit, dans cet exemple, que la mesure de fidélité de l'image au niveau des pixels ne réagit pas du tout de la même manière selon l'image : un gain de 3 dB peut être invisible ou, au contraire, grandement améliorer la qualité.
 
-D'autres métriques, comme le #gls("ssim", "SSIM") ou surtout le #gls("vmaf", "VMAF"), cherchent à se rapprocher du jugement humain en combinant plusieurs indicateurs. Ces métriques sont au cœur du projet, mais elles ont aussi leurs défauts, un point sur lequel nous reviendrons, car une métrique mal choisie peut conduire à optimiser dans une mauvaise direction.
+D'autres métriques, comme le #gls("ssim", "SSIM") ou surtout le #gls("vmaf", "VMAF"), cherchent à se rapprocher du jugement humain en combinant plusieurs indicateurs. Ces métriques sont au cœur du projet, mais elles ont aussi leurs défauts, un point sur lequel nous reviendrons //TODO
+, car une métrique mal choisie peut conduire à optimiser dans une mauvaise direction.
 
-Enfin, il faut garder en tête que ces métriques restent des approximations. La validation finale d'une optimisation, une fois les outils suffisamment matures, passera par de vrais utilisateurs : c'est ce qui garantit la validité du projet, et c'est précisément le type de tests que notre environnement permet de mener.
+Enfin, il faut garder en tête que ces métriques restent des approximations. La validation finale d'une optimisation, une fois les outils suffisamment matures dans la poursuite du projet, passera par de vrais utilisateurs, c'est ce qui garantit la validité du projet, et c'est précisément le type de tests que notre cellule peut mener.
 
 == Les limitations pour l'apprentissage
 
@@ -494,7 +549,7 @@ Nous l'avons mentionné, les codecs classiques s'intègrent mal dans un apprenti
 
 === Limites mathématiques des outils pour l'apprentissage <limites_codec>
 
-Ces limites sont avant tout mathématiques. Pour qu'un réseau apprenne, chaque opération de la boucle doit indiquer dans quelle direction ajuster les paramètres : c'est le rôle du gradient, qui donne en quelque sorte le « sens de la pente ». Une opération est utilisable pour l'apprentissage si elle est différentiable, c'est-à-dire si l'on peut calculer cette pente.
+Ces limites sont avant tout mathématiques. Pour qu'un réseau apprenne, chaque opération de la boucle doit indiquer dans quelle direction ajuster les paramètres, c'est le rôle du gradient, qui donne en quelque sorte le « sens de la pente ». Une opération est utilisable pour l'apprentissage si elle est différentiable, c'est-à-dire si l'on peut calculer cette pente.
 
 #figure(
   canvas(length: 1cm, {
@@ -613,10 +668,10 @@ Les #gls("codec", "codecs") vidéo regorgent de ce type d'opérations. La #gls("
       #text(size: 9pt)[(b) Sélection du meilleur bloc (argmin)]
     ],
   ),
-  caption: [Deux opérations non différentiables typiques d'un #gls("codec", "codec"). À gauche, l'arrondi de la #gls("quantification", "quantification") : sa courbe en escalier est plate entre les marches (gradient nul) et discontinue aux sauts. À droite, la sélection du meilleur bloc par argmin : le choix est discret, il saute d'un bloc à l'autre sans fournir de pente exploitable.],
+  caption: [Deux opérations non différentiables typiques d'un #gls("codec", "codec"). À gauche, l'arrondi de la #gls("quantification", "quantification") : sa courbe en escalier est plate entre les marches et discontinue aux sauts. À droite, la sélection du meilleur bloc par argmin : le choix n'est pas continu, il saute d'un bloc à l'autre sans fournir de pente exploitable.],
 ) <nondiff>
 
-C'est notamment pour ces raisons qu'il devient complexe de reproduire fidèlement un apprentissage complet qui guiderait vers les meilleures options pour ces fonctions. Nous verrons par la suite qu'il est possible de supprimer certaines opérations et de les rendre invisibles ; cependant, l'optimisation devient alors aveugle à des éléments qui sont au cœur des choix lors de la compression.
+C'est notamment pour ces raisons qu'il devient complexe de reproduire fidèlement un apprentissage complet qui guiderait vers les meilleures options pour ces fonctions. Nous verrons par la suite qu'il est possible de supprimer certaines opérations et de les rendre invisibles, cependant, l'optimisation devient alors aveugle à des éléments qui sont au cœur des choix lors de la compression. Il faut alors trover le juste milieu pour que l'envirronement d'apprentissage regroupe et puisse comprendre les éléments essentiels de cette optimisation.
 
 
 
@@ -778,13 +833,13 @@ Reste la question de la qualité, puisque le codec encode à un niveau fixe. La 
 
 Afin de développer une méthode qui prend davantage en compte les réalités de la compression, nous avons fait le choix de créer une seconde version de proxy, cherchant cette fois à devenir un simulateur fidèle de #gls("hevc", "H.265"). La difficulté principale réside dans le fait que de nombreuses opérations complexes, optimisées pour s'exécuter rapidement sur des processeurs, doivent ici être transformées en simplifications à la fois différentiables et exécutables sur carte graphique. Cette dernière possède des propriétés très différentes du CPU, mais reste indispensable à l'entraînement par IA.
 
-Comme nous l'avons vu en @limites_codec, les codecs comportent un grand nombre d'opérations inutilisables en l'état pour l'apprentissage, faute d'une pente exploitable. Cette implémentation repose donc sur un compromis : trouver des fonctions de remplacement qui restent fidèles à la logique des opérations principales du codec. Une telle version perd en fidélité exacte, mais conserve l'essentiel : elle reste dans le même paradigme que la cible #gls("hevc", "H.265"), là où un proxy purement neuronal s'en éloigne complètement.
+Comme nous l'avons vu en @limites_codec, les codecs comportent un grand nombre d'opérations inutilisables en l'état pour l'apprentissage, faute d'une pente exploitable. Cette implémentation repose donc sur un compromis : trouver des fonctions de remplacement qui restent fidèles à la logique des opérations principales du codec. Une telle version perd en fidélité, mais conserve l'essentiel, en restant dans le même paradigme que la cible #gls("hevc", "H.265"), là où un proxy purement neuronal s'en éloigne.
 
 === Sélection du meilleur bloc : du choix dur au mélange pondéré
 
-La sélection du meilleur bloc candidat lors de la prédiction est l'une des opérations bloquantes identifiées précédemment : elle repose sur un argmin, un choix discret qui ne fournit aucun gradient exploitable (@nondiff). Les travaux existants comme @chadha2021dpp conservent cette opération mais la contournent par un #gls("ste", "STE"), forçant un gradient identité au retour. Cette approche fonctionne, mais elle laisse passer un gradient qui ne porte d'information que sur le bloc effectivement choisi, ignorant les autres candidats.
+La sélection du meilleur bloc candidat lors de la prédiction est l'une des opérations bloquantes identifiées précédemment, elle repose sur un argmin, un choix discret qui ne fournit aucun gradient exploitable (@nondiff). Les travaux existants comme @chadha2021dpp conservent cette opération mais la contournent par un #gls("ste", "STE"), forçant un gradient identité au retour. Cette approche fonctionne, mais elle laisse passer l'opération, elle ne porte alors d'information que sur le bloc effectivement choisi, ignorant les autres candidats.
 
-Nous avons retenu une approche différente : plutôt que de sélectionner un unique bloc, nous calculons une combinaison pondérée de l'ensemble des candidats. Chaque candidat reçoit un poids d'autant plus fort que son erreur de correspondance est faible, via un softmax sur l'opposé de ces erreurs. Concrètement, la prédiction finale mélange visuellement plusieurs blocs selon leur pertinence. L'intérêt est double : le gradient circule à travers tous les candidats, et non plus seulement le gagnant, ce qui enrichit le signal d'apprentissage tout en préservant une trace de chacun.
+Nous avons aussi retenu une autre approche : plutôt que de sélectionner un unique bloc, nous calculons une combinaison pondérée de l'ensemble des candidats. Chaque candidat reçoit un poids d'autant plus fort que son erreur de correspondance est faible. Concrètement, la prédiction finale mélange visuellement plusieurs blocs selon leur pertinence. L'intérêt est double, le gradient circule à travers tous les candidats, et non plus seulement le gagnant, ce qui enrichit le signal d'apprentissage tout en préservant une trace de chacun.
 
 #figure(
   canvas(length: 1cm, {
@@ -827,7 +882,7 @@ Nous avons retenu une approche différente : plutôt que de sélectionner un uni
 
 === Zone de recherche et prédiction
 
-Pour rester exécutable sur carte graphique malgré le coût des recherches de blocs, @chadha2021dpp propose une méthodologie reproduisant la complexité de ces opérations tout en respectant les contraintes mémoire. Nous reprenons la logique de la prédiction inter (@intermotion), mais en l'appliquant aussi au cas intra : la zone de recherche y est restreinte à ce qui est théoriquement déjà connu dans l'image en cours de décodage, c'est-à-dire la partie située au-dessus du bloc courant et à sa gauche (@zonecausale). Cette contrainte causale est essentielle : un décodeur ne dispose jamais des blocs « futurs », et l'ignorer reviendrait à entraîner le filtre sur une information indisponible à la reconstruction réelle.
+Pour rester exécutable sur carte graphique malgré le coût des recherches de blocs, @chadha2021dpp propose une méthodologie reproduisant la complexité des opérations de prédictions pour le simages clés, tout en respectant les contraintes mémoire. Nous reprenons alors une logique de la prédiction inter (@intermotion), mais en l'appliquant aussi au cas d'une seule image, la zone de recherche y est restreinte à ce qui est théoriquement déjà connu dans l'image en cours de décodage, c'est-à-dire la partie située au-dessus du bloc courant et à sa gauche (@zonecausale). Cette contrainte causale est essentielle, un décodeur ne dispose jamais des blocs « futurs », et l'ignorer reviendrait à entraîner le filtre sur une information indisponible à la reconstruction réelle. Cette méthode permet alors de reproduire des transformations complexes pour un coût minime ici, il serait presque impossible de réaliser des opérations classiques de manière conditionnelle à l'instar d'un vrai codec, cette méthode semble donc être un bon compromis entre faisabilité et respect de la complexité des méthodes d'origine.
 
 #figure(
   canvas(length: 0.62cm, {
@@ -854,22 +909,24 @@ Pour rester exécutable sur carte graphique malgré le coût des recherches de b
     content((cx + 0.5, cy + 0.5), text(size: 6.5pt, fill: white, weight: "bold")[?])
     // legende
     rect((n + 0.6, 5.2), (n + 1.3, 5.9), fill: rgb(180, 210, 240), stroke: none)
-    content((n + 3.4, 5.55), text(size: 8pt)[zone connue (recherche)])
+    content((n + 3.8, 5.55), text(size: 8pt)[zone connue (recherche)])
     rect((n + 0.6, 4.0), (n + 1.3, 4.7), fill: rgb(220, 90, 90), stroke: 0.6pt + black)
     content((n + 2.9, 4.35), text(size: 8pt)[bloc à prédire])
     rect((n + 0.6, 2.8), (n + 1.3, 3.5), fill: white, stroke: 0.4pt + gray)
-    content((n + 3.1, 3.15), text(size: 8pt)[zone non décodée])
+    content((n + 4.5, 3.15), text(size: 8pt)[zone non décodée (non connue)])
   }),
   caption: [Zone de recherche causale pour la prédiction d'un bloc. Seule l'information déjà décodée (au-dessus et à gauche) est disponible : la recherche du meilleur candidat s'y restreint, comme le ferait un véritable décodeur.],
 ) <zonecausale>
 
 === Quantification et transformée
 
-Une autre étape clé identifiée précédemment est la #gls("quantification", "quantification"), dont l'arrondi supprime de l'information et présente un gradient nul presque partout (@nondiff). Plusieurs options existent pour la rendre apprenable : retirer purement et simplement l'apprentissage sur cette étape, ou simuler la perte par l'ajout d'un bruit aléatoire, une approche fréquente dans la littérature et que nous avons retenue. L'idée est de remplacer l'arrondi dur, non différentiable, par une perturbation continue dont l'effet statistique s'en approche, tout en laissant passer le gradient.
+Une autre étape clé identifiée précédemment est la #gls("quantification", "quantification"), dont l'arrondi supprime de l'information et présente un gradient nul presque partout (@nondiff). Plusieurs options existent pour la rendre apprenable, retirer purement et simplement l'apprentissage sur cette étape (uniquement pour l'apprentissage des poids), ou simuler la perte par l'ajout d'un bruit aléatoire, une approche fréquente dans la littérature et que nous avons retenue. L'idée est de remplacer l'arrondi dur, non différentiable, par une perturbation dont l'effet statistique s'en approche, tout en laissant passer le gradient.
 
-Concernant la transformée fréquentielle, les calculs reposent sur des matrices de #gls("dct", "DCT") permettant un traitement rapide. Notre cible étant #gls("hevc", "H.265"), nous avons veillé à employer les matrices effectivement utilisées par ce codec, et non les matrices théoriques de la #gls("dct", "DCT"). C'est une différence notable avec la littérature : des travaux comme @chadha2021dpp visaient une optimisation plus générale, sans s'aligner sur un codec précis, là où notre objectif est explicitement de coller au comportement de #gls("hevc", "H.265").
+Concernant la transformée fréquentielle, les calculs reposent sur des matrices de #gls("dct", "DCT") permettant un traitement rapide. Notre cible étant #gls("hevc", "H.265"), nous avons veillé à employer les matrices effectivement utilisées par ce codec, et non les matrices théoriques de la #gls("dct", "DCT"). C'est une différence notable avec la littérature, des travaux comme @chadha2021dpp visaient une optimisation plus générale, sans s'aligner sur un codec précis, là où notre objectif est explicitement de coller au comportement de #gls("hevc", "H.265").
 
 Enfin, nous avons fait le choix de travailler sur des blocs de taille 8×8. Une évolution future pourra consister à introduire des tailles de blocs variables, comme le fait un codec réel, puis à en valider l'utilité dans notre cas d'usage.
+=== Essais et echec d'implémentation
+//TODO
 
 === Bilan de l'implémentation
 
@@ -879,7 +936,7 @@ Cette implémentation s'est révélée particulièrement intéressante pour test
 
 Nous l'avons vu, le guide d'apprentissage doit satisfaire deux exigences à la fois : être un bon simulateur de ce que percevrait un utilisateur, et rester facilement optimisable pour que les poids du filtre soient ajustés dans la bonne direction.
 
-De nombreuses combinaisons de #gls("metrique", "métriques") sont possibles, mais toutes ne peuvent pas être testées. Or, l'objectif de ce projet porte avant tout sur les différentes approches de remplacement du #gls("codec", "codec") durant l'apprentissage, et non sur la recherche du guide idéal. Il paraît donc justifié de retenir un choix simple et cohérent, respectant nos critères de départ, quitte à approfondir cet aspect dans la suite du projet. À cela s'ajoute une précaution méthodologique : nous l'avons relevé dans les limites des travaux existants, certains entraînent le filtre sur une métrique puis évaluent les performances sur cette même métrique, ce qui fausse probablement l'analyse. Nous chercherons donc à dissocier le guide d'apprentissage des outils servant à l'évaluation finale.
+De nombreuses combinaisons de #gls("metrique", "métriques") sont possibles, mais toutes ne peuvent pas être testées. Or, l'objectif de ce projet porte avant tout sur les différentes approches de remplacement du #gls("codec", "codec") durant l'apprentissage, et non sur la recherche du guide idéal. Il paraît donc justifié de retenir un choix simple et cohérent, respectant nos critères de départ, quitte à approfondir cet aspect dans la suite du projet. À cela s'ajoute une précaution méthodologique, nous l'avons relevé dans les limites des travaux existants, certains entraînent le filtre sur une métrique puis évaluent les performances sur cette même métrique, ce qui fausse probablement l'analyse. Nous chercherons donc à dissocier le guide d'apprentissage des outils servant à l'évaluation finale.
 
 Le guide retenu cherche un compromis entre simplicité et fidélité à la perception humaine. Il associe deux composantes : une perte L1 et la métrique #gls("dists", "DISTS").
 
@@ -964,6 +1021,8 @@ Ce PFE ne constitue qu'une étape : les outils mis en place ont vocation à êtr
 / FPS <fps>: *Frames Per Second.* Images par seconde. Nombre d'images affichées chaque seconde dans une vidéo (couramment 30 ou 60). Plus il est élevé, plus la redondance temporelle entre images consécutives est forte.
 
 / GOP <gop>: *Group Of Pictures.* Groupe d'images. Ensemble d'images consécutives codées ensemble, organisé autour d'une image de référence (intra) dont dépendent les images suivantes (prédites). Limiter sa taille évite de s'appuyer sur une image d'une autre scène.
+
+// todo ajouter gradient
 
 / H.264 <h264>: *Advanced Video Coding (AVC).* Norme de compression vidéo créée en 2003. Bien qu'ancien, il reste le codec le plus utilisé aujourd'hui, grâce à son support matériel quasi universel.
 
