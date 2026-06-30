@@ -57,7 +57,7 @@
   #v(2cm)
 
   #align(center)[
-    #text(size: 26pt, weight: "bold")[Projet de fin d'étude] \
+    #text(size: 26pt, weight: "bold")[Projet de fin d'études] \
     #v(0.5cm)
     #text(
       size: 14pt,
@@ -103,7 +103,7 @@
 #pagebreak()
 
 #set page(
-  header: align(right)[Projet de fin d'étude Enzo LE BODO IDIA2026],
+  header: align(right)[Projet de fin d'études Enzo LE BODO IDIA2026],
   footer: context [
     #align(center)[
       #counter(page).display("1 / 1", both: true)
@@ -1104,6 +1104,13 @@ Ce PFE ne constitue qu'une étape : les outils mis en place ont vocation à êtr
 
 
 = Remerciements
+
+Je remercie tout d'abord, les différents parties qui m'ont permis de réaliser ce projet de fin d'études, Capacités, Polytech Nantes ainsi que l'ITII. 
+
+Je remercie aussi l'équipe IPI qui n'est pas directement lié à mon contrat mais fait partie de mon quotidien et m'offre un envirronement de travail agréable ainsi que la proximité à différentes expertises, ce qui m'a permis d'évoluer durant ce trois années d'alternance.
+
+Je remercie aussi mon équipe tutorale, notamment Bruno Theillac mon référent apprentissage pour ses nombreux conseils, Mathieu Perreira Da Silva, mon tuteur pédagogique pour ses conseils et ses retours notamment sur la vulgarisation technique et les contraintes du PFE.
+Enfin mon tuteur industrielle Pierre LEBRETON, pour sa confiance durant ce projet, ses conseils et sa disponibilité.
 
 
 = Résumé
