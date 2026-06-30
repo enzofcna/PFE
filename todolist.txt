@@ -16,3 +16,10 @@ Finaliser les analyses entre les différentes versions
 => Montrer quelques exemples visuels des optimisations réalisés
 
 => Expliquer la difficulté de comparer les deux approches
+
+
+=> faire en sorte de ranger le glossaire apr ordre alphabétique
+
+
+=> Bien répondre à des questions dans la conclusion
+

@@ -13,8 +13,22 @@
   lang: "fr",
 )
 
+// ── AÉRATION ────────────────────────────────────────────────────────────────
+#set par(
+  justify: true,
+  leading: 0.9em, // interligne (défaut ≈ 0.65 em)
+  spacing: 1.5em, // espace entre paragraphes
+)
 
-#set par(justify: true)
+#set list(
+  spacing: 0.75em, // respiration entre items de liste
+  indent: 0.4em,
+)
+
+#set figure(
+  gap: 0.9cm, // espace figure ↔ légende
+)
+// ────────────────────────────────────────────────────────────────────────────
 
 #show ref: it => {
   let el = it.element
@@ -114,9 +128,9 @@
 
 #set heading(numbering: "1.1.")
 #show heading: it => [
-  #v(0.5cm)
+  #v(0.85cm)   // était 0.5 cm
   #it
-  #v(0.2cm)
+  #v(0.45cm)   // était 0.2 cm
 ]
 
 // Saut de page avant chaque chapitre de niveau 1 (sauf le tout premier)
@@ -464,7 +478,7 @@ Pour illustrer la simplification des données, voici aussi un exemple de l'utili
 
 Il est important de noter que ces transformations n'ont d'effet sur les données que si le paramètre de quantification « qstep » est supérieur à 0 ; sinon, les données restent intactes. Cette transformation permet alors de cibler les fréquences de l'image que l'on veut simplifier ; c'est là que repose la majorité des simplifications réalisées par les codecs pour obtenir des données plus compressibles, avec notamment davantage de valeurs simples comme des zéros. Un élément expliqué plus tard, en @th_info.
 
-Pour avoir une idée du résultat obtenu après quantification voici un exemple pour une zone d'image qui permet de voir précisemment les détails. 
+Pour avoir une idée du résultat obtenu après quantification voici un exemple pour une zone d'image qui permet de voir précisemment les détails.
 
 #align(center)[
   #figure(
@@ -869,7 +883,7 @@ Nous avons aussi retenu une autre approche : plutôt que de sélectionner un uni
       rect((x, y - 0.22), (x + 0.7, y + 0.22), stroke: 0.6pt + blue, radius: 1pt)
       content((x + 0.35, y), text(size: 7pt)[#lbl])
       content((x + 1.5, y), text(size: 6.5pt, fill: blue)[#w])
-      arrow((x + 0.75, y), (8.9, (1.2+(y*0.1))))
+      arrow((x + 0.75, y), (8.9, (1.2 + (y * 0.1))))
     }
     rect((9.0, 1.1), (10.5, 1.7), stroke: 1pt + blue, radius: 1pt)
     content((9.75, 1.4), text(size: 6.5pt, fill: blue)[Σ pondérée])
@@ -925,7 +939,7 @@ Concernant la transformée fréquentielle, les calculs reposent sur des matrices
 
 Enfin, nous avons fait le choix de travailler sur des blocs de taille 8×8. Une évolution future pourra consister à introduire des tailles de blocs variables, comme le fait un codec réel, puis à en valider l'utilité dans notre cas d'usage.
 === Essais et echec d'implémentation
-Durant le projet de nombreux tests ont été réalisés, beaucoup n'ont pas permis d'aboutir à une solution fiable mais ce sont aussi ces tests qui ont permis de continuer de rentrer plus en détail dans le sujet. Mais parfois ce sont aussi des pertes de temps sèche que j'ai terminé par évité le plus possible en me fixant des limites et en repartant parfois de choses plus simples mais établies afin de ne pas me perdre dans des solutions inutiles.
+Durant le projet de nombreux tests ont été réalisés, beaucoup n'ont pas permis d'aboutir à une solution fiable mais ce sont aussi ces tests qui ont permis de continuer de rentrer plus en détail dans le sujet. Il existe un grand nombre de possibilité et établir les meilleurs options est un problème complexe qui demande aussi une connaissance dans le domaine très poussée. Parfois certaines tentatives sont aussi des pertes de temps sèche, j'ai fini par les éviter le plus possible en me fixant des limites et en repartant parfois de choses plus simples mais établies afin de ne pas me perdre dans des solutions inutiles.
 
 === Bilan de l'implémentation
 
@@ -1111,7 +1125,7 @@ Ce PFE ne constitue qu'une étape : les outils mis en place ont vocation à êtr
 
 = Remerciements
 
-Je remercie tout d'abord, les différents parties qui m'ont permis de réaliser ce projet de fin d'études, Capacités, Polytech Nantes ainsi que l'ITII. 
+Je remercie tout d'abord, les différents parties qui m'ont permis de réaliser ce projet de fin d'études, Capacités, Polytech Nantes ainsi que l'ITII.
 
 Je remercie aussi l'équipe IPI qui n'est pas directement lié à mon contrat mais fait partie de mon quotidien et m'offre un envirronement de travail agréable ainsi que la proximité à différentes expertises, ce qui m'a permis d'évoluer durant ce trois années d'alternance.
 
