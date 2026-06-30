@@ -857,25 +857,24 @@ Nous avons aussi retenu une autre approche : plutôt que de sélectionner un uni
     content((1.9, 1.4), text(size: 11pt, weight: "bold")[argmin])
     rect((3.1, 1.18), (3.8, 1.62), stroke: 1pt + red, radius: 1pt)
     content((3.45, 1.4), text(size: 7pt, fill: red)[C2])
-    arrow((0.75, 1.8), (1.4, 1.5))
+    arrow((0.75, 1.8), (1.3, 1.4))
     arrow((2.45, 1.4), (3.05, 1.4))
-    content((3.45, 0.6), text(size: 6.5pt, fill: red)[1 seul bloc])
+    content((3.45, 0.6), text(size: 6.5pt, fill: black)[1 seul bloc])
     content((3.45, 0.2), text(size: 6.5pt)[gradient via C2])
 
     // --- Approche soft-matching ---
-    content((5.7, 3.6), text(weight: "bold", size: 9pt)[(b) Mélange pondéré (notre choix)])
+    content((5.7, 3.6), text(weight: "bold", size: 9pt)[(b) Mélange pondéré])
     let cand2 = ((6, 2.6, "C1", 0.15), (6, 1.8, "C2", 0.55), (6, 1.0, "C3", 0.22), (6, 0.2, "C4", 0.08))
     for (x, y, lbl, w) in cand2 {
       rect((x, y - 0.22), (x + 0.7, y + 0.22), stroke: 0.6pt + blue, radius: 1pt)
       content((x + 0.35, y), text(size: 7pt)[#lbl])
-      content((x + 1.5, y), text(size: 6.5pt, fill: blue)[poids #w])
-      arrow((x + 0.75, y), (9.0, 1.4))
+      content((x + 1.5, y), text(size: 6.5pt, fill: blue)[#w])
+      arrow((x + 0.75, y), (8.9, (1.2+(y*0.1))))
     }
-    content((7.8, 3.0), text(size: 9pt, weight: "bold")[softmax])
-    rect((9.0, 1.1), (9.9, 1.7), stroke: 1pt + blue, radius: 1pt)
-    content((9.45, 1.4), text(size: 6.5pt, fill: blue)[Σ pondérée])
-    content((9.45, 0.6), text(size: 6.5pt, fill: blue)[gradient via])
-    content((9.45, 0.25), text(size: 6.5pt, fill: blue)[tous les candidats])
+    rect((9.0, 1.1), (10.5, 1.7), stroke: 1pt + blue, radius: 1pt)
+    content((9.75, 1.4), text(size: 6.5pt, fill: blue)[Σ pondérée])
+    content((9.75, 0.6), text(size: 6.5pt, fill: black)[gradient via])
+    content((9.75, 0.25), text(size: 6.5pt, fill: black)[tous les candidats])
   }),
   caption: [Deux façons de gérer la sélection de bloc non différentiable. À gauche, le #gls("ste", "STE") garde le choix dur (argmin) et ne propage le gradient que par le bloc gagnant. À droite, notre approche par mélange pondéré (softmax) combine tous les candidats selon leur pertinence, laissant le gradient circuler à travers chacun.],
 ) <softmatch>
@@ -926,7 +925,7 @@ Concernant la transformée fréquentielle, les calculs reposent sur des matrices
 
 Enfin, nous avons fait le choix de travailler sur des blocs de taille 8×8. Une évolution future pourra consister à introduire des tailles de blocs variables, comme le fait un codec réel, puis à en valider l'utilité dans notre cas d'usage.
 === Essais et echec d'implémentation
-//TODO
+Durant le projet de nombreux tests ont été réalisés, beaucoup n'ont pas permis d'aboutir à une solution fiable mais ce sont aussi ces tests qui ont permis de continuer de rentrer plus en détail dans le sujet. Mais parfois ce sont aussi des pertes de temps sèche que j'ai terminé par évité le plus possible en me fixant des limites et en repartant parfois de choses plus simples mais établies afin de ne pas me perdre dans des solutions inutiles.
 
 === Bilan de l'implémentation
 
@@ -962,12 +961,19 @@ Il sera donc intéressant de fournir des exemples visuels des images modifiées,
 = Résultats et analyses <resultats>
 
 == En tant que #gls("proxy", "Proxy")
+Cette section a pour but d'évaluer les performances de ces différentes méthodes en tant que copieur de ce que fait réellement H265, le but est donc d'évaluer la pertinance des images sorties par ces outils. Mais aussi d'évaluer s'ils sont capable d'ordonner de manière précise les différents contenus au niveau du débit et donc du coût réel des différentes images composants la vidéo.
+
+Les deux méthodes étant différentes cette évaluation se fera donc sur un point de qualité qui peut être atteignable par les différentes options.
+Pour rappel, le proxy neuronal est entriané à reproduir une qualité fixe (CRF 22 dans notre cas), pour le comparer avec la seconde approche il fuat alors se placer à QP 22, ce qui va légèrement différer mais permet tout de même de voir à quel point ces outils sont pertinents ou non.
+
 // TODO (dépend de tes résultats) :
 // - Évaluer la fidélité des images face au vrai codec.
 // - Évaluer la corrélation face à l'estimation de débit.
 // - Expliquer la différence entre les deux versions (apprise vs mimétisme).
 // - Voir dans quelle mesure le proxy fonctionne (si on entraîne dessus, les résultats
 //   se reportent-ils sur le vrai codec ?).
+
+Il est important de noter que notre proxy simplifié est assez bon sur ce niveau de qualité mais devient moins performant lorsque l'on demande de traiter des images à basse qualité, cela vient notamment du fait que des codecs réels utilisent des optimisations très avancé pour perdre le moins de qualités possible à qualité basse, c'est là où leurs optimisations sont les plus présentes et perfromantes et que notre version simplifiée ne suffit plus pour devenir un simulateur fidèle.
 
 == Résultats face aux #gls("metrique", "métriques")
 // TODO (dépend de tes résultats) :
@@ -1110,7 +1116,7 @@ Je remercie tout d'abord, les différents parties qui m'ont permis de réaliser 
 Je remercie aussi l'équipe IPI qui n'est pas directement lié à mon contrat mais fait partie de mon quotidien et m'offre un envirronement de travail agréable ainsi que la proximité à différentes expertises, ce qui m'a permis d'évoluer durant ce trois années d'alternance.
 
 Je remercie aussi mon équipe tutorale, notamment Bruno Theillac mon référent apprentissage pour ses nombreux conseils, Mathieu Perreira Da Silva, mon tuteur pédagogique pour ses conseils et ses retours notamment sur la vulgarisation technique et les contraintes du PFE.
-Enfin mon tuteur industrielle Pierre LEBRETON, pour sa confiance durant ce projet, ses conseils et sa disponibilité.
+Enfin mon tuteur industrielle Pierre Lebreton, pour sa confiance durant ce projet, ses conseils et sa disponibilité.
 
 
 = Résumé
