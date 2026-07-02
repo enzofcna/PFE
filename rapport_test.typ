@@ -132,6 +132,59 @@
 = Introduction <intro>
 
 == Contexte
+#figure(
+  canvas(length: 1cm, {
+    import draw: *
+    let arrow = (s, e) => line(s, e, mark: (end: ">", fill: black, scale: 0.7))
+    let cImg = rgb("#EEEDFE");  let cImgS = rgb("#534AB7")
+    let cFilt = rgb("#F1EFE8"); let cFiltS = rgb("#5F5E5A")
+    let cCod = rgb("#E6F1FB");  let cCodS = rgb("#185FA5")
+    let cPrx = rgb("#E1F5EE");  let cPrxS = rgb("#0F6E56")
+    let cRes = rgb("#FAEEDA");  let cResS = rgb("#BA7517")
+    let cLoop = rgb("#D85A30")
+
+    // ── ENTRÉE / IMAGES (pile de 3) ──
+    rect((0.15, 3.35), (1.75, 4.55), fill: cImg.lighten(35%), stroke: 0.5pt + cImgS)
+    rect((0.3, 3.55), (1.9, 4.75), fill: cImg.lighten(15%), stroke: 0.5pt + cImgS)
+    rect((0.45, 3.75), (2.05, 4.95), fill: cImg, stroke: 0.6pt + cImgS)
+    content((1.1, 5.55), text(size: 8pt, fill: cFiltS)[ENTRÉE])
+    content((1.25, 2.9), text(size: 8.5pt, weight: "bold")[Images])
+
+    // ── FILTRE ──
+    arrow((2.25, 4.35), (3.4, 4.35))
+    rect((3.5, 3.5), (5.4, 5.2), fill: cFilt, stroke: 0.7pt + cFiltS, radius: 3pt)
+    content((4.45, 4.5), text(size: 9pt, weight: "bold")[Filtre])
+    content((4.45, 4.05), text(size: 8pt)[(IA)])
+
+    content((8.3, 7.7), text(size: 8pt, weight: "bold", fill: cFiltS)[RÉSULTATS DE COMPRESSION])
+
+    // ── codec source (haut) ──
+    arrow((5.55, 4.85), (7.0, 6.3))
+    rect((7.0, 5.7), (9.6, 7.1), fill: cCod, stroke: 0.6pt + cCodS, radius: 3pt)
+    content((8.3, 6.65), text(size: 8.5pt, weight: "bold", fill: cCodS)[Codec source])
+    content((8.3, 6.15), text(size: 8pt)[(H.265)])
+
+    // ── copie du codec (bas) ──
+    arrow((5.55, 3.85), (7.0, 2.4))
+    rect((7.0, 1.6), (9.6, 3.0), fill: cPrx, stroke: 0.6pt + cPrxS, radius: 3pt)
+    content((8.3, 2.55), text(size: 8.5pt, weight: "bold", fill: cPrxS)[Copie du codec])
+    content((8.3, 2.05), text(size: 8pt)[(simulateur)])
+
+    // ── convergence vers le résultat ──
+    arrow((9.7, 6.3), (11.4, 5.0))
+    arrow((9.7, 2.4), (11.4, 3.7))
+    rect((11.5, 3.5), (13.9, 5.2), fill: cRes, stroke: 0.6pt + cResS, radius: 3pt)
+    content((12.7, 4.55), text(size: 8pt, weight: "bold", fill: cResS)[Résultat du filtre])
+    content((12.7, 4.05), text(size: 8pt)[(bonne qualité ?)])
+
+    // ── boucle de correction ──
+    bezier((12.6, 3.4), (4.45, 3.35), (11.5, -0.7), (5.5, -0.7),
+      stroke: (paint: cLoop, thickness: 1.6pt),
+      mark: (end: ">", fill: cLoop, scale: 0.9))
+    content((8.5, 0.75), text(size: 8.5pt, weight: "bold", fill: cLoop)[Correction du filtre])
+  }),
+  caption: [Déroulement de la boucle d'apprentissage du filtre],
+) <filtreGlobale>
 Le secteur de la #gls("vod", "vidéo à la demande (VOD)") a connu un essor très important notamment avec l’arrivée de nombreuses plateformes de contenu. Contrairement à la TNT où une seule antenne émet un signal capté par un grand nombre de foyers sans coût énergétique supplémentaire par spectateur, la VOD nécessite une connexion point à point. Chaque clic sur "Play" sur Netflix ou Amazon prime génère un flux dédié depuis un serveur (souvent via un #gls("cdn", "Content Delivery Network CDN")), augmentant fortement la consommation de bande passante et d'énergie.
 On comprend alors que dans ce contexte les algorithmes de compression visant à diminuer la taille de l’information transmise de manière optimisée : les "#gls("codec", "codecs")", deviennent de plus en plus importants. L’évolution de leurs performances a permis de rendre accessible ces services à de nombreuses personnes. Mais la difficulté d’évolution d’architecture rend l'adoption des nouvelles versions plus complexe, ce qui pousse souvent à l’utilisation d'outils n'étant pas les plus optimisés.
 

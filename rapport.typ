@@ -234,7 +234,7 @@ On peut en revanche opposer à cette optimisation un possible effet rebond, un a
 
 Les acteurs concernés par ce secteur sont parmi les plus gros du numérique, Netflix, Amazon ou Meta, et ce sont précisément les clients de notre cellule. Leurs besoins orientent donc directement nos sujets de recherche, la majorité de nos projets portent sur l'évaluation ou le développement de nouvelles solutions, souvent confrontées à un panel d'utilisateurs. Les défis remontés par le secteur confortent l'intérêt d'une optimisation agissant directement sur le poids des fichiers, les coûts de licence et de production de contenu sont identifiés comme un obstacle majeur du marché SVOD @gmi2024svod, tandis qu'une étude récente place le stockage comme premier défi des entreprises de streaming interrogées @challengesVOD. Réduire le poids des fichiers agit directement sur ces deux postes, et donc sur les coûts à différents points de la chaîne.
 
-Enfin, un point mérite d'être souligné : l'écosystème open source et open access joue un rôle clé. Il permet de faire évoluer les outils de compression, mais donne aussi accès à des outils de mesure de qualité vidéo complexes, parfois développés en interne par ces entreprises, et dont la disponibilité conditionne en grande partie la recherche dans ce domaine. Cela semble parfois en contradiction avec la volonté générale des entreprises technologiques, qui cherchent à protéger leurs outils pour ne pas aider la concurrence. Cependant, dans ce cas précis, ces entreprises profitent aussi d'une communauté très active autour des contenus vidéo : des utilisateurs ou des groupes de recherche s'emparent de leurs outils et proposent des améliorations que leurs équipes internes ne pourraient pas toutes réaliser. Faire évoluer le secteur permet à ces entreprises d'en tirer profit, nous l'avons vu le secteur est en forte hausse, chaque optimisation compte et cette aide externe, gratuite, est intéressante. Cela devient aussi un argument pour les travailleurs de ces entreprises qui peuvent mettre en avant leurs travaux publiquement. On peut toutefois illustrer la limite de cette logique : ces entreprises partagent peu, voire pas, leurs données, y compris celles utilisées pour produire ou entraîner des outils qui seront ensuite mis en accès libre. Cela montre que cette volonté de partage reste ciblée, éloignée d'une générosité soudaine qui ne correspondrait pas à une logique économique.
+Enfin, un point mérite d'être souligné : l'écosystème open source et open access joue un rôle clé. Il permet de faire évoluer les outils de compression, mais donne aussi accès à des outils de mesure de qualité vidéo complexes, parfois développés en interne par ces entreprises, et dont la disponibilité conditionne en grande partie la recherche dans ce domaine. Cela semble parfois en contradiction avec la volonté générale des entreprises technologiques, qui cherchent à protéger leurs outils pour ne pas aider la concurrence. Cependant, dans ce cas précis, ces entreprises profitent aussi d'une communauté très active autour des contenus vidéo : des utilisateurs ou des groupes de recherche s'emparent de leurs outils et proposent des améliorations que leurs équipes internes ne pourraient pas toutes réaliser. Faire évoluer le secteur permet à ces entreprises d'en tirer profit, nous l'avons vu le secteur est en forte hausse, chaque optimisation compte et cette aide externe, gratuite, est intéressante. Cela devient aussi un argument pour les travailleurs de ces entreprises qui peuvent mettre en avant leurs travaux publiquement. On peut toutefois illustrer la limite de cette logique, ces entreprises partagent peu, voire pas, leurs données, y compris celles utilisées pour produire ou entraîner des outils qui seront ensuite mis en accès libre. Cela montre que cette volonté de partage reste ciblée, éloignée d'une générosité soudaine qui ne correspondrait pas à une logique économique.
 
 === Rapport d'utilisation des outils de compression
 Pour mieux comprendre les éléments suivants, voici un bref historique des outils existants.
@@ -359,6 +359,28 @@ Il travaille sur la thématique des outils d'optimisation de compression vidéo 
 En tant qu'alternant, ce projet a commencé pour moi par une première étude sur l'utilisation d'une #gls("metrique", "métrique") de qualité vidéo dans le cas de l'entraînement d'un #gls("codec_neuronal", "codec neuronal"). L'objectif était de faire ressortir de possibles améliorations mathématiques de cette métrique afin d'en améliorer la pertinence et son utilisation durant l'apprentissage. C'était un premier pas dans ce domaine, qui m'a permis d'apprendre de nombreuses notions importantes.
 
 Par la suite, dans le cadre de mon PFE, je travaille majoritairement sur les analyses et implémentations d'outils d'optimisation, plus particulièrement sur l'aspect #gls("proxy", "proxy") de #gls("codec", "codec") afin de contourner les limitations des outils classiques ; en d'autres termes, créer un jumeau des outils classiques qui guidera l'apprentissage. Si l'on s'en fie au planning, cette tâche fait partie du Work Package n°3 concernant l'étude des cas d'utilisation des métriques, dans ce cas le filtrage d'images en pré-compression. La thématique des outils de mesure de qualité vidéo étant directement liée à ce sujet, ma mission réside aussi dans l'étude des meilleurs outils pour ce cas d'usage et de leurs spécificités, ce qui fait le lien avec les différents autres jalons du projet.
+
+== Estimation prévisionnelle du projet
+Ce porjet a débuté pour moi courant mars, en considérant la date de rendu du document écrit mi-juillet, une période d'environ 4 mois se présente pour ce projet de fin d'études. Ce qui représente environ 80 jours ou environ 560 heures de travail. 
+
+#figure(
+  caption: [Répartition prévisionnelle de la charge de travail du PFE (en jours).],
+  table(
+    columns: (1fr, auto),
+    align: (left, center),
+    stroke: 0.5pt + rgb("#888"),
+    inset: 6pt,
+    table.header([*Poste*], [*Jours*]),
+    [Etat de l'art et apprentissage continu (compression, deep learning, méthodes, métriques)], [15 j],
+    [Étude et analyse des métriques de qualité (corrélations, choix du guide, test d'optimisation)], [5 j],
+    [Implémentation des solutions : Code, test (concluants ou non), débug], [25 j],
+    [Expérimentations : entraînements/itérations, tests, analyse des résultats], [20 j], 
+    [Réunions POP, points d'équipe, séminaires, échanges encadrants], [5 j],
+    [Rédaction du mémoire, figures, documentation projet, présentation réunion], [10 j],
+    table.hline(stroke: 0.7pt),
+    [*Total*], [*80 j*],
+  ),
+) <repartition_charge>
 
 == Outils et méthodes de travail
 
@@ -847,12 +869,58 @@ Afin de comprendre les différents éléments nécessaires à l'apprentissage du
 Dans ce schéma, le terme #gls("proxy", "proxy") est associé à la copie du codec pour simplifier la compréhension ; les scores liés aux #gls("metrique", "métriques") sont aussi remplacés par *résultat du filtre*, car dans cette boucle, les métriques nous servent de guide et définissent les résultats du filtre.
 
 
-#align(center)[
-  #figure(
-    image("images/filtre_pipeline.png", width: 100%),
-    caption: [Déroulement de la boucle d'apprentissage du filtre],
-  ) <filtreGlobale>
-]
+#figure(
+  canvas(length: 1cm, {
+    import draw: *
+    let arrow = (s, e) => line(s, e, mark: (end: ">", fill: black, scale: 0.7))
+    let cImg = rgb("#EEEDFE");  let cImgS = rgb("#534AB7")
+    let cFilt = rgb("#F1EFE8"); let cFiltS = rgb("#5F5E5A")
+    let cCod = rgb("#E6F1FB");  let cCodS = rgb("#185FA5")
+    let cPrx = rgb("#E1F5EE");  let cPrxS = rgb("#0F6E56")
+    let cRes = rgb("#FAEEDA");  let cResS = rgb("#BA7517")
+    let cLoop = rgb("#D85A30")
+
+    // ── ENTRÉE / IMAGES (pile de 3) ──
+    rect((0.15, 3.35), (1.75, 4.55), fill: cImg.lighten(35%), stroke: 0.5pt + cImgS)
+    rect((0.3, 3.55), (1.9, 4.75), fill: cImg.lighten(15%), stroke: 0.5pt + cImgS)
+    rect((0.45, 3.75), (2.05, 4.95), fill: cImg, stroke: 0.6pt + cImgS)
+    content((1.1, 5.55), text(size: 8pt, fill: cFiltS)[ENTRÉE])
+    content((1.25, 2.9), text(size: 8.5pt, weight: "bold")[Images])
+
+    // ── FILTRE ──
+    arrow((2.25, 4.35), (3.4, 4.35))
+    rect((3.5, 3.5), (5.4, 5.2), fill: cFilt, stroke: 0.7pt + cFiltS, radius: 3pt)
+    content((4.45, 4.5), text(size: 9pt, weight: "bold")[Filtre])
+    content((4.45, 4.05), text(size: 8pt)[(IA)])
+
+    content((8.3, 7.7), text(size: 8pt, weight: "bold", fill: cFiltS)[RÉSULTATS DE COMPRESSION])
+
+    // ── codec source (haut) ──
+    arrow((5.55, 4.85), (7.0, 6.3))
+    rect((7.0, 5.7), (9.6, 7.1), fill: cCod, stroke: 0.6pt + cCodS, radius: 3pt)
+    content((8.3, 6.65), text(size: 8.5pt, weight: "bold", fill: cCodS)[Codec source])
+    content((8.3, 6.15), text(size: 8pt)[(H.265)])
+
+    // ── copie du codec (bas) ──
+    arrow((5.55, 3.85), (7.0, 2.4))
+    rect((7.0, 1.6), (9.6, 3.0), fill: cPrx, stroke: 0.6pt + cPrxS, radius: 3pt)
+    content((8.3, 2.55), text(size: 8.5pt, weight: "bold", fill: cPrxS)[Copie du codec])
+    content((8.3, 2.05), text(size: 8pt)[(simulateur)])
+
+    // ── convergence vers le résultat ──
+    arrow((9.7, 6.3), (11.4, 5.0))
+    rect((11.5, 3.5), (13.9, 5.2), fill: cRes, stroke: 0.6pt + cResS, radius: 3pt)
+    content((12.7, 4.55), text(size: 8pt, weight: "bold", fill: cResS)[Résultat du filtre])
+    content((12.7, 4.05), text(size: 8pt)[(bonne qualité ?)])
+
+    // ── boucle de correction ──
+    bezier((12.6, 3.4), (4.45, 3.35), (11.5, -0.7), (5.5, -0.7),
+      stroke: (paint: cLoop, thickness: 1.6pt),
+      mark: (end: ">", fill: cLoop, scale: 0.9))
+    content((8.5, 0.75), text(size: 8.5pt, weight: "bold", fill: cLoop)[Correction du filtre])
+  }),
+  caption: [Déroulement de la boucle d'apprentissage du filtre],
+) <filtreGlobale>
 
 
 Pour entrer plus en détail concernant l'architecture du filtre utilisée, nous avons fait le choix de reprendre une architecture simple liée à la partie pré-filtrage du papier @khan2025neural présenté plus tôt. Le détail des éléments composant ce filtre est disponible en @archi. Les détails de l'architecture étant fournis, cela facilite grandement l'implémentation. L'objectif ici est d'évaluer les solutions de proxy avec une architecture de filtre fonctionnelle ; cette architecture étant validée par les résultats fournis dans ces travaux, la reprendre simplifie l'étude de ce point. Dans une perspective future d'évolution visant des gains supplémentaires, cette architecture pourra largement évoluer.
@@ -962,9 +1030,53 @@ Pour rester exécutable sur carte graphique malgré le coût des recherches de b
 
 === Quantification et transformée
 
-Une autre étape clé identifiée précédemment est la #gls("quantification", "quantification"), dont l'arrondi supprime de l'information et présente un gradient nul presque partout (@nondiff). Plusieurs options existent pour la rendre apprenable : remplacer la fonction pour l'apprentissage des poids par une alternative d'arrondi modifiée et optimisable en gardant la fonction de base pour le reste des opérations, ou simuler par un alternative différente, par l'ajout d'un bruit aléatoire, comme dans les travaux de @chadha2021dpp. L'idée est de remplacer l'arrondi dur, non différentiable, par une perturbation dont l'effet s'en approche, tout en étant une fonction optimisable.
+Une autre étape clé identifiée précédemment est la #gls("quantification", "quantification"), dont l'arrondi supprime de l'information et présente un gradient nul presque partout (@nondiff). Plusieurs options existent pour la rendre apprenable : remplacer la fonction pour l'apprentissage des poids par une alternative d'arrondi modifiée et optimisable en gardant la fonction de base pour le reste des opérations.
 
-// TODO Mettre la fonction de remplacement au round
+#figure(
+  canvas(length: 1cm, {
+    import draw: *
+    let arrow = (start, end) => line(start, end, mark: (end: ">", fill: black, scale: 0.6))
+
+    // axes
+    arrow((0, 0), (4.4, 0))
+    arrow((0, 0), (0, 4.2))
+    content((4.5, 0), $x$, anchor: "west")
+    content((0, 4.5), $Q(x)$)
+
+    // arrondi dur : escalier (pointillés gris), marches en 0.5 / 1.5 / 2.5
+    line((0, 0), (0.5, 0), (0.5, 1), (1.5, 1), (1.5, 2), (2.5, 2), (2.5, 3), (3.5, 3),
+      stroke: (paint: gray, thickness: 1pt, dash: "dashed"))
+
+    // arrondi adouci : somme de transitions tanh centrées sur les mêmes marches
+    let beta = 6.0
+    let sr = x => (
+      0.5 * (1 + calc.tanh(beta * (x - 0.5)))
+        + 0.5 * (1 + calc.tanh(beta * (x - 1.5)))
+        + 0.5 * (1 + calc.tanh(beta * (x - 2.5)))
+    )
+    let pts = range(0, 36).map(i => {
+      let x = i / 10.0
+      (x, sr(x))
+    })
+    line(..pts, stroke: (paint: rgb("#534AB7"), thickness: 1.5pt))
+
+    // annotation : pente exploitable
+    arrow((3.0, 3.9), (1.84, 1.98))
+    content((3.05, 4.05), text(size: 8pt)[pente exploitable])
+
+    // annotation : palier plat (pente nulle)
+    arrow((1.55, 0.45), (0.6, 0.98))
+    content((1.9, 0.35), text(size: 8pt)[palier plat (pente nulle)])
+  }),
+  caption: [Arrondi dur (escalier, en pointillés) et sa version adoucie continue (_soft round_).],
+) <softround>
+
+L'arrondi réel a un gradient nul presque partout, la version adoucie suit les mêmes marches tout en gardant une legère pente, ce qui rend cette fonction optimisable.
+
+
+L'autre option est de simuler la perte causée par cet arrondi par une alternative différente, par l'ajout d'un bruit aléatoire, comme dans les travaux de @chadha2021dpp. L'idée est de remplacer l'arrondi dur, non différentiable, par une perturbation dont l'effet s'en approche, tout en étant une fonction optimisable.
+
+
 
 Concernant la transformation de l'image, les calculs reposent sur des matrices de #gls("dct", "DCT") permettant un traitement rapide. Notre cible étant #gls("hevc", "H.265"), nous avons veillé à employer les matrices effectivement utilisées par ce codec, et non les matrices théoriques de la #gls("dct", "DCT"). C'est une différence notable avec les différents projets, des travaux comme @chadha2021dpp visaient une optimisation plus générale, sans s'aligner sur un codec précis, là où notre objectif est explicitement de coller au mieux au comportement de #gls("hevc", "H.265").
 
@@ -1272,11 +1384,32 @@ Ce PFE ne constitue qu'une étape, les outils mis en place ont vocation à être
 
 
 = Bilan personnel
-APprentissage de notions tout au long du projet
 
-Difficultés par moment à me cocnentrer sur des solutions simple (recherche de résultats et donc frustration) mais adaptation et acceptation de la difficulté de la tâche.
+Ce projet aura été, avant tout, une période d'apprentissage dense. J'y ai
+découvert un grand nombre de concepts, dans des domaines à la fois riches et
+exigeants — la compression vidéo comme le deep learning —, et cette montée en
+compétence progressive constitue l'un des aspects les plus enrichissants de ces
+mois de travail.
 
-//TODO
+Ce cheminement ne s'est pas fait sans difficultés. J'ai parfois eu du mal à me
+contenter de solutions simples : la recherche de résultats plus aboutis m'a
+conduit, à certains moments, vers des pistes trop ambitieuses, sources de
+frustration lorsqu'elles n'aboutissaient pas. J'ai appris, au fil du projet, à
+accepter la difficulté réelle de la tâche et à revenir vers des approches plus
+mesurées mais solides, quitte à progresser plus lentement. C'est sans doute
+l'un des enseignements les plus utiles de ce PFE, au-delà de son seul contenu
+technique.
+
+Je dois aussi reconnaître que rester pleinement mobilisé sur des sujets aussi
+pointus, et sur une durée longue, n'est pas toujours évident. La complexité du
+domaine demande un effort de concentration soutenu, c'est ce qui
+rend l'organisation et la discipline de travail d'autant plus importantes.
+
+J'ai par ailleurs conscience que les résultats obtenus restent, à ce stade,
+encore peu aboutis. Ce constat n'est pas un échec, il correspond aussi à la période du projet, qui est encore jeune, et il ouvre à des perspectives pour la suite. Ce PFE constitue donc un point d'étape important
+il aura permis de mettre au clair les idées, de développer les premiers outils et
+de dégager les directions qui guideront la poursuite du projet un travail de
+clarification et d'apprentissage dont la valeur dépasse celle des seuls résultats chiffrés.
 
 
 #pagebreak()
@@ -1399,11 +1532,17 @@ Enfin mon tuteur industriel Pierre Lebreton, pour sa confiance durant ce projet,
 
 = Résumé
 
-Ce projet de fin d'études explore une question concrète du secteur de la vidéo à la demande : peut-on, à l'aide de l'intelligence artificielle, optimiser la compression vidéo en amont d'un outil de compression vidéo existant comme H.265, sans modifier les appareils des utilisateurs ? L'idée est d'appliquer un filtre neuronal de prétraitement qui rend l'image plus facile à compresser, réduisant le poids du fichier final à qualité perçue équivalente pour les utilisateurs.
+*Français*
 
-Le principal verrou est technique : les outils classiques ne sont pas optimisables mathématiquement et s'intègrent donc mal dans un apprentissage de réseau de neurones. Le travail a consisté à étudier, adapter et évaluer différentes approches de proxy permettant de contourner cette limite. Deux voies ont été explorées : un proxy par codage neuronal, entraîné à imiter la cible H.265, et un proxy par codec simplifié, reproduisant les briques essentielles de la compression sous une forme utilisable pour notre cas d'usage. Une attention particulière a été portée au choix des mesures qui vont évaluer la qualité vidéo, tant pour guider l'apprentissage que pour évaluer les résultats sans biais.
+Ce projet de fin d'études explore une question du secteur de la vidéo à la demande : peut-on, grâce à l'intelligence artificielle, optimiser la compression vidéo en amont d'un codec existant comme H.265 ? L'idée est d'appliquer un filtre neuronal de prétraitement qui rend l'image plus facile à compresser, réduisant le poids du fichier final à qualité perçue équivalente.
+Le principal verrou est technique : les outils de compréssion classiques ne sont pas optimisable et s'intègrent donc mal dans l'apprentissage d'un réseau de neurones. Le travail a consisté à étudier, adapter et évaluer deux approches de proxy contournant cette limite : un proxy par codage neuronal, entraîné à imiter H.265, et un proxy par codec simplifié, reproduisant les briques essentielles de la compression sous une forme différentiable. Une attention particulière a été portée au choix des métriques de qualité, pour guider l'apprentissage comme pour évaluer les résultats sans biais.
+Au-delà de la technique, le rapport examine le projet sous les angles économique, organisationnel et humain.
 
-Au-delà de l'aspect technique, ce rapport examine le projet sous trois angles : économique d'abord, en analysant les enjeux de bande passante, de stockage et d'énergie du secteur ; organisationnel, par l'étude du fonctionnement d'une cellule comme celle que j'intègre, faisant l'interface avec un laboratoire et une entreprise ; enfin le facteur humain, en s'intéressant à la montée en compétence d'une équipe jeune sur des sujets de pointe.
+*Mots-clés :* compression vidéo, H.265, apprentissage profond, prétraitement, proxy de codec, qualité perçue, métrique.
 
-*Mots-clés :* compression vidéo, H.265, apprentissage profond, prétraitement, proxy de codec, qualité perçue, VMAF, DISTS.
+*Anglais*
+This final-year project investigates a concrete challenge in the video-on-demand sector: can artificial intelligence be used to optimise video compression upstream of an existing codec such as H.265, without modifying end-user devices? The idea is to apply a neural pre-processing filter that makes each frame easier to compress, reducing the final file size at equivalent perceived quality.
+The main obstacle is technical: conventional codecs are not differentiable and therefore integrate poorly into the training of a neural network. The work consisted in studying, adapting and evaluating two proxy approaches to overcome this limitation: a neural-coding proxy, trained to mimic H.265, and a simplified-codec proxy, reproducing the essential building blocks of compression in a differentiable form. Particular attention was paid to the choice of quality metrics, both to guide learning and to evaluate results without bias.
+Beyond the technical aspect, this report also examines the project from economic, organisational and human perspectives.
 
+*Keywords :* video compression, H.265, deep learning, pre-processing, codec proxy, perceived quality, metric.
