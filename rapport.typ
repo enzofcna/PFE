@@ -1085,6 +1085,8 @@ Enfin, nous avons fait le choix de travailler sur des blocs de taille 8×8. Une 
 === Essais et échec d'implémentation
 Durant le projet de nombreux tests ont été réalisés, beaucoup n'ont pas permis d'aboutir à une solution fiable mais ce sont aussi ces tests qui ont permis de continuer à rentrer plus en détail dans le sujet. Il existe un grand nombre de possibilités et établir les meilleures options est un problème complexe qui demande aussi une connaissance dans le domaine très poussée. Parfois certaines tentatives sont aussi des pertes de temps sèches, j'ai fini par les éviter le plus possible en me fixant des limites et en repartant parfois de choses plus simples mais établies afin de ne pas me perdre dans des solutions inutiles.
 
+Il est important aussi de préciser que certaines tests n'ont pas réellement été des echecs mais la temporalité lié au projet de fin d'études limite le champs d'action, certaines idées ou améliorations prendront alors place pour le futur du porjet selon leur pertinance.
+
 === Bilan de l'implémentation
 
 Cette implémentation s'est révélée particulièrement intéressante pour tester différents mécanismes. Durant son développement, plusieurs essais rapides n'ont apporté aucune amélioration nette, voire ont entraîné de fortes pertes, ce qui a permis de converger vers les choix présentés ci-dessus. L'objectif étant précisément de définir les bonnes pratiques d'un tel outil, des études comparant ces différentes méthodes sont présentées en @resultats.
@@ -1142,13 +1144,12 @@ Le second jeu de données est basé sur des vidéos encodées avec un encodage p
   ),
 )
 
-== Ce que les tableaux nous disent
 
-#strong[#gls("vmaf", "VMAF") et UVQ (ou sa variante Delta UVQ) sont les valeurs sûres.] Elles restent bien classées dans presque toutes les situations : VMAF est solide un peu partout, et UVQ / Delta UVQ arrive souvent en tête, y compris quand le contenu varie beaucoup (0.824 sur le premier jeu, 0.850 sur le second). Ce sont donc des candidats fiables et polyvalents pour évaluer notre filtre. Elles sont d'ailleurs reconnues dans la littérature pour leur fiabilité, et sont utilisées dans de nombreux travaux et aussi par l'industrie.
+#strong[#gls("vmaf", "VMAF") et UVQ (ou sa variante Delta UVQ)] sont les valeurs sûres. Elles restent bien classées dans presque toutes les situations : VMAF est solide un peu partout, et UVQ / Delta UVQ arrive souvent en tête, y compris quand le contenu varie beaucoup (0.824 sur le premier jeu, 0.850 sur le second). Ce sont donc des candidats fiables et polyvalents pour évaluer notre filtre. Elles sont d'ailleurs reconnues dans la littérature pour leur fiabilité, et sont utilisées dans de nombreux travaux et aussi par l'industrie.
 
-#strong[#gls("lpips", "LPIPS") devient intéressante dans notre cas précis.] Le second jeu de données repose sur un encodage par régions d'intérêt, c'est-à-dire un codage qui concentre ses efforts sur les zones importantes de l'image, exactement le genre de comportement qu'un filtre IA cherche à produire. Or c'est justement là que LPIPS obtient ses meilleurs scores (0.881 et 0.880, la meilleure métrique en forte variabilité). Comme ce cas d'usage ressemble au nôtre, LPIPS mérite d'être considérée, alors qu'elle était moins convaincante sur l'encodage classique.
+#strong[#gls("lpips", "LPIPS")] devient intéressante dans notre cas précis. Le second jeu de données repose sur un encodage par régions d'intérêt, c'est-à-dire un codage qui concentre ses efforts sur les zones importantes de l'image, exactement le genre de comportement qu'un filtre IA cherche à produire. Or c'est justement là que LPIPS obtient ses meilleurs scores (0.881 et 0.880, la meilleure métrique en forte variabilité). Comme ce cas d'usage ressemble au nôtre, LPIPS mérite d'être considérée, alors qu'elle était moins convaincante sur l'encodage classique.
 
-#strong[CVVDP est un candidat valable par sa conception.] Contrairement aux autres, elle est construite directement sur un modèle de la vision humaine (la façon dont l'œil perçoit les contrastes et les couleurs). Cette base théorique en fait un choix légitime, et elle se classe d'ailleurs en tête sur l'encodage par régions d'intérêt à faible variabilité (0.905).
+#strong[CVVDP] est un candidat valable par sa conception. Contrairement aux autres, elle est construite directement sur un modèle de la vision humaine (la façon dont l'œil perçoit les contrastes et les couleurs). Cette base théorique en fait un choix légitime, et elle se classe d'ailleurs en tête sur l'encodage par régions d'intérêt à faible variabilité (0.905).
 
 En résumé, #gls("vmaf", "VMAF") et UVQ / Delta UVQ s'imposent comme les métriques principales, tandis que LPIPS et CVVDP pourraient apporter des informations complémentaires.
 
@@ -1156,6 +1157,8 @@ Nous le voyons ici : aucune métrique n'est parfaite face à la perception humai
 
 
 == Guide d'optimisation
+// TODO Rajouter une xeplication sur des tests qui on montré des gains mais qui ne modifiait aps l'iamge et qu'il était fort probable que ces gains venaient majoritairement d'une faille exploitée par le réseau de neuronnes.
+
 
 Nous l'avons vu, le guide d'apprentissage doit satisfaire deux exigences à la fois : être un bon simulateur de ce que percevrait un utilisateur, et rester facilement optimisable pour que les poids du filtre soient ajustés dans la bonne direction.
 
@@ -1189,6 +1192,8 @@ plus nets. Ce point n'est pas un oubli mais une étape à part entière du proje
 l'objectif de ce PFE portait avant tout sur les approches de remplacement du
 codec, et l'affinement du guide constitue un travail ultérieur, que les outils
 mis en place ici rendront justement possible.
+
+
 = Résultats et analyses <resultats>
 
 == En tant que #gls("proxy", "Proxy")
@@ -1240,13 +1245,14 @@ Pour évaluer la fidélité de structure des images, nous l'avons vu, le #gls("p
   ),
 )
 
-Le proxy neuronal reconstruit les images les plus ressemblantes, en particulier sur les images prédites à partir des précédentes (colonnes _inter_), où il devance nettement toutes les autres versions. C'est attendu : ce réseau a été entraîné expressément pour copier le vrai codec, donc il excelle à cette tâche. Il est tout de même intéressant de voir que les scores PSNR ne sont pas toujours bons alors que le SSIM si, ce qui signifie en simplifiant qu'il ne reproduit pas fidèlement les pixels mais conserve la structure de l'image, ce qui est finalement le but recherché. Le proxy neuronal est donc un bon imitateur du codec, en particulier au niveau structurel.
+Le proxy neuronal reconstruit les images les plus ressemblantes, en particulier sur les images prédites à partir des précédentes (colonnes _inter_), où il devance nettement toutes les autres versions. Ce réseau a été entraîné pour copier le vrai codec, donc il excelle à cette tâche. Il est tout de même intéressant de voir que les scores PSNR ne sont pas toujours bons alors que le SSIM si, ce qui signifie en simplifiant qu'il ne reproduit pas fidèlement les pixels mais conserve la structure de l'image, ce qui est finalement le but recherché. Le proxy neuronal est donc un bon imitateur du codec, en particulier au niveau structurel.
 
 Parmi nos versions simplifiées, la variante `round · softmax` est la plus proche du vrai codec, les autres réglages s'en éloignent un peu. Le softmax est la fonction que nous avions présentée, elle permet de mélanger les candidats de prédiction plutôt que d'en choisir un seul. Cela a pour effet de lisser légèrement le résultat, ce qui est apprécié par le PSNR notamment, ce qui explique ces résultats. On peut tout de même valider la pertinence du proxy simplifié, car lui n'a pas appris à reproduire fidèlement les images. Il est intéressant de noter que ces performances sont obtenues à cette qualité qui est haute mais devient moins bonne si l'on choisit de traiter des images de plus basse qualité, car le proxy simplifié ne reprend pas toutes les logiques d'optimisations complexes du véritable codec, des optimisations qui vont être bénéfiques surtout sur des images de plus basse qualité. Notre simulateur fonctionne donc très bien à haute qualité, moins à basse qualité.
 
 
 // TODO : mettre un exemple visuel des vidéos en CRF 22, mais aussi un exemple d'une image à basse qualité du codec pour le proxy simplifié
 
+Ce constat nous a donc obligé à utiliser cet outil avec plus de précaution et rester dans une plage limité de qualité afin d'éviter de s'éloigner trop de l'outil d'origine.
 
 == Corrélation de débit
 
