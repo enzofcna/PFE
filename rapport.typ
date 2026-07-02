@@ -1169,10 +1169,26 @@ La perte L1 est une fonction simple, orientée fidélité : elle mesure l'écart
 
 L1 et #gls("dists", "DISTS") sont donc complémentaires : la première ancre le résultat sur la source et évite les dérives, la seconde guide les modifications dans une direction compatible avec la perception humaine.
 
-== Limites et perspectives
-Parler de la limite lié au dataset repris du papier @khan2025neural et possibilité d'évolution avec l'exemple du jeu de données BVI-DVC. Pour la suite du projet quoi.
-Les métriques de guide bien sûr à optimiser
+== Données d'entrainement
 
+Pour entraîner un réseau de neurones, les données utilisées sont un point clé : il faut disposer d'un grand nombre d'exemples, mais aussi d'exemples de bonne qualité. Il existe assez peu de jeux de données qui répondent à ces exigences tout en étant accessibles publiquement. Nous avons fait le choix de reprendre un dataset utilisé dans de nombreux projets liant l'image et le deep learning, notamment pour les travaux de @khan2025neural : le dataset Vimeo90K, qui possède un grand nombre d'images (environ 90 000). La qualité des images étant variable, on peut toutefois considérer ce point comme un défaut pour notre cas d'usage, qui vise des vidéos de bonne qualité pour de la diffusion VOD.
+
+== Limites et perspectives
+
+Une première limite tient au jeu de données. Nous avons repris celui du papier
+@khan2025neural, ce qui présentait l'avantage de s'appuyer sur une base déjà
+éprouvée pour ce type de travaux. Une évolution possible consisterait à passer à
+un jeu de données comme BVI-DVC comportant moins d'images, mais composé d'images de
+meilleure qualité et plus récentes. Un tel changement pourrait améliorer la
+pertinence de l'apprentissage, et fait partie des pistes envisagées pour la
+suite du projet.
+
+La seconde limite concerne le guide d'apprentissage. Le choix retenu ici est
+volontairement simple, et il gagnera à être optimisé pour obtenir des résultats
+plus nets. Ce point n'est pas un oubli mais une étape à part entière du projet :
+l'objectif de ce PFE portait avant tout sur les approches de remplacement du
+codec, et l'affinement du guide constitue un travail ultérieur, que les outils
+mis en place ici rendront justement possible.
 = Résultats et analyses <resultats>
 
 == En tant que #gls("proxy", "Proxy")
@@ -1239,8 +1255,8 @@ Pour estimer si nos outils sont de bons simulateurs, il est aussi important de v
 #figure(
   caption: [Corrélation débit estimé vs H.265 (Spearman), mode CRF. ↑ : plus haut = meilleur.],
   table(
-    columns: (auto, 1fr, 1fr, 1fr),
-    align: (left, center, center, center),
+    columns: (auto, 1fr, 1fr),
+    align: (left, center, center),
     stroke: 0.5pt + rgb("#888"),
     inset: 6pt,
     table.header([], [*classement clips \ (intra)* ↑], [*classement clips \ (inter)* ↑]),
@@ -1255,8 +1271,8 @@ Pour estimer si nos outils sont de bons simulateurs, il est aussi important de v
 #figure(
   caption: [Corrélation débit estimé vs H.265 (Spearman), mode QP constant. ↑ : plus haut = meilleur.],
   table(
-    columns: (auto, 1fr, 1fr, 1fr),
-    align: (left, center, center, center),
+    columns: (auto, 1fr, 1fr),
+    align: (left, center, center),
     stroke: 0.5pt + rgb("#888"),
     inset: 6pt,
     table.header([], [*classement clips \ (intra)* ↑], [*classement clips \ (inter)* ↑]),
@@ -1285,9 +1301,12 @@ De par notre implémentation présenté dans @filtreGlobale, les deux proxy poss
 
 #figure(
   grid(
-    columns: (1fr, 1fr, 1fr),
+    columns: (1fr, 1fr),
     gutter: 0.5cm,
-    image("images/rd_UVQ_MEAN_N.png"), image("images/rd_VMAF_MEAN_N.png"), image("images/rd_VMAF_NEG_MEAN_N.png"),
+    image("images/rd_UVQ_MEAN_N.png"), image("images/rd_VMAF_MEAN_N.png"), 
+    grid.cell(colspan: 2)[
+      #align(center)[#image("images/rd_VMAF_NEG_MEAN_N.png", width:50%)]
+    ]
   ),
   caption: [Résultats Optimisation filtre avec proxy neuronal],
 )
@@ -1296,9 +1315,13 @@ Ces résultats montrent que le proxy neuronal optimise bien le filtre, les score
 
 #figure(
   grid(
-    columns: (1fr, 1fr, 1fr),
+    columns: (1fr, 1fr),
     gutter: 0.5cm,
-    image("images/rd_UVQ_MEAN_S1.png"), image("images/rd_VMAF_MEAN_S1.png"), image("images/rd_VMAF_NEG_MEAN_S1.png"),
+    image("images/rd_UVQ_MEAN_S1.png"), 
+    image("images/rd_VMAF_MEAN_S1.png"),
+    grid.cell(colspan: 2)[
+      #align(center)[#image("images/rd_VMAF_NEG_MEAN_S1.png", width: 50%)]
+    ]
   ),
   caption: [Résultats Optimisation filtre avec proxy simplifié version "arrondi"],
 )
@@ -1307,14 +1330,18 @@ Ces résultats montrent que le proxy simplifié optimise très peu au vu de ce c
 
 #figure(
   grid(
-    columns: (1fr, 1fr, 1fr),
+    columns: (1fr, 1fr),
     gutter: 0.5cm,
     image("images/rd_UVQ_MEAN_Noise.png"),
     image("images/rd_VMAF_MEAN_Noise.png"),
-    image("images/rd_VMAF_NEG_MEAN_Noise.png"),
+    grid.cell(colspan: 2)[
+      #align(center)[#image("images/rd_VMAF_NEG_MEAN_Noise.png", width: 50%)]
+    ],
   ),
-  caption: [Résultats Optimisation filtre avec proxy simplifié version "bruit"],
+  caption: [Résultats optimisation filtre avec proxy simplifié version « bruit »],
 )
+
+Cette version n'a pas donné de résultats intérressant, il est possible au vu de ces métriques et le coût d'image évolue mais n'apporte pas de bénéfice face à un encode classique. On voit cependant qu'à absse qualité le point gardant un coût (bpp) similaire est au dessus sur toutes les mesures, ce qui pourrait définir que cette méthode permet aussi un gain minime à basse qualité.
 
 == Test visuel
 Afin d'avoir une idée des effets du filtre sur les images voici quelques exemples où l'ont voir de différences intérressantes à analyser. Ces iamges proviennent bien sûr des iamges de test et pas celles utilisées durant l'apprentissage.
@@ -1357,14 +1384,14 @@ Cet exemple reprend un ciel bleu exemple typique que nous avions évoqué, ici e
 #align(center)[
   #figure(
     image("images/neuronalFlouteSRC18CRF22.png", width: 125%),
-    caption: [Exemple CRF 22, SRC 13],
-  ) <crf22src13>
+    caption: [Exemple CRF 22, SRC 18],
+  ) <crf22src18>
 ]
 
 Cet exemple met en avant aussi les dérives, ici on voit le filtre neuronal qui vient flouter assez visiblement le personnage, ce qui est un effet indésirable. Le coût diminue mais la qualité perçue aussi.
 
 == Limites et perspectives
-Les résultats ne montrent pas une optimisation claire, visuellement certains exemples montrent tout de même une modification qui semble pertinente quand on regarde les détails.
+Les résultats ne montrent pas une optimisation claire, visuellement certains exemples montrent tout de même une modification qui semble pertinente quand on regarde les détails, au regard des exemples visuels et des métriques qui s'accordent plutôt pour dire qu'à basse qualité le filtre a un intérêt pour conserver certaines textures ou limiter le bruit de compression. Cette limite pourrait comme évoqué plus tôt venir du jeu de données utilisé qui comporte aussi des iamges de moins bonne qualité, ce qui s'éloigne donc de la cible d'optimisation.
 Nous sommes encore à stade précoce du projet et ne pas avoir de résultats clairs est normal l'objectif ici était aussi de mettre en avant les différences face aux outils que l'on a mis en place et de voir comment ils se comportent.
 
 Par la suite il faudra alors voir s'il est possible d'utiliser d'autres mesures afin de guider au mieux l'apprentissage car il semble assez clair que le choix simple utilisé ici pour guider l'apprentissage n'est pas suffisant pour obtenir un gain net.
@@ -1374,13 +1401,18 @@ Il semble aussi assez clair que la majorité de la tâche se trouvera dans le ch
 
 = Conclusion
 
-Ce projet de fin d'études s'attaque à une question concrète : peut-on, à l'aide de l'IA, optimiser la compression vidéo en amont d'un codec existant comme #gls("hevc", "H.265"), sans toucher aux appareils des utilisateurs ? Le cœur du travail a consisté à lever le principal verrou technique, l'impossibilité d'apprendre directement à travers un codec classique, en étudiant, adaptant et évaluant différentes approches de #gls("proxy", "proxy"). Deux voies ont été explorées : un proxy par codage neuronal et un codec simplifié différentiable, chacune avec ses forces et ses limites. // TODO : rappeler les principaux résultats une fois obtenus.
+Ce projet de fin d'études s'attaque à une question concrète : peut-on, à l'aide de l'IA, optimiser la compression vidéo en amont d'un codec existant comme #gls("hevc", "H.265"). Le cœur du travail a consisté à lever le principal verrou technique, l'impossibilité d'apprendre directement à travers un codec classique, en étudiant, adaptant et évaluant différentes approches de #gls("proxy", "proxy"). Deux voies ont été explorées : un proxy par codage neuronal et un codec simplifié différentiable, chacune avec ses forces et ses limites théorique le but était d'évaluer aussi sur un cas d'uasge concret leur pertinance. 
 
-Ce travail s'accompagne d'un constat important : la qualité d'une optimisation dépend autant du proxy que de la #gls("metrique", "métrique") qui guide l'apprentissage. C'est pourquoi le choix et la critique des outils d'évaluation ont occupé une place centrale, et continueront de le faire dans la suite du projet.
+Les résultats ont montrés que les outils semblaient être des bon recopieur de la cible H.265 en particulier pour reproduir des images de bonnes qualités.
 
-Au-delà de l'aspect technique, ce rapport aura cherché à répondre à trois questions transversales. Sur le plan économique, on retiendra que les enjeux de la #gls("vod", "VOD"), bande passante, stockage, énergie, rendent toute optimisation en amont directement profitable aux acteurs du secteur, et donc à notre cellule. Sur le plan organisationnel, le projet illustre comment une petite structure, à l'interface d'un laboratoire et d'une entreprise, s'organise autour de réunions régulières et de ressources mutualisées pour mener un travail d'apprentissage automatique. Sur le plan humain, enfin, il montre qu'une équipe jeune compense un certain manque d'expérience par une réelle capacité d'adaptation, une veille constante et un partage de connaissances au quotidien, autant d'atouts pour aborder des sujets de pointe.
+Les résultats face aux métriques montre parfois de soptimisations à faible qualité mais les écarts sont faible, ce qui vient aussi de la difficulté de la tâche, de slimites sur ces résultats sont à poser les métriques actuelles ne sont pas assuremment fiable pour notre cas d'usage d'iamges apssées transformée par IA.
+Cependant on remarque parmis les différents exemples visuels que les modifications ont parfois permis de garder certaines textures, limiter le bruit de compression, ce qui prouve qu'une optimisation de ce type est possible mais il reste à en optimiser les effets afin d'obtenir des gains plus intérressants.
 
-Ce PFE ne constitue qu'une étape, les outils mis en place ont vocation à être réutilisés, améliorés et adaptés. La validation finale, par de vrais utilisateurs, viendra confirmer la pertinence des optimisations une fois celles-ci suffisamment mûres.
+Ce travail s'accompagne d'un constat important : la qualité d'une optimisation dépend de nombreux éléments : du proxy,de la #gls("metrique", "métrique") qui guide l'apprentissage, des données utilisées. 
+
+Au-delà de l'aspect technique, ce rapport aura cherché à répondre à trois questions transversales. Sur le plan économique, on retiendra que les enjeux de la #gls("vod", "VOD"), bande passante, stockage, énergie, rendent toute optimisation en amont directement profitable aux acteurs du secteur, et donc à notre cellule. Sur le plan organisationnel, le projet illustre comment une petite structure, à l'interface d'un laboratoire et d'une entreprise, s'organise autour de réunions régulières et de ressources mutualisées pour mener un travail d'apprentissage automatique. Sur le plan humain, enfin, il montre qu'une équipe jeune compense un certain manque d'expérience par une réelle capacité d'adaptation, une veille constante et un partage de connaissances au quotidien, autant d'atouts pour aborder des sujets de pointe malgré des compétences en début de projet limitées par le manque d'expérience.
+
+Ce PFE ne constitue qu'une étape du projet, les outils mis en place ont vocation à être réutilisés, améliorés et adaptés. La validation finale, par de vrais utilisateurs, viendra confirmer la pertinence des optimisations une fois celles-ci suffisamment mûres.
 
 
 = Bilan personnel
