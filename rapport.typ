@@ -1107,6 +1107,23 @@ Il est important aussi de préciser que certaines tests n'ont pas réellement é
 Cette implémentation s'est révélée particulièrement intéressante pour tester différents mécanismes. Durant son développement, plusieurs essais rapides n'ont apporté aucune amélioration nette, voire ont entraîné de fortes pertes, ce qui a permis de converger vers les choix présentés ci-dessus. L'objectif étant précisément de définir les bonnes pratiques d'un tel outil, des études comparant ces différentes méthodes sont présentées en @resultats.
 
 
+== Guide d'optimisation
+// TODO Rajouter une xeplication sur des tests qui on montré des gains mais qui ne modifiait aps l'iamge et qu'il était fort probable que ces gains venaient majoritairement d'une faille exploitée par le réseau de neuronnes.
+
+
+Nous l'avons vu, le guide d'apprentissage doit satisfaire deux exigences à la fois : être un bon simulateur de ce que percevrait un utilisateur, et rester facilement optimisable pour que les poids du filtre soient ajustés dans la bonne direction.
+
+De nombreuses combinaisons de #gls("metrique", "métriques") sont possibles, mais toutes ne peuvent pas être testées. Or, l'objectif de ce projet porte avant tout sur les différentes approches de remplacement du #gls("codec", "codec") durant l'apprentissage, et non sur la recherche du guide idéal. Il paraît donc justifié de retenir un choix simple et cohérent, respectant nos critères de départ, quitte à approfondir cet aspect dans la suite du projet. À cela s'ajoute une précaution méthodologique, nous l'avons évoqué dans les limites des travaux existants, certains projet entraînent le filtre sur une métrique puis évaluent les performances sur cette même métrique, ce qui fausse probablement l'analyse. Nous chercherons donc à dissocier le guide d'apprentissage des outils servant à l'évaluation finale.
+
+Le guide retenu cherche un compromis entre simplicité et fidélité à la perception humaine. Il associe deux composantes : une perte L1 et la métrique #gls("dists", "DISTS").
+
+La perte L1 est une fonction simple, orientée fidélité : elle mesure l'écart direct entre l'image filtrée et l'image source, dans le même esprit que le #gls("psnr", "PSNR") évoqué plus tôt, peu précis perceptuellement mais facile à optimiser. Elle joue ici le rôle de garde-fou, en empêchant le filtre de trop s'éloigner de l'image d'origine.
+
+#gls("dists", "DISTS") apporte la dimension perceptuelle. Il s'appuie sur un réseau de neurones et est calibré sur des jugements humains de similarité. Entraîné à partir de paires d'images, il est théoriquement capable de savoir si une texture différente au niveau des pixels est acceptable pour un utilisateur. C'est ce qui rend #gls("dists", "DISTS") pertinent ici : sa tolérance aux textures, par conception, lui permet de considérer comme similaires deux textures différentes d'une même zone tant qu'elles restent acceptables pour l'œil. Autrement dit, il laisse au filtre la liberté de modifier l'image au niveau du détail, sans le pénaliser tant que la satisfaction de l'utilisateur n'est pas affectée. C'est exactement le type de souplesse que l'on recherche pour réduire le débit sans dégrader la qualité perçue.
+
+L1 et #gls("dists", "DISTS") sont donc complémentaires : la première ancre le résultat sur la source et évite les dérives, la seconde guide les modifications dans une direction compatible avec la perception humaine.
+
+
 == Méthode d'évaluation
 
 La méthode d'évaluation est un point essentiel du projet. Nous l'avons vu en @contenteval, il existe de nombreux outils prévus pour évaluer la qualité vidéo. L'objectif pour nous est de définir les meilleurs outils pour refléter l'avis d'un utilisateur.
@@ -1136,9 +1153,7 @@ Le second jeu de données est basé sur des vidéos encodées avec un encodage p
     [*VMAF*], [0.926], [0.737],
     [*VMAF-NEG*], [0.928], [0.721],
     [*UVQ*], [0.756], [*0.824*],
-    [*Delta UVQ*], [*0.937*], [0.722],
     [*LPIPS*], [0.786], [0.520],
-    [*CVVDP*], [0.782], [0.451],
   ),
 )
 
@@ -1153,9 +1168,7 @@ Le second jeu de données est basé sur des vidéos encodées avec un encodage p
     [*VMAF*], [0.899], [0.808],
     [*VMAF-NEG*], [0.803], [0.702],
     [*UVQ*], [0.803], [0.754],
-    [*Delta UVQ*], [0.904], [0.850],
     [*LPIPS*], [0.881], [*0.880*],
-    [*CVVDP*], [*0.905*], [0.784],
   ),
 )
 
@@ -1164,28 +1177,14 @@ Le second jeu de données est basé sur des vidéos encodées avec un encodage p
 
 #strong[#gls("lpips", "LPIPS")] devient intéressante dans notre cas précis. Le second jeu de données repose sur un encodage par régions d'intérêt, c'est-à-dire un codage qui concentre ses efforts sur les zones importantes de l'image, exactement le genre de comportement qu'un filtre IA cherche à produire. Or c'est justement là que LPIPS obtient ses meilleurs scores (0.881 et 0.880, la meilleure métrique en forte variabilité). Comme ce cas d'usage ressemble au nôtre, LPIPS mérite d'être considérée, alors qu'elle était moins convaincante sur l'encodage classique.
 
-#strong[CVVDP] est un candidat valable par sa conception. Contrairement aux autres, elle est construite directement sur un modèle de la vision humaine (la façon dont l'œil perçoit les contrastes et les couleurs). Cette base théorique en fait un choix légitime, et elle se classe d'ailleurs en tête sur l'encodage par régions d'intérêt à faible variabilité (0.905).
 
-En résumé, #gls("vmaf", "VMAF") et UVQ / Delta UVQ s'imposent comme les métriques principales, tandis que LPIPS et CVVDP pourraient apporter des informations complémentaires.
+En résumé, #gls("vmaf", "VMAF") et UVQ / Delta UVQ s'imposent comme les métriques principales, tandis que LPIPS pourrait apporter des informations complémentaires par sa pertinance face à un cas d'usage proche.
 
-Nous le voyons ici : aucune métrique n'est parfaite face à la perception humaine, il est donc important de croiser les résultats pour avoir une idée plus précise de la qualité des images reconstruites. On peut cependant évoquer la limite de ces métriques pour notre cas d'utilisation, des images modifiées par IA, où il est difficile pour le moment d'assurer la fiabilité des résultats obtenus. Ce qui mènera ce projet vers des tests face à de vrais utilisateurs dans le futur.
+Nous le voyons ici, aucune métrique n'est parfaite face à la perception humaine, il est donc important de croiser les résultats pour avoir une idée plus précise de la qualité des images reconstruites. On peut cependant évoquer la limite de ces métriques pour notre cas d'utilisation, des images modifiées par IA, où il est difficile pour le moment d'assurer la fiabilité des résultats obtenus. Ce qui mènera ce projet vers des tests face à de vrais utilisateurs dans le futur.
 
+== Environnement de test
 
-== Guide d'optimisation
-// TODO Rajouter une xeplication sur des tests qui on montré des gains mais qui ne modifiait aps l'iamge et qu'il était fort probable que ces gains venaient majoritairement d'une faille exploitée par le réseau de neuronnes.
-
-
-Nous l'avons vu, le guide d'apprentissage doit satisfaire deux exigences à la fois : être un bon simulateur de ce que percevrait un utilisateur, et rester facilement optimisable pour que les poids du filtre soient ajustés dans la bonne direction.
-
-De nombreuses combinaisons de #gls("metrique", "métriques") sont possibles, mais toutes ne peuvent pas être testées. Or, l'objectif de ce projet porte avant tout sur les différentes approches de remplacement du #gls("codec", "codec") durant l'apprentissage, et non sur la recherche du guide idéal. Il paraît donc justifié de retenir un choix simple et cohérent, respectant nos critères de départ, quitte à approfondir cet aspect dans la suite du projet. À cela s'ajoute une précaution méthodologique, nous l'avons évoqué dans les limites des travaux existants, certains projet entraînent le filtre sur une métrique puis évaluent les performances sur cette même métrique, ce qui fausse probablement l'analyse. Nous chercherons donc à dissocier le guide d'apprentissage des outils servant à l'évaluation finale.
-
-Le guide retenu cherche un compromis entre simplicité et fidélité à la perception humaine. Il associe deux composantes : une perte L1 et la métrique #gls("dists", "DISTS").
-
-La perte L1 est une fonction simple, orientée fidélité : elle mesure l'écart direct entre l'image filtrée et l'image source, dans le même esprit que le #gls("psnr", "PSNR") évoqué plus tôt, peu précis perceptuellement mais facile à optimiser. Elle joue ici le rôle de garde-fou, en empêchant le filtre de trop s'éloigner de l'image d'origine.
-
-#gls("dists", "DISTS") apporte la dimension perceptuelle. Il s'appuie sur un réseau de neurones et est calibré sur des jugements humains de similarité. Entraîné à partir de paires d'images, il est théoriquement capable de savoir si une texture différente au niveau des pixels est acceptable pour un utilisateur. C'est ce qui rend #gls("dists", "DISTS") pertinent ici : sa tolérance aux textures, par conception, lui permet de considérer comme similaires deux textures différentes d'une même zone tant qu'elles restent acceptables pour l'œil. Autrement dit, il laisse au filtre la liberté de modifier l'image au niveau du détail, sans le pénaliser tant que la satisfaction de l'utilisateur n'est pas affectée. C'est exactement le type de souplesse que l'on recherche pour réduire le débit sans dégrader la qualité perçue.
-
-L1 et #gls("dists", "DISTS") sont donc complémentaires : la première ancre le résultat sur la source et évite les dérives, la seconde guide les modifications dans une direction compatible avec la perception humaine.
+Présenter les différentes qualités testées et en quoi elles sont difficiles et que nos outils sont probablement éloignés de ça.
 
 == Données d'entrainement
 
@@ -1260,7 +1259,7 @@ Pour évaluer la fidélité de structure des images, nous l'avons vu, le #gls("p
   ),
 )
 
-Le proxy neuronal reconstruit les images les plus ressemblantes, en particulier sur les images prédites à partir des précédentes (colonnes _inter_), où il devance nettement toutes les autres versions. Ce réseau a été entraîné pour copier le vrai codec, donc il excelle à cette tâche. Il est tout de même intéressant de voir que les scores PSNR ne sont pas toujours bons alors que le SSIM si, ce qui signifie en simplifiant qu'il ne reproduit pas fidèlement les pixels mais conserve la structure de l'image, ce qui est finalement le but recherché. Le proxy neuronal est donc un bon imitateur du codec, en particulier au niveau structurel.
+Le proxy neuronal reconstruit les images les plus ressemblantes, en particulier sur les images prédites à partir des précédentes (colonnes _inter_), où il devance nettement toutes les autres versions. Ce réseau a été entraîné pour copier le vrai codec, donc il excelle à cette tâche. Il est tout de même intéressant de voir que les scores PSNR ne sont pas toujours bons alors que le SSIM si, évaluant les écarts de structures. Ce qui signifie qu'il ne reproduit pas fidèlement les pixels mais conserve la structure de l'image, ce qui est finalement le but recherché. Le proxy neuronal est donc un bon imitateur du codec, en particulier au niveau structurel.
 
 Parmi nos versions simplifiées, la variante `round · softmax` est la plus proche du vrai codec, les autres réglages s'en éloignent un peu. Le softmax est la fonction que nous avions présentée, elle permet de mélanger les candidats de prédiction plutôt que d'en choisir un seul. Cela a pour effet de lisser légèrement le résultat, ce qui est apprécié par le PSNR notamment, ce qui explique ces résultats. On peut tout de même valider la pertinence du proxy simplifié, car lui n'a pas appris à reproduire fidèlement les images. Il est intéressant de noter que ces performances sont obtenues à cette qualité qui est haute mais devient moins bonne si l'on choisit de traiter des images de plus basse qualité, car le proxy simplifié ne reprend pas toutes les logiques d'optimisations complexes du véritable codec, des optimisations qui vont être bénéfiques surtout sur des images de plus basse qualité. Notre simulateur fonctionne donc très bien à haute qualité, moins à basse qualité.
 
@@ -1318,6 +1317,8 @@ De par notre implémentation présenté dans @filtreGlobale, les deux proxy poss
 
 
 == Résultats face aux #gls("metrique", "métriques")
+
+// TODO expliquer comment lire des rd-cruves et ajouter les courbes lpips
 
 
 #figure(
