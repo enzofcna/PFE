@@ -453,7 +453,7 @@ On peut ici se poser une question : comment une équipe jeune vit-elle et monte-
 
 La jeunesse de l'équipe est un point à prendre en compte. Cela peut être vu comme un atout pour se tourner vers l'innovation et faciliter l'acceptation aux changements, mais cela demande aussi une montée en compétence rapide sur des sujets d'expertise pointus pour répondre aux attentes du projet. La compression vidéo est un domaine riche en théorie et concepts complexes, appartenir à une équipe experte facilite cette montée en compétence, mais une part du travail passe nécessairement par des recherches personnelles. Le deep learning associé à ce projet est tout aussi exigeant, et certaines compétences ne s'acquièrent qu'au fil des étapes du projet. Cette progression demande donc du temps, et l'évolution rapide de ces domaines impose une veille au quotidien.
 
-La recherche sur l'adoption des technologies aide à nuancer l'idée, intuitive, qu'une équipe jeune serait simplement "moins réticente" face uax nouveaux outils. Dasn leurs travaux, Morris et Venkatesh @morris2000age observent surtout que les déterminants de l'usage varient avec l'âge, chez les travailleurs les plus jeunes, la décision d'utiliser l'outil est davantage portée par l'attitude, c'est-à-dire par l'utilité qu'ils lui perçoivent, tandis que pour les plus âgés pèsent davantage l'avis des pairs et la facilité de prise en main. Pour une équipe jeune comme la nôtre, cela suggère que l'adoption d'un nouvel outil ou d'une nouvelle méthode se joue surtout sur sa valeur perçue, donc concrètement ce que l'outil apporte. Ces résultats doivent toutefois être pris avec prudence, ils reposent sur un échantillon réduit, et les auteurs eux-mêmes rappellent qu'on ne peut distinguer nettement un effet propre à l'âge d'un simple effet de génération mais cela montre tout de même une tendance, liée à l'âge ou à la génération, ce qui vient tout de même confirmer qu'une équipe jeune, venant d'une génération proche les uns des autres, pourrait avoir un comportement commun face aux changements. Si l'on prend l'exemple concret au sein de notre équipe, nous avons vu arriver il y a quelque temps des accès directement fournis par l'entreprise pour un outil de chat par IA, qui s'intègre aussi directement dans des projets pour faciliter l'écriture de code informatique notamment. Avoir un outil commun permet de centraliser les connaissances sur ce domaine et les bonnes pratiques, mais surtout, de ne pas rendre le sujet tabou, ce qui pourrait amener à des comportements plus difficiles à contrôler, on entend actuellement parler de "shadow AI", phénomène émergent où l'utilisation de ce genre d'outils est réalisée par les employés sans validation de leurs supérieurs ou du service informatique. L'intérêt d'utiliser ces outils pour des jeunes ingénieurs est simple, cela facilite l'accès à un grand nombre de connaissances et simplifient l'implémentation pour tester des outils rapidement. L'acceptation semble donc rapide car l'outil est vu comme utile. Cela renforce alors les résultats obtenus dans l'étude présentée. Il reste tout de même intéressant de rendre les pratiques plus contrôlées et raisonnées pour éviter des dérives, ce que l'entreprise essaie de faire au niveau global pour éviter que chaque cellule ait à le faire.
+La recherche sur l'adoption des technologies aide à nuancer l'idée, intuitive, qu'une équipe jeune serait simplement "moins réticente" face uax nouveaux outils. Dans leurs travaux, Morris et Venkatesh @morris2000age observent surtout que les déterminants de l'usage varient avec l'âge, chez les travailleurs les plus jeunes, la décision d'utiliser l'outil est davantage portée par l'attitude, c'est-à-dire par l'utilité qu'ils lui perçoivent, tandis que pour les plus âgés pèsent davantage l'avis des pairs et la facilité de prise en main. Pour une équipe jeune comme la nôtre, cela suggère que l'adoption d'un nouvel outil ou d'une nouvelle méthode se joue surtout sur sa valeur perçue, donc concrètement ce que l'outil apporte. Ces résultats doivent toutefois être pris avec prudence, ils reposent sur un échantillon réduit, et les auteurs eux-mêmes rappellent qu'on ne peut distinguer nettement un effet propre à l'âge d'un simple effet de génération mais cela montre tout de même une tendance, liée à l'âge ou à la génération, ce qui vient tout de même confirmer qu'une équipe jeune, venant d'une génération proche les uns des autres, pourrait avoir un comportement commun face aux changements. Si l'on prend l'exemple concret au sein de notre équipe, nous avons vu arriver il y a quelque temps des accès directement fournis par l'entreprise pour un outil de chat par IA, qui s'intègre aussi directement dans des projets pour faciliter l'écriture de code informatique notamment. Avoir un outil commun permet de centraliser les connaissances sur ce domaine et les bonnes pratiques, mais surtout, de ne pas rendre le sujet tabou, ce qui pourrait amener à des comportements plus difficiles à contrôler, on entend actuellement parler de "shadow AI", phénomène émergent où l'utilisation de ce genre d'outils est réalisée par les employés sans validation de leurs supérieurs ou du service informatique. L'intérêt d'utiliser ces outils pour des jeunes ingénieurs est simple, cela facilite l'accès à un grand nombre de connaissances et simplifient l'implémentation pour tester des outils rapidement. L'acceptation semble donc rapide car l'outil est vu comme utile. Cela renforce alors les résultats obtenus dans l'étude présentée. Il reste tout de même intéressant de rendre les pratiques plus contrôlées et raisonnées pour éviter des dérives, ce que l'entreprise essaie de faire au niveau global pour éviter que chaque cellule ait à le faire.
 
 Au-delà de la perception des outils, la montée en compétence dépend fortement de l'environnement de travail. Les travaux d'Edmondson sur le "teaming" montrent qu'un environnement psychologiquement sécurisant, où chacun peut poser des questions, reconnaître ses limites et solliciter de l'aide sans crainte d'être jugé, accélère l'apprentissage collectif @edmondson2012teaming. C'est un point clé pour nous, se sentir dans une équipe où d'autres ont probablement les mêmes questionnements, de par un manque d'expérience, pousse à partager les réponses ou les sources explicatives trouvées. Ce partage, associé à un investissement personnel et à une veille régulière, est ce qui permet de combler progressivement le manque d'expérience sur ces thématiques. Cela reste un processus qui prend du temps, notamment du fait de la complexité du domaine de la compression vidéo et, pour ce projet en particulier, de la complexité du domaine du deep learning.
 
@@ -538,7 +538,7 @@ Pour illustrer la simplification des données, voici aussi un exemple de l'utili
   ) <quantif_dct>
 ]
 
-Il est important de noter que ces transformations n'ont d'effets sur les données que si le paramètre de quantification "qstep" dans l'image est supérieur à 0, ce qu'on appelle dans ce cas précis où le paramètre vaut 0, une compression sans perte, les données restent intactes. Cette transformation permet alors de cibler les fréquences de l'image que l'on veut simplifier, c'est là que repose la majorité des simplifications réalisées par les codecs pour obtenir des données plus compressibles, avec notamment davantage de valeurs simples comme des zéros. Un élément expliqué plus tard, en @th_info.
+Il est important de noter que la quantification n'a d'effet sur les données que si son paramètre "qstep" est supérieur à 0. Dans le cas où il vaut 0, les données restent intactes, on parle alors de compression sans perte. Cette transformation permet donc de cibler les fréquences de l'image que l'on veut simplifier, c'est là que repose la majorité des simplifications réalisées par les codecs pour obtenir des données plus compressibles, avec notamment davantage de valeurs simples comme des zéros. Un élément expliqué plus tard, en @th_info.
 
 Pour avoir une idée du résultat obtenu après quantification voici un exemple pour une zone d'image qui permet de voir précisément les détails.
 
@@ -600,7 +600,7 @@ Si l'on veut optimiser une vidéo, encore faut-il pouvoir mesurer sa qualité. C
 
 La référence reste le jugement humain. En réunissant un panel d'utilisateurs et en moyennant leurs notes, on obtient un #gls("mos", "MOS") (_Mean Opinion Score_), considéré comme la « vérité terrain » de la qualité perçue. C'est d'ailleurs l'une des expertises reconnues de notre équipe, sollicitée pour ce type de tests par de grands acteurs du secteur. Mais ces tests sont coûteux et lents : impossible de les utiliser pour guider, image par image, l'entraînement d'un réseau de neurones.
 
-On s'appuie donc sur des #gls("metrique", "métriques") objectives, c'est-à-dire calculées automatiquement opposé à évaluation subjective qui serait un test par un utilisateur. La plus ancienne, le #gls("psnr", "PSNR"), mesure simplement l'écart pixel à pixel avec la source, elle est facile à calculer, mais corrèle mal avec la perception humaine. Elle reste pourtant un indicateur intéressant pour mesurer les performances d'un codec, à quel point il reproduit exactement l'image d'origine.
+On s'appuie donc sur des #gls("metrique", "métriques") objectives, c'est-à-dire calculées automatiquement par opposition à une évaluation subjective, réalisée par un utilisateur. La plus ancienne, le #gls("psnr", "PSNR"), mesure simplement l'écart pixel à pixel avec la source, elle est facile à calculer, mais corrèle mal avec la perception humaine. Elle reste pourtant un indicateur intéressant pour mesurer les performances d'un codec, à quel point il reproduit exactement l'image d'origine.
 
 #align(center)[
   #figure(
@@ -611,7 +611,7 @@ On s'appuie donc sur des #gls("metrique", "métriques") objectives, c'est-à-dir
 
 On voit, dans cet exemple, que la mesure de fidélité de l'image au niveau des pixels ne réagit pas du tout de la même manière selon l'image : un gain de 3 dB peut être invisible ou, au contraire, grandement améliorer la qualité.
 
-D'autres métriques, comme #gls("ssim", "SSIM") ou surtout #gls("vmaf", "VMAF"), cherchent à se rapprocher du jugement humain en combinant plusieurs indicateurs. Ces métriques sont au cœur du projet une métrique mal choisie peut conduire à optimiser dans une mauvaise direction. Mais elles ont aussi leurs défauts, à l'instar des codecs elles sont peu souvent prévues pour être optimisable avec ici aussi des limites mathématiques et de structure et son souvent conçues pour n'être qu'un juge pour des images classiques, ce qui en fait un terrain de triche pour des IA qui peuvent alors chercher les défauts de ces fonctions pour les optimiser rapidement sans vriament optimiser la qualité pour autant.
+D'autres métriques, comme #gls("ssim", "SSIM") ou surtout #gls("vmaf", "VMAF"), cherchent à se rapprocher du jugement humain en combinant plusieurs indicateurs. Ces métriques sont au cœur du projet, une métrique mal choisie peut conduire à optimiser dans une mauvaise direction. Elles ont aussi leurs défauts, à l'instar des codecs, elles sont rarement conçues pour être optimisées. Elles présentent des limites mathématiques et structurelles, et ne sont souvent prévues que pour juger des images classiques. Cela en fait un terrain propice à l'exploitation par une IA, qui peut apprendre à en exploiter les défauts pour améliorer le score sans réellement améliorer la qualité perçue.
 
 Enfin, il faut garder en tête que ces métriques restent des approximations et ont chacune leurs limites. La validation finale d'une optimisation, une fois les outils suffisamment matures dans la poursuite du projet, passera par de vrais utilisateurs, c'est ce qui garantit la validité du projet, et c'est précisément le type de tests que notre cellule peut mener.
 
@@ -1133,7 +1133,7 @@ On compare donc plusieurs #gls("metrique", "métriques") selon leur accord avec 
 Pour comprendre les résultats il est aussi important de présenter les différentes métriques.
 
 #gls("vmaf", "VMAF") (Video Multi-Method Assessment Fusion) est une métrique que nous avons déjà évoquée, elle possède aussi une version durcie, VMAF-NEG, qui pénalise un rehaussement du contraste , elle est reconnue pour être plus robuste à certaines conditions grâce à des limites que la version classique n'a pas.
-UVQ (Universal Video Quality) est une métrique plus récente, basée sur l'IA, qui a appris à partir de scores #gls("mos", "MOS"). Delta UVQ est une variante d'UVQ qui prend en compte les différences entre l'image originale et l'image compressée, car cette mesure est _No-Reference_, ce qui peut parfois causer des écarts en fonction de l'image originale. #gls("lpips", "LPIPS") (Learned Perceptual Image Patch Similarity) est une métrique basée sur un réseau de neurones entraîné pour prédire la similarité perceptuelle entre deux images. 
+UVQ (Universal Video Quality) est une métrique plus récente, basée sur l'IA, qui a appris à partir de scores #gls("mos", "MOS"). #gls("lpips", "LPIPS") (Learned Perceptual Image Patch Similarity) est une métrique basée sur un réseau de neurones entraîné pour prédire la similarité perceptuelle entre deux images. 
 
 Les tableaux ci-dessous ne montrent que les métriques retenues comme candidates, les autres, moins pertinentes pour notre usage, ont été écartées pour la clarté.
 
@@ -1171,12 +1171,12 @@ Le second jeu de données est basé sur des vidéos encodées avec un encodage p
 )
 
 
-#strong[#gls("vmaf", "VMAF") et UVQ (ou sa variante Delta UVQ)] sont les valeurs sûres. Elles restent bien classées dans presque toutes les situations : VMAF est solide un peu partout, et UVQ / Delta UVQ arrive souvent en tête, y compris quand le contenu varie beaucoup (0.824 sur le premier jeu, 0.850 sur le second). Ce sont donc des candidats fiables et polyvalents pour évaluer notre filtre. Elles sont d'ailleurs reconnues dans la littérature pour leur fiabilité, et sont utilisées dans de nombreux travaux et aussi par l'industrie.
+#strong[#gls("vmaf", "VMAF") et UVQ] sont les valeurs sûres. Elles restent bien classées dans presque toutes les situations : VMAF est solide un peu partout, et UVQ arrive souvent en tête, y compris quand le contenu varie beaucoup (0.824 sur le premier jeu, 0.850 sur le second). Ce sont donc des candidats fiables et polyvalents pour évaluer notre filtre. Elles sont d'ailleurs reconnues dans la littérature pour leur fiabilité, et sont utilisées dans de nombreux travaux et aussi par l'industrie.
 
 #strong[#gls("lpips", "LPIPS")] devient intéressante dans notre cas précis. Le second jeu de données repose sur un encodage par régions d'intérêt, c'est-à-dire un codage qui concentre ses efforts sur les zones importantes de l'image, exactement le genre de comportement qu'un filtre IA cherche à produire. Or c'est justement là que LPIPS obtient ses meilleurs scores (0.881 et 0.880, la meilleure métrique en forte variabilité). Comme ce cas d'usage ressemble au nôtre, LPIPS mérite d'être considérée, alors qu'elle était moins convaincante sur l'encodage classique.
 
 
-En résumé, #gls("vmaf", "VMAF") et UVQ / Delta UVQ s'imposent comme les métriques principales, tandis que LPIPS pourrait apporter des informations complémentaires par sa pertinance face à un cas d'usage proche.
+En résumé, #gls("vmaf", "VMAF") et UVQ s'imposent comme les métriques principales, tandis que LPIPS pourrait apporter des informations complémentaires par sa pertinance face à un cas d'usage proche.
 
 Nous le voyons ici, aucune métrique n'est parfaite face à la perception humaine, il est donc important de croiser les résultats pour avoir une idée plus précise de la qualité des images reconstruites. On peut cependant évoquer la limite de ces métriques pour notre cas d'utilisation, des images modifiées par IA, où il est difficile pour le moment d'assurer la fiabilité des résultats obtenus. Ce qui mènera ce projet vers des tests face à de vrais utilisateurs dans le futur.
 
@@ -1361,9 +1361,9 @@ Ces résultats montrent que le proxy simplifié optimise très peu au vu de ce c
   caption: [Résultats Optimisation filtre avec proxy simplifié version "bruit"],
 )
 
-Cette version n'a pas donné de résultats très intérressants non plus, il est possible au vu de ces métriques et le coût d'image évolue mais n'apporte pas de bénéfice face à un encode classique, on voit par exempel à haute qualité que le coût à largement diminué mais reste dans ce que pourrais déjà faire le codec sans ce filtre. On voit cependant qu'à basse qualité le point gardant un coût (bpp) similaire est au dessus sur toutes les mesures, ce qui pourrait définir que cette méthode permet aussi un gain minime à basse qualité.
+Cette version n'a pas donné de résultats très intérressants non plus, le coût des vidéos évolue mais n'apporte pas de bénéfice face à un encode classique selon ces mesures, on voit par exemple à haute qualité que le coût a largement diminué mais reste dans ce que pourrait déjà faire le codec sans ce filtre. On voit cependant qu'à basse qualité le point gardant un coût (bpp) similaire est au dessus sur toutes les mesures, ce qui pourrait définir que cette méthode permet aussi un gain minime à basse qualité.
 
-Ces différents graphiques représente une moyenne sur 30 vidéos, si l'on regarde les résultats plus en détail certains contenus vidéos semblent mieux réagir à cette optimisation, pour illuster cela voici un exemple où toutes les mesures s'accordent pour une optimisation au moins à basse qualité.
+Ces différents graphiques représente une moyenne sur 30 vidéos. Si l'on regarde les résultats plus en détail certains contenus vidéos semblent mieux réagir à cette optimisation, pour illuster cela voici un exemple où toutes les mesures s'accordent pour une optimisation au moins à basse qualité (point plus à gauche).
 
 #figure(
   grid(
@@ -1389,7 +1389,7 @@ L'ordre des images reste le même, on a l'iamge d'origine, puis la version compr
   #figure(
     image("images/_montagecrf37SRC08.png", width: 125%),
     caption: [Exemple CRF 37, SRC 8],
-  ) <crf32src5>
+  ) <crf37src8>
 ]
 On retrouve ici la vidéo présentée qui valide les différentes métriques, on voit que la vidéo d'origine semble très bruitée, ce qui pourrait expliquer une plus forte amélioration, la qualité est bien meilleure les artefacts liés à la compression sont moins présents pour un coût réduit.
 
@@ -1399,7 +1399,8 @@ On retrouve ici la vidéo présentée qui valide les différentes métriques, on
     caption: [Exemple CRF 32, SRC 5],
   ) <crf32src5>
 ]
-Dans ce premier exemple on peut notamment voir que certaines textures du mur sont mieux concervés par le filtre simplifié tout en diminuant le coût de l'image.
+
+Dans ce premier exemple on peut notamment voir que certaines textures du mur sont mieux concervées par le filtre simplifié tout en diminuant le coût de l'image.
 
 
 #align(center)[
@@ -1446,31 +1447,28 @@ Les deux options offrent tout de même des possibilités différentes, le proxy 
 Il semble aussi assez clair que la majorité de la tâche se trouvera dans le choix du guide d'apprentissage, ici assez simple, il faudra trouver des méthodes plus robustes pour guider l'apprentissage et obtenir un gain net. Cela passe aussi par le choix des paramètres qui viennent définir le ratio entra qualité et coût. Il faudra aussi voir si les métriques utilisées sont suffisantes pour juger de la qualité des images, car il semble que certaines ne soient pas assez sensibles aux modifications apportées par le filtre.
 
 = Conclusion
+Ce projet de fin d'études s'attaque à une question concrète : peut-on, à l'aide de l'IA, optimiser la compression vidéo en amont d'un codec existant comme #gls("hevc", "H.265") ? Le cœur du travail a consisté à lever le principal verrou technique, l'impossibilité d'apprendre directement à travers un codec classique, en étudiant, adaptant et évaluant différentes approches de #gls("proxy", "proxy"). Deux voies ont été explorées : un proxy par codage neuronal et un codec simplifié différentiable, chacune avec ses forces et ses limites théoriques, le but était aussi d'évaluer leur pertinence sur un cas d'usage concret.
 
-Ce projet de fin d'études s'attaque à une question concrète : peut-on, à l'aide de l'IA, optimiser la compression vidéo en amont d'un codec existant comme #gls("hevc", "H.265"). Le cœur du travail a consisté à lever le principal verrou technique, l'impossibilité d'apprendre directement à travers un codec classique, en étudiant, adaptant et évaluant différentes approches de #gls("proxy", "proxy"). Deux voies ont été explorées : un proxy par codage neuronal et un codec simplifié différentiable, chacune avec ses forces et ses limites théorique le but était d'évaluer aussi sur un cas d'uasge concret leur pertinance.
+Les résultats ont montré que ces outils sont de bons imitateurs de la cible #gls("hevc", "H.265"), en particulier pour reproduire des images de bonne qualité.
 
-Les résultats ont montrés que les outils semblaient être des bon recopieur de la cible H.265 en particulier pour reproduir des images de bonnes qualités.
+Face aux métriques, ils font apparaître de légères optimisations à basse qualité, mais les écarts restent faibles, ce qui tient aussi à la difficulté de la tâche. Une limite doit d'ailleurs être posée. Les métriques actuelles ne sont pas assurément fiables pour notre cas d'usage, des images transformées par IA. On remarque cependant, sur plusieurs exemples visuels, que les modifications permettent parfois de préserver certaines textures ou de limiter le bruit de compression, ce qui montre qu'une optimisation de ce type semble possible avec ces outils. Il reste à en amplifier les effets pour obtenir des gains plus nets.
 
-Les résultats face aux métriques montre parfois de soptimisations à faible qualité mais les écarts sont faible, ce qui vient aussi de la difficulté de la tâche, de slimites sur ces résultats sont à poser les métriques actuelles ne sont pas assuremment fiable pour notre cas d'usage d'iamges apssées transformée par IA.
-Cependant on remarque parmis les différents exemples visuels que les modifications ont parfois permis de garder certaines textures, limiter le bruit de compression, ce qui prouve qu'une optimisation de ce type est possible mais il reste à en optimiser les effets afin d'obtenir des gains plus intérressants.
+Ce travail s'accompagne d'un constat important : la qualité d'une optimisation dépend de nombreux éléments, le proxy, la #gls("metrique", "métrique") qui guide l'apprentissage, mais aussi les données utilisées ce qui rend le champs des possibilités immense.
 
-Ce travail s'accompagne d'un constat important : la qualité d'une optimisation dépend de nombreux éléments : du proxy,de la #gls("metrique", "métrique") qui guide l'apprentissage, des données utilisées.
-
-Au-delà de l'aspect technique, ce rapport aura cherché à répondre à trois questions transversales. Sur le plan économique, on retiendra que les enjeux de la #gls("vod", "VOD"), bande passante, stockage, énergie, rendent toute optimisation en amont directement profitable aux acteurs du secteur, et donc à notre cellule. Sur le plan organisationnel, le projet illustre comment une petite structure, à l'interface d'un laboratoire et d'une entreprise, s'organise autour de réunions régulières et de ressources mutualisées pour mener un travail d'apprentissage automatique. Sur le plan humain, enfin, il montre qu'une équipe jeune compense un certain manque d'expérience par une réelle capacité d'adaptation, une veille constante et un partage de connaissances au quotidien, autant d'atouts pour aborder des sujets de pointe malgré des compétences en début de projet limitées par le manque d'expérience.
+Au-delà de l'aspect technique, ce rapport aura cherché à répondre à trois questions transversales. Sur le plan économique, on retiendra que les enjeux de la #gls("vod", "VOD"), bande passante, stockage, énergie, rendent toute optimisation en amont directement profitable aux acteurs du secteur, et donc à notre cellule dans une logique de partenariat et donc de projets futurs. Sur le plan organisationnel, le projet illustre comment une petite structure, à l'interface d'un laboratoire et d'une entreprise, s'organise autour de réunions régulières et de ressources mutualisées et une adaptation au quotidien pour mener à bien ce projet. Sur le plan humain, enfin, il montre qu'une équipe jeune compense un certain manque d'expérience par une réelle capacité d'adaptation, une veille constante et un partage de connaissances au quotidien, autant d'atouts pour aborder des sujets de pointe.
 
 Ce PFE ne constitue qu'une étape du projet, les outils mis en place ont vocation à être réutilisés, améliorés et adaptés. La validation finale, par de vrais utilisateurs, viendra confirmer la pertinence des optimisations une fois celles-ci suffisamment mûres.
-
 
 = Bilan personnel
 
 Ce projet aura été, avant tout, une période d'apprentissage dense. J'y ai
 découvert un grand nombre de concepts, dans des domaines à la fois riches et
-exigeants — la compression vidéo comme le deep learning —, et cette montée en
+exigeants, la compression vidéo comme le deep learning, et cette montée en
 compétence progressive constitue l'un des aspects les plus enrichissants de ces
 mois de travail.
 
 Ce cheminement ne s'est pas fait sans difficultés. J'ai parfois eu du mal à me
-contenter de solutions simples : la recherche de résultats plus aboutis m'a
+contenter de solutions simples, la recherche de résultats plus aboutis m'a
 conduit, à certains moments, vers des pistes trop ambitieuses, sources de
 frustration lorsqu'elles n'aboutissaient pas. J'ai appris, au fil du projet, à
 accepter la difficulté réelle de la tâche et à revenir vers des approches plus
