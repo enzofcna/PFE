@@ -213,7 +213,7 @@ Ce poids dans le trafic s'accompagne d'un marché en forte croissance. Le segmen
 
 #align(center)[
   #figure(
-    image("images/svod_eco.png", width: 85%),
+    image("images/svod_marche_fr.svg", width: 85%),
     caption: [Évolution du marché SVOD par type de contenu, 2022-2032 (en milliards de dollars) @gmi2024svod],
   ) <svodmarket>
 ]
@@ -322,10 +322,7 @@ Ce chapitre cherche à répondre à une question : comment une petite cellule, �
 == Contexte du projet
 Ce projet est en lien avec Amazon Elemental, filiale d'Amazon. Ce groupe s'intéresse aux problématiques liées à la vidéo, notamment du fait des différents services qu'il propose, tel que Prime Video. Ce projet prend part dans une collaboration à plus long terme et fait suite à d'autres projets en lien avec cet organisme.
 
-Ce projet s'inscrit aussi dans la dynamique de la cellule. Sa montée en charge s'est accompagnée de recrutements, et le sujet, à la croisée de la compression vidéo et de l'apprentissage automatique, a contribué à orienter certains des profils recherchés. // TODO : préciser le volume de recrutements ou les profils concernés si tu as les éléments.
-Pendant son déroulement, il occupe une place importante au sein de l'équipe : il mobilise plusieurs membres et s'appuie sur les compétences cœur de la cellule.
-
-Un objectif transversal mérite par ailleurs d'être mentionné dès maintenant : au-delà des résultats, le projet vise à produire des outils réutilisables par l'équipe. La documentation rédigée et le code, versionné sur la plateforme GitLab de l'équipe, doivent permettre de capitaliser sur ce travail pour les contributions futures.
+Ce projet s'inscrit aussi dans la dynamique de la cellule. Pendant son déroulement, il occupe une place importante au sein de l'équipe, il mobilise plusieurs membres et s'appuie sur les compétences cœur de la cellule.
 
 Ce projet a pour ambition d'étudier le sujet de l'IA dans le cadre de l'optimisation vidéo. Cela prend la forme d'une preuve de concept, où les études réalisées seront présentées à l'entreprise cliente afin de définir la faisabilité d'une telle optimisation. Pour ce faire, différents jalons sont posés : quels outils permettent au mieux d'évaluer la qualité d'un contenu vidéo ? Par la suite, des FOM (_Figure Of Merit_) devront définir les méthodes d'évaluation de la réussite d'une optimisation. Ces premiers jalons donnent une base solide qui sera réutilisable pour les étapes d'optimisation. D'autres aspects du projet consistent aussi en l'évaluation des méthodes d'optimisation par IA. C'est d'ailleurs dans cette partie que ce projet de fin d'études prend place : le but est de définir les outils possibles pour ce genre d'optimisation, et de répondre aux différentes problématiques posées par les outils de codage vidéo classiques pour l'apprentissage. Il sera alors question d'implémenter des solutions et d'évaluer leurs performances et leur pertinence dans le projet. Ces tests sont aussi liés à l'évaluation des différents outils de mesure de qualité, car ils seront la clé d'un apprentissage réussi.
 Par la suite, une fois les différentes études menées sur l'outillage nécessaire à une optimisation réussie, l'objectif final sera de mettre ces outils en œuvre sur des cas contrôlés de vidéo, afin d'évaluer les optimisations obtenues.
@@ -870,6 +867,7 @@ Afin de comprendre les différents éléments nécessaires à l'apprentissage du
 
 Dans ce schéma, le terme #gls("proxy", "proxy") est associé à la copie du codec pour simplifier la compréhension , les scores liés aux #gls("metrique", "métriques") sont aussi remplacés par *résultat du filtre*, car dans cette boucle, les métriques nous servent de guide et définissent les résultats du filtre.
 
+Il est important de différencier le proxy du véritable codec. Pour simplifier, le filtre va agir sur les images qui seront ensuite encodées et décodées par le vrai codec, puis par son proxy, les métriques évalueront les images produites par le véritable codec mais n'étant pas optimisable, l'optimisation se fera sur le proxy. Cela permet de s'assurer que le comportement du filtre fonctionne sur le véritable outil, on contourne alors les limitations présentées.
 
 #figure(
   canvas(length: 1cm, {
@@ -935,7 +933,7 @@ Dans ce schéma, le terme #gls("proxy", "proxy") est associé à la copie du cod
 ) <filtreGlobale>
 
 
-Pour entrer plus en détail concernant l'architecture du filtre utilisée, nous avons fait le choix de reprendre une architecture simple liée à la partie pré-filtrage du papier @khan2025neural présenté plus tôt. Le détail des éléments composant ce filtre est disponible en @archi. Les détails de l'architecture étant fournis, cela facilite grandement l'implémentation. L'objectif ici est d'évaluer les solutions de proxy avec une architecture de filtre fonctionnelle , cette architecture étant validée par les résultats fournis dans ces travaux, la reprendre simplifie l'étude de ce point. Dans une perspective future d'évolution visant des gains supplémentaires, cette architecture pourra largement évoluer.
+Pour entrer plus en détail concernant l'architecture du filtre utilisée, nous avons fait le choix de reprendre une architecture simple liée à la partie pré-filtrage du papier @khan2025neural présenté plus tôt. Le détail des éléments composant ce filtre est disponible en @archi. Les détails de l'architecture étant fournis, cela facilite grandement l'implémentation. L'objectif ici est d'évaluer les solutions de proxy avec une architecture de filtre fonctionnelle , cette architecture étant validée par les résultats fournis dans ces travaux, la reprendre simplifie l'étude de ce point. Dans une perspective future d'évolution visant des gains supplémentaires, cette architecture pourra largement évoluer. Par exemple elle ne travaille que sur une image à la fois et uniquement sur la luminance, ce qui limite possiblement son champs d'action.
 
 
 == Proxy par codage neuronal
@@ -963,7 +961,7 @@ Comme nous l'avons vu en @limites_codec, les codecs comportent un grand nombre d
 
 La sélection du meilleur bloc candidat lors de la prédiction est l'une des opérations bloquantes identifiées précédemment, elle repose sur un argmin, un choix discret qui ne fournit aucun gradient exploitable (@nondiff). Les travaux existants comme @chadha2021dpp conservent cette opération mais la contournent par un #gls("ste", "STE"), forçant un gradient identité au retour. Cette approche fonctionne, mais elle laisse passer l'opération, elle ne porte alors d'information que sur le bloc effectivement choisi, ignorant les autres candidats.
 
-Nous avons aussi retenu une autre approche : plutôt que de sélectionner un unique bloc, nous calculons une combinaison pondérée de l'ensemble des candidats. Chaque candidat reçoit un poids d'autant plus fort que son erreur de correspondance est faible. Concrètement, la prédiction finale mélange visuellement plusieurs blocs selon leur pertinence. L'intérêt est que le gradient circule à travers tous les candidats, et non plus seulement le gagnant.
+Nous avons aussi retenu une autre approche : plutôt que de sélectionner un unique bloc, nous calculons une combinaison pondérée de l'ensemble des candidats. Chaque candidat reçoit un poids d'autant plus fort que son erreur de correspondance est faible. Concrètement, la prédiction finale mélange visuellement plusieurs blocs selon leur pertinence. L'intérêt est que le gradient circule à travers tous les candidats, et plus uniquement le gagnant.
 
 #figure(
   canvas(length: 1cm, {
@@ -1108,8 +1106,6 @@ Cette implémentation s'est révélée particulièrement intéressante pour test
 
 
 == Guide d'optimisation
-// TODO Rajouter une xeplication sur des tests qui on montré des gains mais qui ne modifiait aps l'iamge et qu'il était fort probable que ces gains venaient majoritairement d'une faille exploitée par le réseau de neuronnes.
-
 
 Nous l'avons vu, le guide d'apprentissage doit satisfaire deux exigences à la fois : être un bon simulateur de ce que percevrait un utilisateur, et rester facilement optimisable pour que les poids du filtre soient ajustés dans la bonne direction.
 
@@ -1117,11 +1113,13 @@ De nombreuses combinaisons de #gls("metrique", "métriques") sont possibles, mai
 
 Le guide retenu cherche un compromis entre simplicité et fidélité à la perception humaine. Il associe deux composantes : une perte L1 et la métrique #gls("dists", "DISTS").
 
-La perte L1 est une fonction simple, orientée fidélité : elle mesure l'écart direct entre l'image filtrée et l'image source, dans le même esprit que le #gls("psnr", "PSNR") évoqué plus tôt, peu précis perceptuellement mais facile à optimiser. Elle joue ici le rôle de garde-fou, en empêchant le filtre de trop s'éloigner de l'image d'origine.
+La perte L1 est une fonction simple, orientée fidélité : elle mesure l'écart direct entre l'image filtrée et l'image source, dans le même esprit que le #gls("psnr", "PSNR") évoqué plus tôt, peu précis perceptuellement mais facile à optimiser. Elle joue ici le rôle de garde-fou, en empêchant le filtre de trop s'éloigner de l'image d'origine un rôle essentiel pour éviter des dérives venant d'une métrique plus complexe.
 
-#gls("dists", "DISTS") apporte la dimension perceptuelle. Il s'appuie sur un réseau de neurones et est calibré sur des jugements humains de similarité. Entraîné à partir de paires d'images, il est théoriquement capable de savoir si une texture différente au niveau des pixels est acceptable pour un utilisateur. C'est ce qui rend #gls("dists", "DISTS") pertinent ici : sa tolérance aux textures, par conception, lui permet de considérer comme similaires deux textures différentes d'une même zone tant qu'elles restent acceptables pour l'œil. Autrement dit, il laisse au filtre la liberté de modifier l'image au niveau du détail, sans le pénaliser tant que la satisfaction de l'utilisateur n'est pas affectée. C'est exactement le type de souplesse que l'on recherche pour réduire le débit sans dégrader la qualité perçue.
+#gls("dists", "DISTS") apporte la dimension perceptuelle. Il s'appuie sur un réseau de neurones et est calibré sur des jugements humains de similarité. Entraîné à partir de paires d'images, il est théoriquement capable de savoir si une texture différente au niveau des pixels est acceptable pour un utilisateur. C'est ce qui rend #gls("dists", "DISTS") pertinent ici, sa tolérance aux textures. Autrement dit, il laisse au filtre la liberté de modifier l'image au niveau du détail, sans le pénaliser tant que la satisfaction de l'utilisateur n'est pas affectée. C'est exactement le type de souplesse que l'on recherche pour réduire le débit sans dégrader la qualité perçue. De plus elle a été conçue pour ce type de projet de modification d'images.
 
 L1 et #gls("dists", "DISTS") sont donc complémentaires : la première ancre le résultat sur la source et évite les dérives, la seconde guide les modifications dans une direction compatible avec la perception humaine.
+
+Concernant l'utilisation d'autres méthodes, différents tests sont en cours mais ce sont pas à un stade assez abouti pour les évoquer dans ce document.
 
 
 == Méthode d'évaluation
@@ -1135,7 +1133,7 @@ On compare donc plusieurs #gls("metrique", "métriques") selon leur accord avec 
 Pour comprendre les résultats il est aussi important de présenter les différentes métriques.
 
 #gls("vmaf", "VMAF") (Video Multi-Method Assessment Fusion) est une métrique que nous avons déjà évoquée, elle possède aussi une version durcie, VMAF-NEG, qui pénalise un rehaussement du contraste , elle est reconnue pour être plus robuste à certaines conditions grâce à des limites que la version classique n'a pas.
-UVQ (Universal Video Quality) est une métrique plus récente, basée sur l'IA, qui a appris à partir de scores #gls("mos", "MOS"). Delta UVQ est une variante d'UVQ qui prend en compte les différences entre l'image originale et l'image compressée, car cette mesure est _No-Reference_, ce qui peut parfois causer des écarts en fonction de l'image originale. #gls("lpips", "LPIPS") (Learned Perceptual Image Patch Similarity) est une métrique basée sur un réseau de neurones entraîné pour prédire la similarité perceptuelle entre deux images. CVVDP (Color Video Visual Difference Predictor) est une métrique qui modélise la perception humaine des différences de couleur et de luminance.
+UVQ (Universal Video Quality) est une métrique plus récente, basée sur l'IA, qui a appris à partir de scores #gls("mos", "MOS"). Delta UVQ est une variante d'UVQ qui prend en compte les différences entre l'image originale et l'image compressée, car cette mesure est _No-Reference_, ce qui peut parfois causer des écarts en fonction de l'image originale. #gls("lpips", "LPIPS") (Learned Perceptual Image Patch Similarity) est une métrique basée sur un réseau de neurones entraîné pour prédire la similarité perceptuelle entre deux images. 
 
 Les tableaux ci-dessous ne montrent que les métriques retenues comme candidates, les autres, moins pertinentes pour notre usage, ont été écartées pour la clarté.
 
@@ -1184,7 +1182,11 @@ Nous le voyons ici, aucune métrique n'est parfaite face à la perception humain
 
 == Environnement de test
 
-Présenter les différentes qualités testées et en quoi elles sont difficiles et que nos outils sont probablement éloignés de ça.
+Notre cible étant des vidéos de VOD il est important d'utiliser les outils de manière à refleter ce qu'on pourrait retrouver en situation réelle. Le choix à donc été fait de tester les solutions face à une version optimisée de H.265. Il existe différents modes qui permettent d'encoder et décoder plus ou moins rapidement, ce qui va aussi jouer sur la qualité des vidéos finale mais aussi sur le poids des vidéos.
+
+Ce choix de test semble important pour vérifier la validité d'un tel filtre pour notre cible. Mais par des contraintes lié à la durée d'entrainement, la version utilisée lors de l'apprentissage sera elle plus rapide car cette différence de temps de traitement devient alors trop importante au vu du nombres de vidéos à traiter durant l'apprentissage.
+
+Ce point sera aussi à étudier par la suite car cela entraine un écart entre le domaine d'entrainement et le domaine de test.
 
 == Données d'entrainement
 
@@ -1264,8 +1266,6 @@ Le proxy neuronal reconstruit les images les plus ressemblantes, en particulier 
 Parmi nos versions simplifiées, la variante `round · softmax` est la plus proche du vrai codec, les autres réglages s'en éloignent un peu. Le softmax est la fonction que nous avions présentée, elle permet de mélanger les candidats de prédiction plutôt que d'en choisir un seul. Cela a pour effet de lisser légèrement le résultat, ce qui est apprécié par le PSNR notamment, ce qui explique ces résultats. On peut tout de même valider la pertinence du proxy simplifié, car lui n'a pas appris à reproduire fidèlement les images. Il est intéressant de noter que ces performances sont obtenues à cette qualité qui est haute mais devient moins bonne si l'on choisit de traiter des images de plus basse qualité, car le proxy simplifié ne reprend pas toutes les logiques d'optimisations complexes du véritable codec, des optimisations qui vont être bénéfiques surtout sur des images de plus basse qualité. Notre simulateur fonctionne donc très bien à haute qualité, moins à basse qualité.
 
 
-// TODO : mettre un exemple visuel des vidéos en CRF 22, mais aussi un exemple d'une image à basse qualité du codec pour le proxy simplifié
-
 Ce constat nous a donc obligé à utiliser cet outil avec plus de précaution et rester dans une plage limité de qualité afin d'éviter de s'éloigner trop de l'outil d'origine.
 
 == Corrélation de débit
@@ -1318,56 +1318,80 @@ De par notre implémentation présenté dans @filtreGlobale, les deux proxy poss
 
 == Résultats face aux #gls("metrique", "métriques")
 
-// TODO expliquer comment lire des rd-cruves et ajouter les courbes lpips
-
+Les courbes présentées permettent de comparer la version de la vidéo sans filtrage et celle avec, on compare à un niveau de qualité similaire les deux versions.
+Plus un point est à droite plus la vidéo coute cher, plus un point est hau ou bas en fonction de la mesure(le sens est indiqué sur les différents graphiques), plus sa qualité est bonne. Dans le cas des métriques testées seul LPIPS est à lire dans le sens inverse (plus bas = meilleur).
 
 #figure(
   grid(
     columns: (1fr, 1fr),
     gutter: 0.5cm,
-    image("images/rd_UVQ_MEAN_N.png"), image("images/rd_VMAF_MEAN_N.png"),
-    grid.cell(colspan: 2)[
-      #align(center)[#image("images/rd_VMAF_NEG_MEAN_N.png", width: 50%)]
-    ],
+    image("images/rd_VMAF_NEG_MEAN_N.png"),
+    image("images/rd_VMAF_MEAN_N.png"),
+    image("images/rd_UVQ_MEAN_N.png"),
+    image("images/rd_LPIPS_MEAN.png"),
   ),
   caption: [Résultats Optimisation filtre avec proxy neuronal],
 )
-
 Ces résultats montrent que le proxy neuronal optimise bien le filtre, les scores VMAF et VMAF-NEG sont assez parlant et montrent un gain assez net (2.5 points VMAF par exemple pour le premier point en basse qualité). Cependant on remarque une contradiction la métrique UVQ semble ne pas apprécier les modifications du filtre, ce qui est un point à creuser pour comprendre pourquoi cette métrique ne réagit pas comme les autres, elle reste tout de même inchangé à basse qualité.
 
 #figure(
   grid(
     columns: (1fr, 1fr),
     gutter: 0.5cm,
-    image("images/rd_UVQ_MEAN_S1.png"),
+    image("images/rd_VMAF_NEG_MEAN_S1.png"),
     image("images/rd_VMAF_MEAN_S1.png"),
-    grid.cell(colspan: 2)[
-      #align(center)[#image("images/rd_VMAF_NEG_MEAN_S1.png", width: 50%)]
-    ],
+    image("images/rd_UVQ_MEAN_S1.png"),
+    image("images/rd_LPIPS_MEAN_ROUND.png"),
   ),
   caption: [Résultats Optimisation filtre avec proxy simplifié version "arrondi"],
 )
 
 Ces résultats montrent que le proxy simplifié optimise très peu au vu de ce contenu, les différences restent dans les marges d'erreurs des métriques on ne pas pas spécifier de gain mais un accord semble tout de même exister à basse qualité où les trois métriques s'accordent sur un possible gain minime du filtre.
 
+
 #figure(
   grid(
     columns: (1fr, 1fr),
     gutter: 0.5cm,
-    image("images/rd_UVQ_MEAN_Noise.png"),
+    image("images/rd_VMAF_NEG_MEAN_Noise.png"),
     image("images/rd_VMAF_MEAN_Noise.png"),
-    grid.cell(colspan: 2)[
-      #align(center)[#image("images/rd_VMAF_NEG_MEAN_Noise.png", width: 50%)]
-    ],
+    image("images/rd_UVQ_MEAN_Noise.png"),
+    image("images/rd_LPIPS_MEAN_NOISE.png"),
   ),
-  caption: [Résultats optimisation filtre avec proxy simplifié version « bruit »],
+  caption: [Résultats Optimisation filtre avec proxy simplifié version "bruit"],
 )
 
-Cette version n'a pas donné de résultats intérressant, il est possible au vu de ces métriques et le coût d'image évolue mais n'apporte pas de bénéfice face à un encode classique. On voit cependant qu'à absse qualité le point gardant un coût (bpp) similaire est au dessus sur toutes les mesures, ce qui pourrait définir que cette méthode permet aussi un gain minime à basse qualité.
+Cette version n'a pas donné de résultats très intérressants non plus, il est possible au vu de ces métriques et le coût d'image évolue mais n'apporte pas de bénéfice face à un encode classique, on voit par exempel à haute qualité que le coût à largement diminué mais reste dans ce que pourrais déjà faire le codec sans ce filtre. On voit cependant qu'à basse qualité le point gardant un coût (bpp) similaire est au dessus sur toutes les mesures, ce qui pourrait définir que cette méthode permet aussi un gain minime à basse qualité.
+
+Ces différents graphiques représente une moyenne sur 30 vidéos, si l'on regarde les résultats plus en détail certains contenus vidéos semblent mieux réagir à cette optimisation, pour illuster cela voici un exemple où toutes les mesures s'accordent pour une optimisation au moins à basse qualité.
+
+#figure(
+  grid(
+    columns: (1fr, 1fr),
+    gutter: 0.5cm,
+    image("images/neg.png"),
+    image("images/vmaf.png"),
+    image("images/uvq.png"),
+    image("images/LPIPS.png"),
+  ),
+  caption: [Résultats Optimisation filtre avec proxy simplifié version "round" pour la vidéo SRC08],
+)
+
+Cela montre aussi que les résultats dépendent grandement du contenus, ce qui prouve l'importance, des données d'entrainement qui doivent être représentative d'un large panel de contenus afin d'obtenir un outil polyvalent.
 
 == Test visuel
 Afin d'avoir une idée des effets du filtre sur les images voici quelques exemples où l'ont voir de différences intérressantes à analyser. Ces iamges proviennent bien sûr des iamges de test et pas celles utilisées durant l'apprentissage.
 Il est possible que certains détails ne soient visible qu'en zoomant.
+On a l'information de la version et la taille de l'image en kilo-octet, une mesure informatique, plus la valeur est basse plus l'image est légère.
+L'ordre des images reste le même, on a l'iamge d'origine, puis la version compression classique, et les tests de filtre dans l'ordre : "round" "neuronal" et "bruit"
+
+#align(center)[
+  #figure(
+    image("images/_montagecrf37SRC08.png", width: 125%),
+    caption: [Exemple CRF 37, SRC 8],
+  ) <crf32src5>
+]
+On retrouve ici la vidéo présentée qui valide les différentes métriques, on voit que la vidéo d'origine semble très bruitée, ce qui pourrait expliquer une plus forte amélioration, la qualité est bien meilleure les artefacts liés à la compression sont moins présents pour un coût réduit.
 
 #align(center)[
   #figure(
@@ -1417,9 +1441,9 @@ Les résultats ne montrent pas une optimisation claire, visuellement certains ex
 Nous sommes encore à stade précoce du projet et ne pas avoir de résultats clairs est normal l'objectif ici était aussi de mettre en avant les différences face aux outils que l'on a mis en place et de voir comment ils se comportent.
 
 Par la suite il faudra alors voir s'il est possible d'utiliser d'autres mesures afin de guider au mieux l'apprentissage car il semble assez clair que le choix simple utilisé ici pour guider l'apprentissage n'est pas suffisant pour obtenir un gain net.
-Les deux options offrent tout de même des possibilités différentes, le proxy simplifié pourra largement être modifié afin d'obtenir des performances plus intérressantes en replicant par exemple des méthodes plus avancées, mais les scores obtenus pour sa fidélité d'image montrent tout de même que l'implémentation et les choix sont valides les différences liés aux deux options retenus ne sont pas significative.
+Les deux options offrent tout de même des possibilités différentes, le proxy simplifié pourra largement être modifié afin d'obtenir des performances plus intérressantes en repliquant par exemple des méthodes plus avancées, mais les scores obtenus pour sa fidélité d'image montrent tout de même que l'implémentation et les choix sont valides les différences liés aux deux options retenus ne sont pas significative.
 
-Il semble aussi assez clair que la majorité de la tâche se trouvera dans le choix du guide d'apprentissage, ici assez simple, il faudra trouver des méthodes plus robustes pour guider l'apprentissage et obtenir un gain net. Il faudra aussi voir si les métriques utilisées sont suffisantes pour juger de la qualité des images, car il semble que certaines ne soient pas assez sensibles aux modifications apportées par le filtre.
+Il semble aussi assez clair que la majorité de la tâche se trouvera dans le choix du guide d'apprentissage, ici assez simple, il faudra trouver des méthodes plus robustes pour guider l'apprentissage et obtenir un gain net. Cela passe aussi par le choix des paramètres qui viennent définir le ratio entra qualité et coût. Il faudra aussi voir si les métriques utilisées sont suffisantes pour juger de la qualité des images, car il semble que certaines ne soient pas assez sensibles aux modifications apportées par le filtre.
 
 = Conclusion
 
@@ -1459,11 +1483,14 @@ pointus, et sur une durée longue, n'est pas toujours évident. La complexité d
 domaine demande un effort de concentration soutenu, c'est ce qui
 rend l'organisation et la discipline de travail d'autant plus importantes.
 
+Avec du recul je pense qu'il aurait été plus sûr de rester sur une seule solution pour débuter ce qui aurait faciliter les différents tests mais ce choix aura permis d'avoir plus d'outils pour la suite du projet.
+
 J'ai par ailleurs conscience que les résultats obtenus restent, à ce stade,
 encore peu aboutis. Ce constat n'est pas un échec, il correspond aussi à la période du projet, qui est encore jeune, et il ouvre à des perspectives pour la suite. Ce PFE constitue donc un point d'étape important
 il aura permis de mettre au clair les idées, de développer les premiers outils et
 de dégager les directions qui guideront la poursuite du projet un travail de
 clarification et d'apprentissage dont la valeur dépasse celle des seuls résultats chiffrés.
+
 
 
 #pagebreak()
