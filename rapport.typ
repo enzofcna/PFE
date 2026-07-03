@@ -272,7 +272,7 @@ Le choix d'une cible d'optimisation réaliste et qui prend en compte ces différ
 
 
 == Problématique
-Nous avons vu que la diffusion de contenu vidéo est soumise à de fortes contraintes, en particulier matérielles côté utilisateur. Optimiser un codec déjà en place comme #gls("hevc", "H.265"), plutôt que d'en imposer un nouveau, apparaît donc comme la voie la plus réaliste, celapermet de réduire la taille des flux transmis sans toucher aux appareils des utilisateurs. C'est précisément ce que l'intelligence artificielle (IA) pourrait permettre.
+Nous avons vu que la diffusion de contenu vidéo est soumise à de fortes contraintes, en particulier matérielles côté utilisateur. Optimiser un codec déjà en place comme #gls("hevc", "H.265"), plutôt que d'en imposer un nouveau, apparaît donc comme la voie la plus réaliste, cela permet de réduire la taille des flux transmis sans toucher aux appareils des utilisateurs. C'est précisément ce que l'intelligence artificielle (IA) pourrait permettre.
 
 L'idée explorée dans ce projet est d'utiliser l'IA en amont de la compression, pour prétraiter la vidéo. Ajuster l'image de façon à la rendre plus facile à compresser, et ainsi réduire le poids du fichier final à qualité visuelle équivalente. L'intérêt de l'IA tient à sa capacité d'adaptation, les méthodes traditionnelles peinent parfois face à la diversité des contenus, un modèle peut apprendre à repérer ce qui compte visuellement et à modifier l'image en conséquence. On obtient une approche potentiellement plus souple, et moins coûteuse en calcul que des optimisations classiques poussées.
 Reste un obstacle majeur. Les codecs vidéo n'ont jamais été pensés pour servir dans un apprentissage, ils s'intègrent donc mal pour l'optimisation d'une IA. La question principale est alors de définir les moyens permettant à l'IA d'apprendre efficacement à travers un codec classique comme #gls("hevc", "H.265"), malgré les limitations de ce dernier. C'est le verrou technique central du projet.
@@ -852,7 +852,8 @@ Cette approche reprend l'idée du « sandwich » : un filtre de prétraitement e
 *Limites.* L'évaluation porte sur #gls("hevc", "H.265") et sur des scénarios assez spécifiques, principalement avec le #gls("psnr", "PSNR") et #gls("lpips", "LPIPS"), ce qui rend la transposition directe à notre cas moins évidente. Et là encore, le post-traitement côté client pose les mêmes difficultés de déploiement. On peut d'ailleurs imaginer que les résultats sont en bonne partie dus à ce filtre en post-traitement, comme pour le premier papier présenté.
 
 
-= Implémentation
+= Implémentation et Méthode
+
 == Objectif
 
 Comme évoqué dans la partie précédente, de nombreux travaux sont parvenus à dépasser les limites des codecs classiques pour entraîner un filtre. Mais la diversité des implémentations, des méthodes d'entraînement et d'évaluation rend difficile de savoir laquelle est la plus efficace dans notre cas précis : le filtre de prétraitement. À cela s'ajoute un obstacle pratique : ces travaux sont rarement accompagnés de leur code source, ce qui complique fortement leur ré-implémentation et, bien souvent, empêche d'en reproduire les résultats.
@@ -1151,6 +1152,7 @@ Le second jeu de données est basé sur des vidéos encodées avec un encodage p
     [*VMAF*], [0.926], [0.737],
     [*VMAF-NEG*], [0.928], [0.721],
     [*UVQ*], [0.756], [*0.824*],
+    [*Delta UVQ*], [*0.937*], [0.722],
     [*LPIPS*], [0.786], [0.520],
   ),
 )
@@ -1166,15 +1168,19 @@ Le second jeu de données est basé sur des vidéos encodées avec un encodage p
     [*VMAF*], [0.899], [0.808],
     [*VMAF-NEG*], [0.803], [0.702],
     [*UVQ*], [0.803], [0.754],
-    [*LPIPS*], [0.881], [*0.880*],
+    [*Delta UVQ*], [*0.904*], [*0.850*],
+    [*LPIPS*], [0.881], [0.880],
   ),
 )
 
 
-#strong[#gls("vmaf", "VMAF") et UVQ] sont les valeurs sûres. Elles restent bien classées dans presque toutes les situations : VMAF est solide un peu partout, et UVQ arrive souvent en tête, y compris quand le contenu varie beaucoup (0.824 sur le premier jeu, 0.850 sur le second). Ce sont donc des candidats fiables et polyvalents pour évaluer notre filtre. Elles sont d'ailleurs reconnues dans la littérature pour leur fiabilité, et sont utilisées dans de nombreux travaux et aussi par l'industrie.
+#strong[#gls("vmaf", "VMAF") et UVQ] sont les valeurs sûres. Elles restent bien classées dans presque toutes les situations : VMAF est solide un peu partout, et UVQ atteint souvent de bonnes performances.
+
+Un point mérite d'être précisé au sujet d'UVQ : c'est une métrique _No-Reference_, c'est-à-dire qu'elle évalue une vidéo à partir de sa seule image, sans la comparer à l'image d'origine. Cela pose un problème dans notre cas : deux vidéos issues d'une même source peuvent avoir des qualités différentes, qu'UVQ jugera sans tenir compte de ce point de départ commun. C'est là qu'intervient la variante *Delta UVQ*, qui corrige le score en le ramenant à celui de la vidéo d'origine, rétablissant ainsi une comparaison équitable entre les contenus. On voit dans les tableaux que ce recalage améliore nettement les scores (0.937 contre 0.756 en faible variabilité sur le premier jeu, 0.850 contre 0.754 en forte variabilité sur le second). Dans notre cas d'usage, où l'on compare deux versions d'une même vidéo face à une référence commune, ce recalage est moins déterminant, mais il montre qu'UVQ peut être exploitée différemment pour gagner en fiabilité et montre sa pertinence face à un contenu égal.
+
+Ce sont donc des candidats assez fiables et polyvalents pour évaluer notre filtre. Elles sont d'ailleurs reconnues dans la littérature pour leur fiabilité, et sont utilisées dans de nombreux travaux et aussi par l'industrie.
 
 #strong[#gls("lpips", "LPIPS")] devient intéressante dans notre cas précis. Le second jeu de données repose sur un encodage par régions d'intérêt, c'est-à-dire un codage qui concentre ses efforts sur les zones importantes de l'image, exactement le genre de comportement qu'un filtre IA cherche à produire. Or c'est justement là que LPIPS obtient ses meilleurs scores (0.881 et 0.880, la meilleure métrique en forte variabilité). Comme ce cas d'usage ressemble au nôtre, LPIPS mérite d'être considérée, alors qu'elle était moins convaincante sur l'encodage classique.
-
 
 En résumé, #gls("vmaf", "VMAF") et UVQ s'imposent comme les métriques principales, tandis que LPIPS pourrait apporter des informations complémentaires par sa pertinance face à un cas d'usage proche.
 
@@ -1221,7 +1227,6 @@ Les deux méthodes étant différentes, cette évaluation se fera donc sur un po
 Pour rappel, le proxy neuronal est entraîné à reproduire une qualité fixe (#gls("crf-qp", "CRF") 22 dans notre cas), pour le comparer avec la seconde approche il faut alors se placer à QP 22, ce qui va légèrement différer mais permet tout de même de voir à quel point ces outils sont pertinents ou non , pour en valider les résultats, nous verrons aussi les résultats à CRF 22.
 
 Ces tests seront réalisés sur des vidéos du dataset MCL-JCV, qui est un dataset de référence pour l'évaluation de la compression vidéo. L'objectif est de ne pas utiliser des vidéos similaires à celles qui ont permis d'entraîner le proxy neuronal, afin de ne pas biaiser les résultats. Le dataset MCL-JCV est composé de 30 vidéos HD, ce qui suffit pour obtenir des résultats fiables, mais pas trop pour ne pas alourdir les calculs. Il est aussi intéressant de noter que ce dataset est composé de vidéos très différentes, ce qui permet d'avoir une idée plus précise de la pertinence des outils sur différents types de contenus.
-
 
 == Fidélité de reconstruction
 
@@ -1510,7 +1515,7 @@ clarification et d'apprentissage dont la valeur dépasse celle des seuls résult
 
 / CRF / QP <crf-qp>: *Constant Rate Factor / Quantization Parameter.* Paramètres réglant l'intensité de la compression : plus leur valeur est élevée, plus la quantification est forte, donc plus la vidéo est légère mais dégradée. Le CRF vise une qualité constante tandis que le QP fixe un niveau de quantification rigide.
 
-/ DCT <dct>: *Discrete Cosine Transform.* Transformée en cosinus discrète. Transformation appliquée aux blocs de l'image qui réorganise l'information par fréquences, séparant les zones lisses (basses fréquences) des zones de détail (hautes fréquences), sans perte d'information.
+/ DCT <dct>: *Discrete Cosine Transform.* Transformée en cosinus discrète. Transformation appliquée aux blocs de l'image qui réorganise l'information par fréquences, séparant les zones lisses (basses fréquences) des zones de détail (hautes fréquences).
 
 / DISTS <dists>: *Deep Image Structure and Texture Similarity.* Métrique de qualité perceptuelle s'appuyant sur un réseau de neurones, calibrée sur des jugements humains. Sa particularité est sa tolérance aux différences de texture, ce qui en fait un guide adapté à l'optimisation visée par ce projet.
 
@@ -1614,12 +1619,13 @@ Enfin mon tuteur industriel Pierre Lebreton, pour sa confiance durant ce projet,
 *Français*
 
 Ce projet de fin d'études explore une question du secteur de la vidéo à la demande : peut-on, grâce à l'intelligence artificielle, optimiser la compression vidéo en amont d'un codec existant comme H.265 ? L'idée est d'appliquer un filtre neuronal de prétraitement qui rend l'image plus facile à compresser, réduisant le poids du fichier final à qualité perçue équivalente.
-Le principal verrou est technique : les outils de compréssion classiques ne sont pas optimisable et s'intègrent donc mal dans l'apprentissage d'un réseau de neurones. Le travail a consisté à étudier, adapter et évaluer deux approches de proxy contournant cette limite : un proxy par codage neuronal, entraîné à imiter H.265, et un proxy par codec simplifié, reproduisant les briques essentielles de la compression sous une forme différentiable. Une attention particulière a été portée au choix des métriques de qualité, pour guider l'apprentissage comme pour évaluer les résultats sans biais.
+Le principal verrou est technique : les outils de compression classiques ne sont pas optimisables et s'intègrent donc mal dans l'apprentissage d'un réseau de neurones. Le travail a consisté à étudier, adapter et évaluer deux approches de proxy contournant cette limite : un proxy par codage neuronal, entraîné à imiter H.265, et un proxy par codec simplifié, reproduisant les briques essentielles de la compression sous une forme différentiable. Une attention particulière a été portée au choix des métriques de qualité, pour guider l'apprentissage comme pour évaluer les résultats sans biais.
 Au-delà de la technique, le rapport examine le projet sous les angles économique, organisationnel et humain.
 
 *Mots-clés :* compression vidéo, H.265, apprentissage profond, prétraitement, proxy de codec, qualité perçue, métrique.
 
 *Anglais*
+
 This final-year project investigates a concrete challenge in the video-on-demand sector: can artificial intelligence be used to optimise video compression upstream of an existing codec such as H.265, without modifying end-user devices? The idea is to apply a neural pre-processing filter that makes each frame easier to compress, reducing the final file size at equivalent perceived quality.
 The main obstacle is technical: conventional codecs are not differentiable and therefore integrate poorly into the training of a neural network. The work consisted in studying, adapting and evaluating two proxy approaches to overcome this limitation: a neural-coding proxy, trained to mimic H.265, and a simplified-codec proxy, reproducing the essential building blocks of compression in a differentiable form. Particular attention was paid to the choice of quality metrics, both to guide learning and to evaluate results without bias.
 Beyond the technical aspect, this report also examines the project from economic, organisational and human perspectives.
