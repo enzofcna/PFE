@@ -1121,13 +1121,15 @@ Cette implémentation s'est révélée particulièrement intéressante pour test
 
 Nous l'avons vu, le guide d'apprentissage doit satisfaire deux exigences à la fois : être un bon simulateur de ce que percevrait un utilisateur, et rester facilement optimisable pour que les poids du filtre soient ajustés dans la bonne direction.
 
-De nombreuses combinaisons de #gls("metrique", "métriques") sont possibles, mais toutes ne peuvent pas être testées. Or, l'objectif de ce projet porte avant tout sur les différentes approches de remplacement du #gls("codec", "codec") durant l'apprentissage, et non sur la recherche du guide idéal. Il paraît donc justifié de retenir un choix simple et cohérent, respectant nos critères de départ, quitte à approfondir cet aspect dans la suite du projet. À cela s'ajoute une précaution méthodologique, nous l'avons évoqué dans les limites des travaux existants, certains projet entraînent le filtre sur une métrique puis évaluent les performances sur cette même métrique, ce qui fausse probablement l'analyse. Nous chercherons donc à dissocier le guide d'apprentissage des outils servant à l'évaluation finale.
+De nombreuses combinaisons de #gls("metrique", "métriques") sont possibles, mais toutes ne peuvent pas être testées. Or, l'objectif à cette étape du projet porte avant tout sur les différentes approches de remplacement du #gls("codec", "codec") durant l'apprentissage, et non sur la recherche du guide idéal, une analyse qui est d'ailleurs réalisée par d'autres membres de  l'équipe. Il paraît donc justifié de retenir un choix simple et cohérent, respectant nos critères de départ, quitte à approfondir cet aspect dans la suite du projet. 
+
+À cela s'ajoute une précaution méthodologique, nous l'avons évoqué dans les limites des travaux existants, certains projet entraînent le filtre sur une métrique puis évaluent les performances sur cette même métrique, ce qui fausse probablement l'analyse. Nous chercherons donc à dissocier le guide d'apprentissage des outils servant à l'évaluation finale.
 
 Le guide retenu cherche un compromis entre simplicité et fidélité à la perception humaine. Il associe deux composantes : une perte L1 et la métrique #gls("dists", "DISTS").
 
 La perte L1 est une fonction simple, orientée fidélité : elle mesure l'écart direct entre l'image filtrée et l'image source, dans le même esprit que le #gls("psnr", "PSNR") évoqué plus tôt, peu précis perceptuellement mais facile à optimiser. Elle joue ici le rôle de garde-fou, en empêchant le filtre de trop s'éloigner de l'image d'origine un rôle essentiel pour éviter des dérives venant d'une métrique plus complexe.
 
-#gls("dists", "DISTS") apporte la dimension perceptuelle. Il s'appuie sur un réseau de neurones et est calibré sur des jugements humains de similarité. Entraîné à partir de paires d'images, il est théoriquement capable de savoir si une texture différente au niveau des pixels est acceptable pour un utilisateur. C'est ce qui rend #gls("dists", "DISTS") pertinent ici, sa tolérance aux textures. Autrement dit, il laisse au filtre la liberté de modifier l'image au niveau du détail, sans le pénaliser tant que la satisfaction de l'utilisateur n'est pas affectée. C'est exactement le type de souplesse que l'on recherche pour réduire le débit sans dégrader la qualité perçue. De plus elle a été conçue pour ce type de projet de modification d'images.
+#gls("dists", "DISTS") apporte la dimension perceptuelle. Il s'appuie sur un réseau de neurones (IA) et est calibré sur des jugements humains de similarité. Entraîné à partir de paires d'images, il est théoriquement capable de savoir si une texture différente au niveau des pixels est acceptable pour un utilisateur. C'est ce qui rend #gls("dists", "DISTS") pertinent ici est donc sa tolérance aux textures. Autrement dit, il laisse au filtre la liberté de modifier l'image au niveau du détail, sans le pénaliser tant que la satisfaction de l'utilisateur n'est pas affectée. C'est exactement le type de souplesse que l'on recherche pour réduire le débit sans dégrader la qualité perçue. De plus elle a été conçue pour ce type de projet de modification d'images.
 
 L1 et #gls("dists", "DISTS") sont donc complémentaires : la première ancre le résultat sur la source et évite les dérives, la seconde guide les modifications dans une direction compatible avec la perception humaine.
 
@@ -1144,12 +1146,13 @@ On compare donc plusieurs #gls("metrique", "métriques") selon leur accord avec 
 
 Pour comprendre les résultats il est aussi important de présenter les différentes métriques.
 
-#gls("vmaf", "VMAF") (Video Multi-Method Assessment Fusion) est une métrique que nous avons déjà évoquée, elle possède aussi une version durcie, VMAF-NEG, qui pénalise un rehaussement du contraste , elle est reconnue pour être plus robuste à certaines conditions grâce à des limites que la version classique n'a pas.
+#gls("vmaf", "VMAF") (Video Multi-Method Assessment Fusion) est une métrique que nous avons déjà évoquée, elle possède aussi une version durcie, VMAF-NEG, qui pénalise un rehaussement du contraste, elle est reconnue pour être plus robuste à certaines conditions grâce à des limites que la version classique n'a pas.
 UVQ (Universal Video Quality) est une métrique plus récente, basée sur l'IA, qui a appris à partir de scores #gls("mos", "MOS"). #gls("lpips", "LPIPS") (Learned Perceptual Image Patch Similarity) est une métrique basée sur un réseau de neurones entraîné pour prédire la similarité perceptuelle entre deux images. 
 
 Les tableaux ci-dessous ne montrent que les métriques retenues comme candidates, les autres, moins pertinentes pour notre usage, ont été écartées pour la clarté.
 
 Les deux tests suivants sont ciblés. Le premier jeu de données est basé sur des vidéos qui ont été encodées avec différentes versions du codec #gls("hevc", "H.265"), qui est notre cible d'optimisation, et des variations de qualité. Avoir une métrique qui réagit de manière pertinente face aux vidéos qui sortent de ces différentes versions est un bon indicateur de sa pertinence pour notre projet.
+
 Le second jeu de données est basé sur des vidéos encodées avec un encodage par régions d'intérêt (ROI), c'est-à-dire que certaines zones de l'image sont encodées avec plus de qualité que d'autres, ce qui est un cas proche d'un filtrage IA. Avoir une métrique qui réagit de manière pertinente face à ces vidéos est aussi un bon indicateur de son utilité pour notre projet.
 
 #figure(
@@ -1187,11 +1190,11 @@ Le second jeu de données est basé sur des vidéos encodées avec un encodage p
 
 #strong[#gls("vmaf", "VMAF") et UVQ] sont les valeurs sûres. Elles restent bien classées dans presque toutes les situations : VMAF est solide un peu partout, et UVQ atteint souvent de bonnes performances.
 
-Un point mérite d'être précisé au sujet d'UVQ : c'est une métrique _No-Reference_, c'est-à-dire qu'elle évalue une vidéo à partir de sa seule image, sans la comparer à l'image d'origine. Cela pose un problème dans notre cas : deux vidéos issues d'une même source peuvent avoir des qualités différentes, qu'UVQ jugera sans tenir compte de ce point de départ commun. C'est là qu'intervient la variante *Delta UVQ*, qui corrige le score en le ramenant à celui de la vidéo d'origine, rétablissant ainsi une comparaison équitable entre les contenus. On voit dans les tableaux que ce recalage améliore nettement les scores (0.937 contre 0.756 en faible variabilité sur le premier jeu, 0.850 contre 0.754 en forte variabilité sur le second). Dans notre cas d'usage, où l'on compare deux versions d'une même vidéo face à une référence commune, ce recalage est moins déterminant, mais il montre qu'UVQ peut être exploitée différemment pour gagner en fiabilité et montre sa pertinence face à un contenu égal.
+Un point mérite d'être précisé au sujet d'UVQ : c'est une métrique _No-Reference_, c'est-à-dire qu'elle évalue une vidéo à partir de sa seule image, sans la comparer à l'image d'origine. Cela pose un problème dans notre cas : deux vidéos issues d'une même source peuvent avoir des qualités différentes, qu'UVQ jugera sans tenir compte de ce point de départ commun. C'est là qu'intervient la variante *Delta UVQ*, qui corrige le score en le ramenant à celui de la vidéo d'origine, rétablissant ainsi une comparaison équitable entre les contenus. On voit dans les tableaux que ce recalage améliore nettement les scores (0.937 contre 0.756 en faible variabilité sur le premier jeu, 0.850 contre 0.754 en forte variabilité sur le second). Dans notre cas d'usage, où l'on compare deux versions d'une même vidéo face à une référence commune, ce recalage est moins déterminant, mais il montre qu'UVQ peut être exploitée différemment pour gagner en fiabilité et montre sa pertinence face à un contenu avec un référence égale.
 
 Ce sont donc des candidats assez fiables et polyvalents pour évaluer notre filtre. Elles sont d'ailleurs reconnues dans la littérature pour leur fiabilité, et sont utilisées dans de nombreux travaux et aussi par l'industrie.
 
-#strong[#gls("lpips", "LPIPS")] devient intéressante dans notre cas précis. Le second jeu de données repose sur un encodage par régions d'intérêt, c'est-à-dire un codage qui concentre ses efforts sur les zones importantes de l'image, exactement le genre de comportement qu'un filtre IA cherche à produire. Or c'est justement là que LPIPS obtient ses meilleurs scores (0.881 et 0.880, la meilleure métrique en forte variabilité). Comme ce cas d'usage ressemble au nôtre, LPIPS mérite d'être considérée, alors qu'elle était moins convaincante sur l'encodage classique.
+#strong[#gls("lpips", "LPIPS")] devient intéressante dans notre cas précis. Le second jeu de données repose sur un encodage par régions d'intérêt, c'est-à-dire un codage qui concentre ses efforts sur les zones importantes de l'image, exactement le genre de comportement qu'un filtre IA cherche à produire. Or c'est justement là que LPIPS obtient ses meilleurs scores (0.881 et 0.880, la meilleure métrique en forte variabilité). Comme ce cas d'usage ressemble au nôtre, LPIPS mérite d'être considérée, alors qu'elle était bien moins convaincante sur l'encodage classique.
 
 En résumé, #gls("vmaf", "VMAF") et UVQ s'imposent comme les métriques principales, tandis que LPIPS pourrait apporter des informations complémentaires par sa pertinance face à un cas d'usage proche.
 
@@ -1214,8 +1217,8 @@ Pour entraîner un réseau de neurones, les données utilisées sont un point cl
 Une première limite tient au jeu de données. Nous avons repris celui du papier
 @khan2025neural, ce qui présentait l'avantage de s'appuyer sur une base déjà
 éprouvée pour ce type de travaux. Une évolution possible consisterait à passer à
-un jeu de données comme BVI-DVC comportant moins d'images, mais composé d'images de
-meilleure qualité et plus récentes. Un tel changement pourrait améliorer la
+un jeu de données comme _BVI-DVC_ comportant moins d'images, mais composé d'images de
+meilleure qualité et plus récentes. Remplacer, combiner les deux pour obtenir plus de données, plusieurs options s'offrent alors. Un tel changement pourrait améliorer la
 pertinence de l'apprentissage, et fait partie des pistes envisagées pour la
 suite du projet.
 
@@ -1224,7 +1227,7 @@ volontairement simple, et il gagnera à être optimisé pour obtenir des résult
 plus nets. Ce point n'est pas un oubli mais une étape à part entière du projet :
 l'objectif de ce PFE portait avant tout sur les approches de remplacement du
 codec, et l'affinement du guide constitue un travail ultérieur, que les outils
-mis en place ici rendront justement possible.
+mis en place ici rendront justement possible par la suite.
 
 
 = Résultats et analyses <resultats>
@@ -1235,9 +1238,10 @@ Cette section a pour but d'évaluer les performances de ces différentes méthod
 Cette première évaluation permet aussi de mettre en avant les différentes approches pour la version du proxy simplifié, et voir et comprendre les mécanismes qui vont jouer ou non sur la qualité de reconstruction. Ce qui permettra de réaliser des choix plus pertinents pour la suite du projet.
 
 Les deux méthodes étant différentes, cette évaluation se fera donc sur un point de qualité qui peut être atteignable par les différentes options.
-Pour rappel, le proxy neuronal est entraîné à reproduire une qualité fixe (#gls("crf-qp", "CRF") 22 dans notre cas), pour le comparer avec la seconde approche il faut alors se placer à QP 22, ce qui va légèrement différer mais permet tout de même de voir à quel point ces outils sont pertinents ou non , pour en valider les résultats, nous verrons aussi les résultats à CRF 22.
+Pour rappel, le proxy neuronal est entraîné à reproduire une qualité fixe (#gls("crf-qp", "CRF") 22 dans notre cas), pour le comparer avec la seconde approche il faut alors se placer à (#gls("crf-qp", "QP") 22, ce qui va légèrement différer mais permet tout de même de voir à quel point ces outils sont pertinents ou non, pour en valider les résultats, nous verrons aussi les résultats à (#gls("crf-qp", "CRF") 22.
 
-Ces tests seront réalisés sur des vidéos du dataset MCL-JCV, qui est un dataset de référence pour l'évaluation de la compression vidéo. L'objectif est de ne pas utiliser des vidéos similaires à celles qui ont permis d'entraîner le proxy neuronal, afin de ne pas biaiser les résultats. Le dataset MCL-JCV est composé de 30 vidéos HD, ce qui suffit pour obtenir des résultats fiables, mais pas trop pour ne pas alourdir les calculs. Il est aussi intéressant de noter que ce dataset est composé de vidéos très différentes, ce qui permet d'avoir une idée plus précise de la pertinence des outils sur différents types de contenus.
+Ces tests seront réalisés sur des vidéos du dataset MCL-JCV, qui est un dataset de référence pour l'évaluation de la compression vidéo.//TODO AJouter le dataset HEVC et expliquer
+L'objectif est de ne pas utiliser des vidéos similaires à celles qui ont permis d'entraîner le proxy neuronal, afin de ne pas biaiser les résultats. Le dataset MCL-JCV est composé de 30 vidéos HD, ce qui suffit pour obtenir des résultats fiables. Il est aussi intéressant de noter que ce dataset est composé de vidéos très différentes, ce qui permet d'avoir une idée plus précise de la pertinence des outils sur différents types de contenus.
 
 == Fidélité de reconstruction
 
@@ -1246,7 +1250,7 @@ Pour évaluer la fidélité de structure des images, nous l'avons vu, le #gls("p
 #let hi = rgb("#e8f0fb")
 
 #figure(
-  caption: [Fidélité proxy vs x265, mode CRF. ↑ : plus haut = meilleur.],
+  caption: [Fidélité proxy vs h265, mode CRF. ↑ : plus haut = meilleur.],
   table(
     columns: (auto, 1fr, 1fr, 1fr, 1fr),
     align: (left, center, center, center, center),
@@ -1277,12 +1281,11 @@ Pour évaluer la fidélité de structure des images, nous l'avons vu, le #gls("p
   ),
 )
 
-Le proxy neuronal reconstruit les images les plus ressemblantes, en particulier sur les images prédites à partir des précédentes (colonnes _inter_), où il devance nettement toutes les autres versions. Ce réseau a été entraîné pour copier le vrai codec, donc il excelle à cette tâche. Il est tout de même intéressant de voir que les scores PSNR ne sont pas toujours bons alors que le SSIM si, évaluant les écarts de structures. Ce qui signifie qu'il ne reproduit pas fidèlement les pixels mais conserve la structure de l'image, ce qui est finalement le but recherché. Le proxy neuronal est donc un bon imitateur du codec, en particulier au niveau structurel.
+Le proxy neuronal reconstruit les images les plus ressemblantes, en particulier sur les images prédites à partir des précédentes (colonnes _inter_), où il devance nettement toutes les autres versions en particulier avec le mode CRF. Ce réseau a été entraîné pour copier le vrai codec sur ce point, donc il excelle à cette tâche. Il est tout de même intéressant de voir que les scores PSNR ne sont pas toujours bons alors que le SSIM si, évaluant les écarts de structures. Ce qui signifie qu'il ne reproduit pas fidèlement les pixels mais conserve la structure de l'image, ce qui est finalement le but recherché. Le proxy neuronal est donc un bon imitateur du codec, en particulier au niveau structurel.
 
-Parmi nos versions simplifiées, la variante `round · softmax` est la plus proche du vrai codec, les autres réglages s'en éloignent un peu. Le softmax est la fonction que nous avions présentée, elle permet de mélanger les candidats de prédiction plutôt que d'en choisir un seul. Cela a pour effet de lisser légèrement le résultat, ce qui est apprécié par le PSNR notamment, ce qui explique ces résultats. On peut tout de même valider la pertinence du proxy simplifié, car lui n'a pas appris à reproduire fidèlement les images. Il est intéressant de noter que ces performances sont obtenues à cette qualité qui est haute mais devient moins bonne si l'on choisit de traiter des images de plus basse qualité, car le proxy simplifié ne reprend pas toutes les logiques d'optimisations complexes du véritable codec, des optimisations qui vont être bénéfiques surtout sur des images de plus basse qualité. Notre simulateur fonctionne donc très bien à haute qualité, moins à basse qualité.
+Parmi nos versions simplifiées, la variante `round · softmax` est la plus proche du vrai codec, les autres réglages s'en éloignent un peu. Le softmax est la fonction que nous avions présentée, elle permet de mélanger les candidats de prédiction plutôt que d'en choisir un seul. Cela a pour effet de lisser légèrement le résultat, ce qui est apprécié par le PSNR notamment, ce qui explique ces résultats. On peut tout de même valider la pertinence du proxy simplifié, car lui n'a pas appris à reproduire fidèlement les images. 
 
-
-Ce constat nous a donc obligé à utiliser cet outil avec plus de précaution et rester dans une plage limité de qualité afin d'éviter de s'éloigner trop de l'outil d'origine.
+Il est intéressant de noter que ces performances sont obtenues à cette qualité qui est haute mais devient moins bonne si l'on choisit de traiter des images de plus basse qualité, c'est qui a été remarqué en réalisant d'autres tests. On peut expliquer cela car le proxy simplifié ne reprend pas toutes les logiques d'optimisations complexes du véritable codec, des optimisations qui vont être bénéfiques surtout sur des images de plus basse qualité. Notre simulateur fonctionne donc très bien à haute qualité, moins à basse qualité en ce qui concerne la reproduction d'image. Ce qui montre tout de même sa limite d'action et possiblement un désalignement avec le fonctionnement réel encore important. Ce constat nous a donc obligé à utiliser cet outil avec plus de précaution et rester dans une plage limité de qualité afin d'éviter de s'éloigner trop de l'outil d'origine.
 
 == Corrélation de débit
 
@@ -1322,17 +1325,19 @@ Pour estimer si nos outils sont de bons simulateurs, il est aussi important de v
 
 Ici, la version simplifiée qui faisait les plus belles images (`softmax`) n'est _pas_ la meilleure pour juger du poids des fichiers. C'est le réglage plus proche du fonctionnement réel d'un codec (`argmin`) qui devine le mieux quelles vidéos seront lourdes ou légères, et il fait ici aussi bien que le proxy neuronal. En clair, faire une belle image et bien estimer le poids d'un fichier sont deux qualités différentes, et aucune version simplifiée ne gagne sur les deux tableaux à la fois, c'est justement la force du proxy neuronal, qui réussit bien dans les deux cas.
 
+Concernant le point que nous avons évoqué plus tôt et qui mettait la version simplifiée en défaut face à des images encodées en basse qualité, au niveau de la corrélation la chute de performance semble moins importante mais est tout de même présente, ce qui valide le fait de ne pas l'utiliser à des qualités trop basses.
 
 == Synthèse : deux profils, deux usages
 
-Comme simple imitateur du vrai codec, le proxy neuronal semble le meilleur : il réalise les images les plus ressemblantes et estime bien le poids des fichiers. Rien d'étonnant, puisqu'il a été entraîné pour ça. Son inconvénient : il ne fonctionne qu'à un seul niveau de qualité, celui sur lequel il a été entraîné. On peut aussi prédire que son comportement plus éloigné du paradigme de la compression vidéo classique pourrait le rendre moins efficace si on l'utilise pour guider l'apprentissage d'un filtre.
+Comme simple imitateur du vrai codec, le proxy neuronal semble le meilleur, il réalise les images les plus ressemblantes et estime bien le poids des fichiers. Rien d'étonnant, puisqu'il a été entraîné pour ça. Son inconvénient : il ne fonctionne qu'à un seul niveau de qualité, celui sur lequel il a été entraîné. On peut aussi prédire que son comportement plus éloigné du paradigme de la compression vidéo classique pourrait le rendre moins efficace si on l'utilise pour guider l'apprentissage d'un filtre.
 
-Notre proxy simplifié, lui, fonctionne comme un vrai codec : il découpe l'image en blocs et les compresse à la manière de #gls("hevc", "H.265"). Cette proximité lui donne de vrais atouts. Il estime le poids des fichiers presque aussi bien que le proxy neuronal, il reste compréhensible, et surtout il s'adapte à tous les niveaux de qualité, même s'il devient moins fidèle quand on descend en basse qualité, là où le proxy neuronal est bloqué sur un seul niveau. Ces points en font donc un bon candidat pour guider l'apprentissage d'un filtre.
+Notre proxy simplifié, lui, fonctionne comme un vrai codec, il découpe l'image en blocs et les compresse à la manière de #gls("hevc", "H.265"). Cette proximité lui donne de vrais atouts. Il estime le poids des fichiers presque aussi bien que le proxy neuronal, il reste compréhensible, et surtout il s'adapte à tous les niveaux de qualité, même s'il devient moins fidèle quand on descend en basse qualité, là où le proxy neuronal est bloqué sur un seul niveau. Ces points en font donc un bon candidat pour guider l'apprentissage d'un filtre.
 
-De par notre implémentation présenté dans @filtreGlobale, les deux proxy possèdent une architecture commune qui prend la version de H265 en évaluation de la qualité d'image, et va cependant calculer les poids sur le proxy, ce qui a aussi été expliqué dans le papier @khan2025neural, cela permet notament d'éviter de travailler sur un domaine trop éloigné de la cible, les iamges évaluées sortent alors du vrai codec. Cela signifie donc que la fidélité d'image importe moins directement notre architecture et au niveau de comment le réseau va apprendre les options seront similaire, c'est le but de cette conception. Le point essentiel se trouve donc plutôt dans l'estimation de débit. Pour le proxy simplifié, les meilleurs scores sont obtenus avec la version "ste-argmin", qui est la version où l'estimation de débit reçoit bien le choix d'un bloc unique et pas un mélange de blocs mais va bien apprendre sur ce mélange de blocs. Pour la suite fort de ce constat nous testerons alors uniquement le paramètres concernant la modification de l'arrondi, c'est à dire le choix entre produire un bruit aléatoire pour simuler la quantification ou réaliser cette quantifiaction et ne pas apprendre sur cette étape. Deux paramètres notés ici "arrondi" et "bruit".
+De par notre implémentation présenté dans @filtreGlobale, les deux proxy possèdent une architecture commune qui prend la version de H265 en évaluation de la qualité d'image dans la boucle, et va cependant calculer les poids sur le proxy, ce qui a aussi été expliqué dans le papier @khan2025neural et dans le schéma @filtreGlobale, cela permet notament d'éviter de travailler sur un domaine trop éloigné de la cible, les images évaluées sortent alors du vrai codec. Cela signifie donc que la fidélité d'image importe moins directement notre architecture et au niveau de comment le réseau va apprendre les options seront similaire, c'est le but de cette conception. Le point essentiel se trouve donc plutôt dans l'estimation de débit. Pour le proxy simplifié, les meilleurs scores sont obtenus avec la version "ste-argmin", qui est la version où l'estimation de débit reçoit bien le choix d'un bloc unique et pas un mélange de blocs mais va bien apprendre sur ce mélange de blocs. Pour la suite, fort de ce constat nous testerons alors uniquement le paramètres concernant la modification de l'arrondi, c'est à dire le choix entre produire un bruit aléatoire pour simuler la quantification ou réaliser cette quantifiaction et ne pas apprendre sur cette étape. Deux paramètres notés ici "arrondi" et "bruit".
 
 
 == Résultats face aux #gls("metrique", "métriques")
+Dans cette section, nous verrons comment les différentes versions ont réagi durant l'apprentissage du filtre et donc les résultats obtenus grâce au filtre, ce qui permettra d'avoir une idée de la pertinence de chaque méthode.
 
 Les courbes présentées permettent de comparer la version de la vidéo sans filtrage et celle avec, on compare à un niveau de qualité similaire les deux versions.
 Plus un point est à droite plus la vidéo coute cher, plus un point est hau ou bas en fonction de la mesure(le sens est indiqué sur les différents graphiques), plus sa qualité est bonne. Dans le cas des métriques testées seul LPIPS est à lire dans le sens inverse (plus bas = meilleur).
