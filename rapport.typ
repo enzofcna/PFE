@@ -1143,9 +1143,10 @@ Une autre méthode est proposée dans les travaux @isik2023sandwiched : une fonc
   caption: [Comportement de la fonction d'estimation du coût @isik2023sandwiched : le coût d'un coefficient monte franchement au début, puis se courbe de plus en plus doucement. Un coefficient nul ne coûte rien.],
 ) <cout_proxy>
 
-L'idée découle de la théorie de l'information : le coût d'un symbole ne dépend pas de sa valeur, mais de sa probabilité, plus un symbole est probable, moins il coûte cher à transmettre. Or, dans un codec, la quantification ramène une grande partie des coefficients vers zéro (voir @th_info). Les petites valeurs deviennent donc très fréquentes, et les grandes, rares. C'est ce qui autorise un raccourci commode : plutôt que d'estimer la probabilité de chaque coefficient, on relie directement son coût à sa taille. Un coefficient proche de zéro, fréquent, est quasiment gratuit à transmettre, tandis qu'un grand coefficient, rare, coûte cher.
+L'idée découle de la théorie de l'information : le coût d'un symbole ne dépend pas de sa valeur, mais de sa probabilité, plus un symbole est probable, moins il coûte cher à transmettre. Or, dans un codec, la quantification ramène une grande partie des coefficients vers zéro (voir @th_info). Les petites valeurs deviennent donc très fréquentes, et les grandes, rares. C'est ce qui autorise un raccourci utilisé ici, plutôt que d'estimer la probabilité de chaque coefficient, on relie directement son coût à sa taille. Un coefficient proche de zéro, fréquent, est quasiment gratuit à transmettre, tandis qu'un grand coefficient, rare, coûte cher.
 
-Cette forme, par sa pente, pousse le filtre à réduire l'amplitude des coefficients, donc à les ramener vers zéro, ce qui est exactement l'objectif recherché, simplifier l'image pour la rendre moins coûteuse à coder.
+Cette forme, par sa pente, pousse le filtre à réduire l'amplitude des coefficients en particulier quand ils sont déjà proche de 0 (où la pente est plus forte). C'est exactement l'objectif recherché, simplifier l'image pour la rendre moins coûteuse à coder.
+
 Ce choix est fait car obtenir la probabilité d'un coefficient est difficile, encore plus de l'obtenir en repliquant les méthodes d'un véritable codec et rendre ces étapes complexes optimisables. Cette simplification, imparfaite permet tout de même d'obtenir une estimation proche et reste simple à optimiser.
 
 === Essais et échec d'implémentation
