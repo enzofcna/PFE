@@ -1101,16 +1101,58 @@ Concernant la transformation de l'image, les calculs reposent sur des matrices d
 
 Enfin, nous avons fait le choix de travailler sur des blocs de taille 8×8. Une évolution future pourra consister à introduire des tailles de blocs variables, comme le fait un codec réel, puis à en valider l'utilité dans notre cas d'usage.
 
+=== Estimation du coût des images
+
+Dans cette implémentation, il est aussi important d'établir la manière dont on va permettre à notre outil d'estimer le coût d'un image.
+Nous l'avons vu, le papier @chadha2021dpp utilise une méthode apprise (IA), qui semble fonctionner mais la problématique de ce genre d'approche est la généralisation face aux différentes qualités possibles. 
+
+Une autre méthode est proposée dans les travaux @isik2023sandwiched : une fonction simple, non apprise, qui reprend directement les principes présentés en @th_info.
+
+#figure(
+  canvas(length: 1cm, {
+    import draw: *
+    let arrow = (start, end) => line(start, end, mark: (end: ">", fill: black, scale: 0.6))
+
+    // axes
+    arrow((0, 0), (8.6, 0))
+    arrow((0, 0), (0, 3.4))
+    content((8.7, 0), text(size: 9pt)[taille du coefficient], anchor: "west")
+    content((0, 3.7), text(size: 9pt)[coût (bits)])
+
+    // courbe log(1 + x), echantillonnee point par point (81 points)
+    let k = 1.3654
+    let f = x => k * calc.ln(1 + x)
+    let pts = range(0, 81).map(i => {
+      let x = i / 10.0
+      (x, f(x))
+    })
+    line(..pts, stroke: (paint: rgb("#534AB7"), thickness: 1.8pt))
+
+    // origine : un zero ne coute rien
+    circle((0, 0), radius: 0.07, fill: rgb("#534AB7"))
+    content((0.1, -0.32), text(size: 8pt)[un zéro ne coûte rien], anchor: "north-west")
+
+    // fleche 1 : montee franche -> pointe sur le debut raide (x ~ 0.8)
+    arrow((2.6, 0.65), (0.85, f(0.85)))
+    content((4.3, 0.55), text(size: 8pt)[coût grimpe vite])
+
+    // fleche 2 : courbure douce -> pointe sur la partie qui s'aplatit (x ~ 6)
+    arrow((3.8, 2.35), (6.0, f(6.0)))
+    content((3.1, 2.55), text(size: 8pt)[ralenti doucement])
+  }),
+  caption: [Comportement de la fonction d'estimation du coût @isik2023sandwiched : le coût d'un coefficient monte franchement au début, puis se courbe de plus en plus doucement. Un coefficient nul ne coûte rien.],
+) <cout_proxy>
+
+L'idée découle de la théorie de l'information : le coût d'un symbole ne dépend pas de sa valeur, mais de sa probabilité, plus un symbole est probable, moins il coûte cher à transmettre. Or, dans un codec, la quantification ramène une grande partie des coefficients vers zéro (voir @th_info). Les petites valeurs deviennent donc très fréquentes, et les grandes, rares. C'est ce qui autorise un raccourci commode : plutôt que d'estimer la probabilité de chaque coefficient, on relie directement son coût à sa taille. Un coefficient proche de zéro, fréquent, est quasiment gratuit à transmettre, tandis qu'un grand coefficient, rare, coûte cher.
+
+Cette forme, par sa pente, pousse le filtre à réduire l'amplitude des coefficients, donc à les ramener vers zéro, ce qui est exactement l'objectif recherché, simplifier l'image pour la rendre moins coûteuse à coder.
+Ce choix est fait car obtenir la probabilité d'un coefficient est difficile, encore plus de l'obtenir en repliquant les méthodes d'un véritable codec et rendre ces étapes complexes optimisables. Cette simplification, imparfaite permet tout de même d'obtenir une estimation proche et reste simple à optimiser.
+
 === Essais et échec d'implémentation
 Durant le projet de nombreux tests ont été réalisés, beaucoup n'ont pas permis d'aboutir à une solution fiable mais ce sont aussi ces tests qui ont permis de continuer à rentrer plus en détail dans le sujet. Il existe un grand nombre de possibilités et établir les meilleures options est un problème complexe qui demande aussi une connaissance dans le domaine très poussée. Parfois certaines tentatives sont aussi des pertes de temps sèches, j'ai fini par les éviter le plus possible en me fixant des limites et en repartant parfois de choses plus simples mais établies afin de ne pas me perdre dans des solutions inutiles.
 
 Il est important aussi de préciser que certaines tests n'ont pas réellement été des echecs mais la temporalité lié au projet de fin d'études limite le champs d'action, certaines idées ou améliorations prendront alors place pour le futur du projet selon leur pertinance.
 
-=== Estimation du coût des images
-
-// TODO
-
-reprise de la logique du papier Sandwiched pour estimer le débit montrer la fonction et en quoi elle se rapproche de la logique réelle de la compression et qu'on évite d'avoir un élément appris => rend plus robuste notre approche
 
 === Bilan de l'implémentation
 
