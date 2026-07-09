@@ -1157,7 +1157,7 @@ Il est important aussi de préciser que certaines tests n'ont pas réellement é
 
 === Bilan de l'implémentation
 
-Cette implémentation s'est révélée particulièrement intéressante pour tester différents mécanismes. Durant son développement, plusieurs essais rapides n'ont apportés aucune amélioration nette, voire ont entraîné de fortes pertes, ce qui a permis de converger vers les choix présentés ci-dessus. L'objectif étant précisément de définir les bonnes méthodes pour fiabiliser un tel outil, des études comparant ces différentes méthodes sont présentées en @resultats.
+Cette implémentation s'est révélée particulièrement intéressante pour tester différents mécanismes et mettre en relation la théorie évoqué dans le document avec des cas d'utilisation concrets. Durant son développement, plusieurs essais rapides n'ont apportés aucune amélioration nette, voire ont entraîné de fortes pertes, ce qui a permis de converger vers les choix présentés ci-dessus. L'objectif étant précisément de définir les bonnes méthodes pour fiabiliser un tel outil, des études comparant ces différentes méthodes sont présentées en @resultats.
 
 
 == Guide d'optimisation
