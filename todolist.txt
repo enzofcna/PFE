@@ -8,3 +8,11 @@
 
 => terminer la section résultats et visuel pour la rendre plus simple à comprendre
 
++>
+La section résultat
+Mettre en avant qu'après différents tests les options lié au proxy n'apportent pas grand chose et pour simplifier la lecture on garde qu'une version de référence
+qui semblait être celle qui fonctionnait légèrement mieux
+
+Mettre les scores face aux métriques
+
+Images avec donc REF + SImplifié + Neuro

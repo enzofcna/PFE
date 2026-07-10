@@ -1,0 +1,29 @@
+HEVS basketball
+
+CRF 32 on voit un meilleur qualité pourtnat UVQ pas ok les autres si
+
+idem pour A008_B009_1025IF_1920x1080_24 en crf 37
+
+W051 on voit bien que le neuro floute vmaf est pourtant satisfait les autres non
+
+CRF27 SRC 28
+On voit bien plus de détails au niveau des bloc moins de bruit de codage (exemple très visible)
+Gain CVVDP mais faible LPIPS gros Gain UVQ pas content VMAF Okay mais VMAF NEg neutre
+
+
+SRC 14 toutes les métriques s'accordent (le gain UVQ reste très légé)
+
+SRC10 on voit mieux les grilles en arrière plan pourtant UVQ pas content (il ne connait pas l'originale donc dans ce cas ça peut expliquer)
+LPIPS pas content du tout CVVDP assez neutre mais positif vmaf et vmaf neg neutre
+
+pour l'instant uniquement CVVDP ne semble pas en contradiction avec les exemples mis en avant
+
+
+Résumé
+
+Le filtre avec proxy neuronal semble flouté, c'est ce qui était dit dans le papier khan2025 quand ils n'utilisaient qu'un filtre de pre traitement
+pourtant les gains VMAF y sont plus importants et le coût d'iamge réduit
+
+Le filtre avec proxy classique semble plus discret dans ses actions mais permet de garder certaines textures sans trop d'exemples d'effets indésirables
+
+Il est important de noter que ces comparaison ne sont pas réalisée à qualité totatelement exacte mais une vidéo floutée le restera quoi
