@@ -1198,6 +1198,7 @@ Les deux tests suivants sont ciblés. Le premier jeu de données est basé sur d
 
 Le second jeu de données est basé sur des vidéos encodées avec un encodage par régions d'intérêt (ROI), c'est-à-dire que certaines zones de l'image sont encodées avec plus de qualité que d'autres, ce qui est un cas proche d'un filtrage IA. Avoir une métrique qui réagit de manière pertinente face à ces vidéos est aussi un bon indicateur de son utilité pour notre projet.
 
+//TODO Ajouter CVVDP
 #figure(
   caption: [Accord avec la référence sur différents encodages #gls("hevc", "H.265"). ↑ : plus haut = meilleur.],
   table(
@@ -1211,6 +1212,7 @@ Le second jeu de données est basé sur des vidéos encodées avec un encodage p
     [*UVQ*], [0.756], [*0.824*],
     [*Delta UVQ*], [*0.937*], [0.722],
     [*LPIPS*], [0.786], [0.520],
+    [*CVVDP*], [0.782], [0.451],
   ),
 )
 
@@ -1225,11 +1227,11 @@ Le second jeu de données est basé sur des vidéos encodées avec un encodage p
     [*VMAF*], [0.899], [0.808],
     [*VMAF-NEG*], [0.803], [0.702],
     [*UVQ*], [0.803], [0.754],
-    [*Delta UVQ*], [*0.904*], [*0.850*],
-    [*LPIPS*], [0.881], [0.880],
+    [*Delta UVQ*], [0.904], [0.850],
+    [*LPIPS*], [0.881], [*0.880*],
+    [*CVVDP*], [*0.905*],[0.784],
   ),
 )
-
 
 #strong[#gls("vmaf", "VMAF") et UVQ] sont les valeurs sûres. Elles restent bien classées dans presque toutes les situations : VMAF est solide un peu partout, et UVQ atteint souvent de bonnes performances.
 
@@ -1238,6 +1240,8 @@ Un point mérite d'être précisé au sujet d'UVQ : c'est une métrique _No-Refe
 Ce sont donc des candidats assez fiables et polyvalents pour évaluer notre filtre. Elles sont d'ailleurs reconnues dans la littérature pour leur fiabilité, et sont utilisées dans de nombreux travaux et aussi par l'industrie.
 
 #strong[#gls("lpips", "LPIPS")] devient intéressante dans notre cas précis. Le second jeu de données repose sur un encodage par régions d'intérêt, c'est-à-dire un codage qui concentre ses efforts sur les zones importantes de l'image, exactement le genre de comportement qu'un filtre IA cherche à produire. Or c'est justement là que LPIPS obtient ses meilleurs scores (0.881 et 0.880, la meilleure métrique en forte variabilité). Comme ce cas d'usage ressemble au nôtre, LPIPS mérite d'être considérée, alors qu'elle était bien moins convaincante sur l'encodage classique.
+
+#strong[#gls("cvvdp", "CVVDP")] montre aussi de belles performances face au contenu ROI. Sa conception, très orientée pour reproduire la vision humaine, semble aussi être un argument supplémentaire qui pousse à prendre en compte cette mesure pour l'étude des résultats.
 
 En résumé, #gls("vmaf", "VMAF") et UVQ s'imposent comme les métriques principales, tandis que LPIPS pourrait apporter des informations complémentaires par sa pertinance face à un cas d'usage proche.
 
@@ -1288,7 +1292,9 @@ L'objectif est de ne pas utiliser des vidéos similaires à celles qui ont permi
 
 == Fidélité de reconstruction
 
-Pour évaluer la fidélité de structure des images, nous l'avons vu, le #gls("psnr", "PSNR") reste une métrique simple, peu fiable pour la perception humaine mais qui reste un bon indicateur de la fidélité de reconstruction. Le #gls("ssim", "SSIM") est lui plus précis et plus proche de la perception humaine, il est donc intéressant de le croiser avec le PSNR pour avoir une idée plus précise de la qualité des images reconstruites. De plus durant l'entraînement du proxy neuronal, la métrique MSE (Mean Squared Error) est utilisée pour guider l'apprentissage, cette métrique est directement liée au PSNR, il est donc logique de la croiser avec le SSIM pour avoir une idée plus précise de la qualité des images reconstruites sans biais.
+Pour évaluer la fidélité de structure des images, nous l'avons vu, #gls("psnr", "PSNR") reste une métrique simple, peu fiable pour la perception humaine, mais qui est un bon indicateur de la fidélité de reconstruction. Ici l'intérêt est d'estimer les performances des outils pour reproduire ce que fait le vrai codec. #gls("ssim", "SSIM") est lui plus précis et plus proche de la perception humaine et évalue la similarité structurelle. Il est donc intéressant de le croiser avec le PSNR pour avoir une idée plus précise de la qualité des images reconstruites. De plus durant l'entraînement du proxy neuronal, la métrique MSE (Mean Squared Error) est utilisée pour guider l'apprentissage, cette métrique étant directement liée à la logique du PSNR, il est donc logique de la croiser avec le SSIM pour avoir une idée plus précise de la qualité des images reconstruites, sans biais.
+
+Pour rappel plus un score PSNR est haut, plus cette mesure considère l'iamge comme fidèle à l'originale. Concernant SSIM les scores varient entre 0 et 1, plus on se rapproche de 1, plus l'image est considérée comme similaire.
 
 #let hi = rgb("#e8f0fb")
 
@@ -1570,9 +1576,11 @@ clarification et d'apprentissage dont la valeur dépasse celle des seuls résult
 
 / Codec <codec>: *Coder-decoder.* Outil chargé de compresser la vidéo à l'encodage (côté fournisseur) et de la reconstituer au décodage (côté utilisateur).
 
-/ Codec neuronal <codec_neuronal>: Codec dont les étapes de compression et de décompression sont réalisées par des réseaux de neurones. Entièrement différentiable, il peut servir de #gls("proxy", "proxy") au sein d'un apprentissage, contrairement à un codec classique.
+/ Codec neuronal <codec_neuronal>: Codec dont les étapes de compression et de décompression sont réalisées par des réseaux de neurones. Entièrement différentiable/optimisable, il peut servir de #gls("proxy", "proxy") au sein d'un apprentissage, contrairement à un codec classique.
 
-/ CRF / QP <crf-qp>: *Constant Rate Factor / Quantization Parameter.* Paramètres réglant l'intensité de la compression : plus leur valeur est élevée, plus la quantification est forte, donc plus la vidéo est légère mais dégradée. Le CRF vise une qualité constante tandis que le QP fixe un niveau de quantification rigide.
+/ CRF / QP <crf-qp>: *Constant Rate Factor / Quantization Parameter.* Paramètres réglant l'intensité de la compression : plus leur valeur est élevée, plus la quantification est forte, donc plus la vidéo est légère mais dégradée. Le QP fixe un niveau de quantification rigide, ce qui aura un imapct différent en fonction des zones de l'image.Le CRF vise une qualité constante, en essayant donc d'adapter la quantification à la spécificité de la zone.
+
+/ CVVDP <cvvdp>: *ColorVideoVDP.* Métrique de qualité perceptuelle, modélisant la vision humaine (sensibilité au contraste, à la couleur et au mouvement) pour prédire la qualité perçue d'une vidéo. Contrairement à des mesures plus simples, elle traite les dimensions spatiale (détails dans l'image), temporelle (évolution entre les images) et chromatique (couleur), ce qui la rend particulièrement adaptée à l'évaluation de contenus dégradés ou modifiés.
 
 / DCT <dct>: *Discrete Cosine Transform.* Transformée en cosinus discrète. Transformation appliquée aux blocs de l'image qui réorganise l'information par fréquences, séparant les zones lisses (basses fréquences) des zones de détail (hautes fréquences).
 
