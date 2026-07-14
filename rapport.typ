@@ -174,8 +174,11 @@
 Le secteur de la #gls("vod", "vidéo à la demande (VOD)") a connu un essor très important, notamment avec l'arrivée de nombreuses plateformes de contenu. Contrairement à la TNT, où une seule antenne émet un signal capté par un grand nombre de foyers sans coût énergétique supplémentaire par spectateur, la #gls("vod", "VOD") nécessite une connexion point à point. Chaque clic sur "Play" sur Netflix ou Amazon Prime génère un flux dédié depuis un serveur (souvent via un #gls("cdn", "Content Delivery Network, CDN")), augmentant fortement la consommation de bande passante et d'énergie.
 On comprend alors que, dans ce contexte, les algorithmes de compression visant à diminuer la taille de l'information transmise de manière optimisée : les #gls("codec", "codecs"), deviennent de plus en plus importants. L'évolution de leurs performances a permis de rendre ces services accessibles à de nombreuses personnes. Mais la difficulté d'évolution des architectures rend l'adoption des nouvelles versions plus complexe, ce qui pousse souvent à l'utilisation d'outils qui ne sont pas les plus optimisés.
 
+=== Apprentissage et filtre
+// TODO
+
 === Du diffuseur jusqu'au salon <vod_circuit>
-La chaîne #gls("vod", "VOD") est un processus complexe qui transforme une scène captée en une vidéo diffusée mondialement. Cette chaîne se décompose en cinq étapes majeures :
+La chaîne #gls("vod", "VOD") est un processus complexe qui transforme une scène captée en une vidéo diffusée mondialement. Cette chaîne se décompose en cinq étapes majeures que l'on retoruve aussi sous forme de schéma (@vod_transmission) :
 
 - *La source* : les caméras et microphones enregistrent la vidéo et l'audio bruts. Un appareil de capture convertit ces signaux physiques en un format numérique exploitable par un ordinateur, il se passe alors aussi un grand nombre de traitements (montage) afin d'obtenir un résultat satisfaisant.
 - *Encodage* (compression de la vidéo) : c'est ici qu'intervient le premier rôle clé des algorithmes de compression (#gls("codec", "codec")). Comme les données brutes sont trop volumineuses, l'encodeur les compresse (en utilisant des standards comme #gls("h264", "H.264"), #gls("hevc", "H.265") ou #gls("av1", "AV1")) pour optimiser le poids du fichier sans sacrifier la qualité. Cette étape se situe côté fournisseur, avant de transmettre la vidéo.
@@ -229,18 +232,18 @@ Ce graphique montre la tendance du secteur, il semble important de préciser que
 
 Ce sujet questionne aussi l'impact d'une telle optimisation sur un sujet incontournable de notre époque : l'écologie. Si l'on reprend le graphique de l'ADEME, on y retrouve de nombreuses informations liées à cette thématique, et donc des éléments de réponse. Il faut alors se référer aux sections « V4 » et « V5 », qui représentent les usages liés à la #gls("vod", "VOD") sur télévision ou smartphone. On y remarque une importance relativement faible de ces données dans le total. Il faut aussi comprendre que ces optimisations peuvent avoir un impact direct sur les parties réseau. En fluidifiant le trafic par des vidéos moins gourmandes en ressources, on obtient des infrastructures qui supportent plus facilement la charge requise, rendant alors leur déploiement moins massif. Cet enjeu est loin d'être uniquement théorique, car le trafic est de plus en plus marqué par des pics. En 2024, les dix journées de trafic les plus importantes coïncidaient toutes avec un événement diffusé en direct, ce type d'événement pouvant faire bondir le trafic réseau de 30 à 40 % @applogic2025gipr. Des flux plus légers aident directement à absorber ces montées en charge.
 
-Mais il faut aussi reprendre les éléments de la section précédente @vod_circuit. Garder des outils de compression qui prennent en compte les limites du matériel existant rend ce matériel plus durable, utiliser des outils trop gourmands en calcul rend les traitements plus lourds et complexes, ce qui peut diminuer la durée de vie des appareils utilisés. Une adoption massive d'un codec comme #gls("av1", "AV1") entraînerait ainsi une obsolescence anticipée de certains téléviseurs actuels.
+Mais il faut aussi reprendre les éléments de la section précédente (@vod_circuit). Garder des outils de compression qui prennent en compte les limites du matériel existant rend ce matériel plus durable, utiliser des outils trop gourmands en calcul rend les traitements plus lourds et complexes, ce qui peut diminuer la durée de vie des appareils utilisés. Une adoption massive d'un codec récent et nécessitant des appareils puissants comme #gls("av1", "AV1") entraînerait ainsi une obsolescence anticipée de certains téléviseurs actuels.
 
-On peut en revanche opposer à cette optimisation un possible effet rebond, un accès plus simple et plus rapide à davantage de ressources #gls("vod", "VOD") pourrait toucher plus d'utilisateurs, ou permettre de proposer du contenu de plus haute qualité. C'est précisément le but des entreprises dans une logique de performance et de qualité de service. C'est ce qu'on remarque lors des différentes évolutions, les outils deviennent plus performant mais permettent aussi d'augmenter la résolution et la qualité des contenus ce qui contenu de faire croitre les besoins et apporte de nouveaux besoins, comme de nouveaux téléviseurs supportant ces technologies. De ce point de vue, on irait alors à l'encontre des optimisations évoquées du point de vue écologique.
+On peut en revanche opposer à cette optimisation un possible effet rebond, un accès plus simple et plus rapide à davantage de ressources #gls("vod", "VOD") pourrait toucher plus d'utilisateurs, ou permettre de proposer du contenu de plus haute qualité. C'est précisément le but des entreprises dans une logique de performance et de qualité de service. C'est ce qu'on remarque lors des différentes évolutions, les outils deviennent plus performant mais permettent aussi d'augmenter la résolution et la qualité des contenus ce qui continue de faire croitre les besoins et apporte de nouveaux besoins, comme de nouveaux téléviseurs supportant ces technologies. De ce point de vue, on irait alors à l'encontre des optimisations évoquées du point de vue écologique.
 
-Les acteurs concernés par ce secteur sont parmi les plus gros du numérique, Netflix, Amazon ou Meta, et ce sont précisément les clients de notre cellule. Leurs besoins orientent donc directement nos sujets de recherche, la majorité de nos projets portent sur l'évaluation ou le développement de nouvelles solutions, souvent confrontées à un panel d'utilisateurs.
+Les acteurs concernés par ce secteur sont parmi les plus gros du numérique, Netflix, Amazon ou Meta, et ce sont précisément les clients de la cellule IXPEL dans laquelle j'effectue mon alternance. Leurs besoins orientent donc directement nos sujets de recherche, la majorité de nos projets portent sur l'évaluation ou le développement de nouvelles solutions, souvent confrontées à un panel d'utilisateurs.
 
-Les défis remontés par le secteur confortent l'intérêt d'une optimisation agissant directement sur le poids des fichiers, une étude récente place le stockage comme premier défi des entreprises de streaming interrogées @challengesVOD. Réduire le poids des fichiers agit directement sur ce poste, et donc sur les coûts à différents points de la chaîne.
+Les défis remontés par le secteur confortent l'intérêt d'une optimisation agissant directement sur le poids des fichiers, une étude récente place le stockage comme premier défi des entreprises de streaming interrogées (@challengesVOD). Réduire le poids des fichiers agit directement sur ce poste, et donc sur les coûts à différents points de la chaîne.
 
-Enfin, un point mérite d'être souligné, l'écosystème open source et open access joue un rôle clé dans ce domaine. Il permet de faire évoluer les outils de compression, mais donne aussi accès à des outils de mesure de qualité vidéo complexes, parfois développés en interne par ces entreprises, et dont la disponibilité conditionne en grande partie la recherche dans ce domaine. Cela semble parfois en contradiction avec la volonté générale des entreprises technologiques, qui cherchent à protéger leurs outils pour ne pas aider la concurrence. Cependant, dans ce cas précis, ces entreprises profitent aussi d'une communauté très active autour des contenus vidéo. Des utilisateurs ou des groupes de recherche s'emparent de leurs outils et proposent des améliorations que leurs équipes internes ne pourraient pas toutes réaliser. Faire évoluer le secteur permet à ces entreprises d'en tirer profit, nous l'avons vu le secteur est en forte hausse, chaque optimisation compte et cette aide externe, gratuite, est intéressante. C'est aussi la raison de l'intérêt de ces entreprises à financer différents proejts de recherche. On peut toutefois illustrer la limite de cette logique, ces entreprises partagent peu, voire pas, leurs données, y compris celles utilisées pour produire ou entraîner des outils qui seront ensuite mis en accès libre. Cela montre que cette volonté de partage reste ciblée, éloignée d'une générosité soudaine qui ne correspondrait pas à une logique économique.
+Enfin, un point mérite d'être souligné, l'écosystème open source et open access joue un rôle clé dans ce domaine. Il permet de faire évoluer les outils de compression, mais donne aussi accès à des outils de mesure de qualité vidéo complexes, parfois développés en interne par ces entreprises, et dont la disponibilité conditionne en grande partie la recherche dans ce domaine. Cela semble parfois en contradiction avec la volonté générale des entreprises technologiques, qui cherchent à protéger leurs outils pour ne pas aider la concurrence. Cependant, dans ce cas précis, ces entreprises profitent aussi d'une communauté très active autour des contenus vidéo. Des utilisateurs ou des groupes de recherche s'emparent de leurs outils et proposent des améliorations que leurs équipes internes ne pourraient pas toutes réaliser. Faire évoluer le secteur permet à ces entreprises d'en tirer profit. Nous l'avons vu le secteur est en forte hausse, chaque optimisation compte et cette aide externe, gratuite, est intéressante. C'est aussi la raison de l'intérêt de ces entreprises à financer différents projets de recherche. On peut toutefois illustrer la limite de cette logique. Ces entreprises partagent peu, voire pas, leurs données, y compris celles utilisées pour produire ou entraîner des outils qui seront ensuite mis en accès libre. Cela montre que cette volonté de partage reste ciblée, éloignée d'une générosité soudaine qui ne correspondrait pas à une logique économique.
 
 === Rapport d'utilisation des outils de compression
-Pour mieux comprendre les éléments suivants, voici un bref historique des outils existants.
+Afin d'introduire les analyses présentées, voici un bref historique des outils existants.
 
 #align(center)[
   #figure(
@@ -274,7 +277,7 @@ Le choix d'une cible d'optimisation réaliste et qui prend en compte ces différ
 == Problématique
 Nous avons vu que la diffusion de contenu vidéo est soumise à de fortes contraintes, en particulier matérielles côté utilisateur. Optimiser un codec déjà en place comme #gls("hevc", "H.265"), plutôt que d'en imposer un nouveau, apparaît donc comme la voie la plus réaliste, cela permet de réduire la taille des flux transmis sans toucher aux appareils des utilisateurs. C'est précisément ce que l'intelligence artificielle (IA) pourrait permettre.
 
-L'idée explorée dans ce projet est d'utiliser l'IA en amont de la compression, pour prétraiter la vidéo. Ajuster l'image de façon à la rendre plus facile à compresser, et ainsi réduire le poids du fichier final à qualité visuelle équivalente. L'intérêt de l'IA tient à sa capacité d'adaptation, les méthodes traditionnelles peinent parfois face à la diversité des contenus, un modèle peut apprendre à repérer ce qui compte visuellement et à modifier l'image en conséquence. On obtient une approche potentiellement plus souple, et moins coûteuse en calcul que des optimisations classiques poussées.
+L'idée explorée dans ce projet est d'utiliser l'IA en amont de la compression, pour prétraiter la vidéo. Ajuster l'image de façon à la rendre plus facile à compresser, et ainsi réduire le poids du fichier final à qualité visuelle équivalente. L'intérêt de l'IA tient à sa capacité d'adaptation. Les méthodes traditionnelles peinent parfois face à la diversité des contenus, un modèle peut apprendre à repérer ce qui compte visuellement et à modifier l'image en conséquence. On obtient une approche potentiellement plus souple, et moins coûteuse en calcul que des optimisations classiques poussées.
 Reste un obstacle majeur. Les codecs vidéo n'ont jamais été pensés pour servir dans un apprentissage, ils s'intègrent donc mal pour l'optimisation d'une IA. La question principale est alors de définir les moyens permettant à l'IA d'apprendre efficacement à travers un codec classique comme #gls("hevc", "H.265"), malgré les limitations de ce dernier. C'est le verrou technique central du projet.
 
 À cette question s'en ajoutent deux autres, propres au sujet. D'abord, comment évaluer la qualité d'une vidéo optimisée par IA, alors que les outils existants sont conçus pour juger une vidéo encodée de façon classique ? Ensuite, comment guider l'apprentissage pour qu'il simule la satisfaction réelle d'un utilisateur final ? C'est un point clé, mais un défi de taille, là encore parce que les outils actuels ne sont pas faits pour cela, la plupart des projets IA et vidéo reposent sur des mesures simples, efficaces pour orienter l'apprentissage, mais aveugles aux spécificités de la perception visuelle humaine.
@@ -309,7 +312,7 @@ Elles apportent aussi un support à la recherche lors d'un besoin en ingénierie
 == La cellule IXPEL
 Je travaille au sein de la cellule IXPEL, intégrée à l'équipe de recherche IPI (Image Perception Interaction), qui appartient au LS2N (Laboratoire des Sciences du Numérique de Nantes). L'équipe est spécialisée dans l'intelligence artificielle appliquée à l'image et la qualité d'expérience. On y retrouve par exemple des sujets liés à l'imagerie médicale, au traitement de documents manuscrits et à l'expérience et qualité utilisateur face à du contenu vidéo, l'équipe est reconnue mondialement sur ce dernier sujet, ce qui lui permet de travailler en collaboration avec les plus grandes entreprises du secteur et en particulier avec leurs équipes de recherche.
 
-Les clients de notre cellule sont de grandes entreprises du numérique comme Meta, Netflix ou Amazon. L'équipe IPI et la cellule IXPEL sont reconnues pour les tests subjectifs et la qualité d'expérience, c'est notamment pour ce genre de sujets que les projets avec ces entreprises portent. Les tests permettent par exemple de recueillir des données sur la satisfaction d'utilisateurs face à des contenus vidéo, ce qui permet par la suite d'évaluer des méthodes et solutions mises en place. Nous avons également comme client le laboratoire lui-même. Quand le laboratoire montre un besoin de programmation ou d'autres tâches d'ingénierie pour un des projets en cours, il fait appel à notre cellule si cela reste dans nos domaines de compétences. D'autres clients plus ponctuels peuvent aussi faire appel à notre cellule pour la mise en place d'outils liés à la vision par ordinateur et à l'image plus généralement.
+Les clients de notre cellule sont de grandes entreprises du numérique comme Meta, Netflix ou Amazon. L'équipe IPI et la cellule IXPEL sont reconnues pour les tests subjectifs et la qualité d'expérience, c'est en partie sur ces thématiques que les projets en lien avec ces entreprises portent. Les tests permettent par exemple de recueillir des données sur la satisfaction d'utilisateurs face à des contenus vidéo, ce qui permet par la suite d'évaluer des méthodes et solutions mises en place. Nous avons également comme client le laboratoire lui-même. Quand le laboratoire montre un besoin de programmation ou d'autres tâches d'ingénierie pour un des projets en cours, il fait appel à notre cellule si cela reste dans nos domaines de compétences. D'autres clients plus ponctuels peuvent aussi faire appel à notre cellule pour la mise en place d'outils liés à la vision par ordinateur et à l'image plus généralement.
 
 Cet environnement facilite donc les échanges avec le laboratoire, ce qui fluidifie l'avancement des projets de recherche, mais apporte aussi à notre cellule un lien fort avec les thématiques de recherche actuelles. C'est pour nous un argument très important, car cela montre la possibilité de travailler sur des solutions innovantes. Ce lien est donc bénéfique pour les deux parties.
 
@@ -332,7 +335,18 @@ Il est important de rappeler que ce PFE s'intègre dans le projet et que différ
 == Planning
 Le projet est structuré autour de trois Work Packages complémentaires, s'étalant d'avril 2026 à mars 2027.
 
-L'articulation globale des tâches ainsi que l'enchaînement des différents jalons de validation sont détaillés dans le diagramme de Gantt disponible à la fin du document (voir @planning en annexe).
+L'articulation globale des tâches ainsi que l'enchaînement des différents jalons de validation sont détaillés dans le diagramme de Gantt :
+
+#page(flipped: false)[
+  #set align(center + horizon)
+
+  #v(1cm)
+
+  #figure(
+    image("images/planning.png", width: 110%),
+    caption: [Planning global du projet (2026-2027)],
+  )
+]
 
 
 == Les membres du projet
@@ -414,7 +428,7 @@ Pour notre cellule, on peut facilement se partager des astuces ou bonnes pratiqu
 
 Cependant, ces maintenances imposent aussi des moments d'arrêt de l'outil, un grand nombre de jours durant ce projet ont été privés de cette ressource pour maintenance ou inaccessibilité de la plateforme notamment lors des périodes de canicule. Cela limite l'organisation des tâches et peut parfois ralentir l'avancée de certains projets.
 
-De manière générale, c'est un outil atypique qui modifie la manière de travailler et demande de l'adaptation pour certains mécanismes spécifiques et contraintes liées à l'accès à la plateforme, l'organisation au quotidien en est dépendante. 
+De manière générale, c'est un outil atypique qui modifie la manière de travailler et demande de l'adaptation pour certains mécanismes spécifiques et contraintes liées à l'accès à la plateforme, l'organisation au quotidien en est dépendante.
 
 === La vie du laboratoire
 
@@ -424,25 +438,22 @@ Ces moments profitent à tous. Pour ceux qui présentent, c'est l'occasion de va
 
 En apparence anodins, ces moments illustrent assez bien ce que la littérature en management appelle l'apprentissage par l'action (_execution-as-learning_), par opposition à une logique de pure exécution @edmondson2012teaming. Edmondson montre notamment qu'une équipe apprend mieux quand elle dépasse ses frontières internes (distances physiques, différences de statut, écarts de connaissance), par exemple via des temps d'échange réguliers. Les séminaires jouent exactement ce rôle, ils font circuler les connaissances entre des profils et des projets différents. Une étude menée sur 90 équipes, citée par ces travaux, observe d'ailleurs que les questions et interruptions lors des réunions améliorent le transfert de connaissances et l'acquisition de nouvelles pratiques. Cela suppose toutefois un climat où questionner n'est pas perçu comme une marque d'ignorance, ce que ces auteurs nomment la sécurité psychologique. En faisant le parallèle avec nos réunions, on retrouve une ambiance ouverte pour ces présentations, car c'est l'objectif, questionner sur un sujet que l'on découvre souvent durant la présentation. Il est parfois difficile de rendre les questions utiles pour le sujet en lui-même, et pas uniquement de les orienter pour notre propre compréhension de la présentation. Ce qui fait que malgré ce climat ouvert il est parfois difficile pour tout le monde de trouver cette sécurité psychologique mais les échanges et qestions profitent à tous et la variétés de ssujets apportent une vision globale de la recherche. Les thématiques abordées s'éloignent parfois de nos domaines d'expertises mais c'est finalement le point le plus intérressant, notamment pour une équipe jeune, de développer son ouverture d'esprit face aux problématiques du monde dans lequel nous vivons.
 
-== Méthodologie adoptée
 
-Mener ce projet demandait de composer avec plusieurs contraintes. Cette section les présente, ainsi que les adaptations qui en ont découlé.
-
-== Limites
+== Limites et adaptation
 
 La première limite est celle de la connaissance. Bien que des bases existaient en compression vidéo et en apprentissage automatique grâce aux projets et cours précédents, les deux domaines réunis représentaient un gap important à combler. Une partie du travail a donc consisté à réaliser de la bibliographie, des tests et inévitablement des erreurs, qui font partie du processus d'apprentissage.
 
-La deuxième est matérielle. Comme évoqué plus tôt, les ressources de calcul ne sont ni illimitées ni toujours accessibles. Les pannes ou périodes d'inaccessibilité de Glicid ont régulièrement imposé de réorienter le travail vers d'autres tâches : bibliographie, rédaction, analyse, tout ce qui ne nécessite pas de ressources de calcul importantes.
+La première étape a donc été d'étudier les solutions existantes et de comprendre le domaine. Cette compréhension ne s'est pas arrêtée là, elle s'est aussi construite au fil du projet, au fur et à mesure des implémentations et des résultats.
+
+Les indicateurs de réussite ont eux aussi évolués. Au départ, peu d'informations étaient disponibles pour réaliser ces choix. On s'est appuyé sur la littérature et les connaissances de l'équipe. L'avancement du projet a ensuite permis de valider ou d'ajuster ces outils d'évaluation, notamment grâce aux analyses de corrélation qui seront présentées dans le chapitre concernant l'implémentation.
+
+L'implémentation a suivi une logique d'essais et d'erreurs, avec des tests parfois non concluants qui ont néanmoins permis de mieux comprendre les mécanismes du deep learning dans ce contexte.
+
+La deuxième limite se trouve au niveau des ressources matérielles. Comme évoqué plus tôt, les ressources de calcul ne sont ni illimitées ni toujours accessibles. Les pannes ou périodes d'inaccessibilité de Glicid ont régulièrement imposé de réorienter le travail vers d'autres tâches : bibliographie, rédaction, analyse, tout ce qui ne nécessite pas de ressources de calcul importantes.
 
 Enfin, la limite de temps est réelle, ce PFE s'inscrit dans un projet encore récent, et certaines questions n'ont pas encore de réponse définitive.
 
-== Étapes et adaptation
-
-La première étape a été d'étudier les solutions existantes et de comprendre le domaine. Cette compréhension ne s'est pas arrêtée là, elle s'est aussi construite au fil du projet, au fur et à mesure des implémentations et des résultats.
-
-Les indicateurs de réussite ont eux aussi évolués. Au départ, peu d'informations étaient disponibles pour réaliser ces choix, on s'est appuyé sur la littérature et les connaissances de l'équipe. L'avancement du projet a ensuite permis de valider ou d'ajuster ces outils d'évaluation, notamment grâce aux analyses de corrélation qui seront présentées dans le chapitre concernant l'implémentation.
-
-L'implémentation a suivi une logique d'essais et d'erreurs, avec des tests parfois non concluants qui ont néanmoins permis de mieux comprendre les mécanismes du deep learning dans ce contexte. Face aux limites de temps, des choix ont été faits, privilégier des tests plus simples mais solides pour parvenir à des premiers résultats évaluables, plutôt que de s'éparpiller sur des pistes trop nombreuses.
+Face aux limites de temps et de disponibilité des outils, des choix ont été faits, privilégier des tests plus simples mais solides pour parvenir à des premiers résultats évaluables, plutôt que de s'éparpiller sur des pistes trop nombreuses.
 
 
 = Compression et qualité vidéo : défis et solutions
@@ -451,9 +462,9 @@ L'implémentation a suivi une logique d'essais et d'erreurs, avec des tests parf
 
 On peut ici se poser une question : comment une équipe jeune vit-elle et monte-t-elle en compétence sur des thématiques de pointe comme le deep learning et la qualité vidéo, entre veille permanente, partage de connaissances et accompagnement ?
 
-La jeunesse de l'équipe est un point à prendre en compte. Cela peut être vu comme un atout pour se tourner vers l'innovation et faciliter l'acceptation aux changements, mais cela demande aussi une montée en compétence rapide sur des sujets d'expertise pointus pour répondre aux attentes du projet. La compression vidéo est un domaine riche en théorie et concepts complexes, appartenir à une équipe experte facilite cette montée en compétence, mais une part du travail passe nécessairement par des recherches personnelles. Le deep learning associé à ce projet est tout aussi exigeant, et certaines compétences ne s'acquièrent qu'au fil des étapes du projet. Cette progression demande donc du temps, et l'évolution rapide de ces domaines impose une veille au quotidien.
+La jeunesse de l'équipe est un point à prendre en compte. Cela peut être vu comme un atout pour se tourner vers l'innovation et faciliter l'acceptation aux changements, mais cela demande aussi une montée en compétence rapide sur des sujets d'expertise pointus pour répondre aux attentes du projet. La compression vidéo est un domaine riche en théorie et concepts complexes. Appartenir à une équipe experte facilite cette montée en compétence, mais une part du travail passe nécessairement par des recherches personnelles. Le deep learning associé à ce projet est tout aussi exigeant, et certaines compétences ne s'acquièrent qu'au fil des étapes du projet. Cette progression demande donc du temps, et l'évolution rapide de ces domaines impose une veille au quotidien.
 
-La recherche sur l'adoption des technologies aide à nuancer l'idée, intuitive, qu'une équipe jeune serait simplement "moins réticente" face aux nouveaux outils. Dans leurs travaux, Morris et Venkatesh @morris2000age observent surtout que les déterminants de l'usage varient avec l'âge, chez les travailleurs les plus jeunes, la décision d'utiliser l'outil est davantage portée par l'attitude, c'est-à-dire par l'utilité qu'ils lui perçoivent, tandis que pour les plus âgés pèsent davantage l'avis des pairs et la facilité de prise en main. Pour une équipe jeune comme la nôtre, cela suggère que l'adoption d'un nouvel outil ou d'une nouvelle méthode se joue surtout sur sa valeur perçue, donc concrètement ce que l'outil apporte. Ces résultats doivent toutefois être pris avec prudence, ils reposent sur un échantillon réduit, et les auteurs eux-mêmes rappellent qu'on ne peut distinguer nettement un effet propre à l'âge d'un simple effet de génération mais cela montre tout de même une tendance, liée à l'âge ou à la génération, ce qui peut confirmer qu'une équipe jeune, venant d'une génération proche les uns des autres, pourrait avoir un comportement commun face aux changements. Si l'on prend l'exemple concret au sein de notre équipe, nous avons vu arriver il y a quelque temps des accès directement fournis par l'entreprise pour un outil de chat par IA, qui s'intègre aussi directement dans des projets pour faciliter l'écriture de code informatique notamment. Avoir un outil commun permet de centraliser les connaissances sur ce domaine et les bonnes pratiques, mais surtout, de ne pas rendre le sujet tabou, ce qui pourrait amener à des comportements plus difficiles à contrôler, on entend actuellement parler de "shadow AI", phénomène émergent où l'utilisation de ce genre d'outils est réalisée par les employés sans validation de leurs supérieurs ou du service informatique. L'intérêt d'utiliser ces outils pour des jeunes ingénieurs est simple, cela facilite l'accès à un grand nombre de connaissances et simplifient l'implémentation pour tester des outils rapidement. L'acceptation semble donc rapide car l'outil est vu comme utile. Cela renforce alors les résultats obtenus dans l'étude présentée. Il reste tout de même intéressant de rendre les pratiques plus contrôlées et raisonnées pour éviter des dérives, ce que l'entreprise essaie de faire au niveau global pour éviter que chaque cellule ait à le faire.
+La recherche sur l'adoption des technologies aide à nuancer l'idée, intuitive, qu'une équipe jeune serait simplement "moins réticente" face aux nouveaux outils. Dans leurs travaux, Morris et Venkatesh @morris2000age observent surtout que les déterminants de l'usage varient avec l'âge, chez les travailleurs les plus jeunes, la décision d'utiliser l'outil est davantage portée par l'attitude, c'est-à-dire par l'utilité qu'ils lui perçoivent, tandis que pour les plus âgés pèsent davantage l'avis des pairs et la facilité de prise en main. Pour une équipe jeune comme la nôtre, cela suggère que l'adoption d'un nouvel outil ou d'une nouvelle méthode se joue surtout sur sa valeur perçue, donc concrètement ce que l'outil apporte. Ces résultats doivent toutefois être pris avec prudence, ils reposent sur un échantillon réduit, et les auteurs eux-mêmes rappellent qu'on ne peut distinguer nettement un effet propre à l'âge d'un simple effet de génération mais cela montre tout de même une tendance, liée à l'âge ou à la génération, ce qui peut confirmer qu'une équipe jeune, venant d'une génération proche les uns des autres, pourrait avoir un comportement commun face aux changements. Si l'on prend l'exemple concret au sein de notre équipe, nous avons vu arriver il y a quelque temps des accès directement fournis par l'entreprise pour un outil de chat par IA, qui s'intègre aussi directement dans des projets pour faciliter l'écriture de code informatique notamment. Avoir un outil commun permet de centraliser les connaissances sur ce domaine et les bonnes pratiques, mais surtout, de ne pas rendre le sujet tabou, ce qui pourrait amener à des comportements plus difficiles à contrôler. On entend actuellement parler de "shadow AI", phénomène émergent où l'utilisation de ce genre d'outils est réalisée par les employés sans validation de leurs supérieurs ou du service informatique. L'intérêt d'utiliser ces outils pour des jeunes ingénieurs est simple, cela facilite l'accès à un grand nombre de connaissances et simplifient l'implémentation pour tester des outils rapidement. L'acceptation semble donc rapide car l'outil est vu comme utile. Cela renforce alors les résultats obtenus dans l'étude présentée. Il reste tout de même intéressant de rendre les pratiques plus contrôlées et raisonnées pour éviter des dérives, ce que l'entreprise essaie de faire au niveau global pour éviter que chaque cellule ait à le faire.
 
 Au-delà de la perception des outils, la montée en compétence dépend fortement de l'environnement de travail. Les travaux d'Edmondson sur le "teaming" montrent qu'un environnement psychologiquement sécurisant, où chacun peut poser des questions, reconnaître ses limites et solliciter de l'aide sans crainte d'être jugé, accélère l'apprentissage collectif @edmondson2012teaming. C'est un point clé pour nous, se sentir dans une équipe où d'autres ont probablement les mêmes questionnements, de par un manque d'expérience, pousse à partager les réponses ou les sources explicatives trouvées. Ce partage, associé à un investissement personnel et à une veille régulière, est ce qui permet de combler progressivement le manque d'expérience sur ces thématiques. Cela reste un processus qui prend du temps, notamment du fait de la complexité du domaine de la compression vidéo et, pour ce projet en particulier, de la complexité du domaine du deep learning.
 
@@ -586,7 +597,7 @@ On voit alors que malgré une réduction importante des données pour le format 
 
 Ces deux exemples montrent une chose importante pour la suite : la compression ne cherche pas la fidélité parfaite, mais la fidélité perçue. C'est exactement le terrain sur lequel se place ce projet, modifier l'image pour qu'elle coûte moins cher à coder, sans que l'utilisateur final ne le remarque.
 
-== Coûts des vidéos : logique et théorie <th_info>
+== Quantité d'informations des vidéos et transfert : logique et théorie <th_info>
 
 La théorie derrière le codage arithmétique est complexe, l'objectif de cette section est uniquement de mettre en avant la logique suivie, afin de comprendre comment une optimisation semble possible pour contrer les effets d'une compression parfois agressive.
 
@@ -596,13 +607,443 @@ C'est là qu'intervient le codage entropique, l'outil qui transforme réellement
 
 On voit alors pourquoi avoir des valeurs simples est si important. Une suite de valeurs proches, répétées ou nulles est très prédictible, le #gls("cabac", "CABAC") lui attribue une forte probabilité et la code sur très peu de bits. À l'inverse, des valeurs dispersées et imprévisibles coûtent cher. C'est précisément ce levier que l'on cherche à exploiter, si l'on parvient, en amont, à rendre l'image plus simple à représenter une fois transformée et quantifiée (davantage de zéros, des coefficients plus réguliers), alors le codage final devient moins coûteux, à qualité visuelle comparable. C'est tout l'enjeu de l'optimisation visée dans ce projet.
 
+== Comprendre le déroulement
+
+
+Les sections précédentes ont détaillé chaque mécanisme isolément. La figure
+@codec_pipeline les remet dans l'ordre : de la vidéo brute au flux compressé
+(encodeur, colonne de gauche), puis du flux reçu à l'image reconstituée
+(décodeur, colonne de droite), afin de visualiser l'enchaînement complet et simplifié d'un
+#gls("codec", "codec") tel que #gls("hevc", "H.265").
+
+#figure(
+  scale(x: 88%, y: 88%, reflow: true, {
+    set text(font: "Liberation Sans", fill: rgb("#1a2530"))
+    let ENC_BAND = rgb("#e8f1fb")
+    let ENC_HEAD = rgb("#1f6fb2")
+    let ENC_STROKE = rgb("#1f6fb2")
+    let DEC_BAND = rgb("#e7f6ec")
+    let DEC_HEAD = rgb("#2e9e5b")
+    let DEC_STROKE = rgb("#2e9e5b")
+    let ORANGE = rgb("#e8763a")
+    let INK = rgb("#1a2530")
+
+    canvas(length: 1cm, {
+      import draw: *
+
+      // ============================================================
+      // Helper closures
+      // ============================================================
+      let W = 4.3 // stage box width
+      let H = 2.6 // stage box height
+
+      // A stage box: cx = center x, top = top y, drawing icon + title
+      let stage = (cx, top, stroke-col, title, icon) => {
+        let l = cx - W / 2
+        let r = cx + W / 2
+        let b = top - H
+        rect((l, b), (r, top), radius: 0.14, fill: white, stroke: stroke-col + 1.4pt)
+        // icon zone (upper part)
+        icon(cx, top - 0.92)
+        // title (lower part)
+        content((cx, top - 2.15), box(width: (W - 0.2) * 1cm)[
+          #set text(size: 8.5pt, weight: "bold")
+          #align(center)[#title]
+        ])
+      }
+
+      // caption under a box (anchored at its TOP so text grows downward)
+      let caption = (cx, y, body) => {
+        content(
+          (cx, y),
+          box(width: (W + 0.5) * 1cm)[
+            #set text(size: 6.8pt, fill: rgb("#3a4550"))
+            #align(center)[#body]
+          ],
+          anchor: "north",
+        )
+      }
+
+      // arrow
+      let arr = (a, b, ..o) => {
+        line(a, b, stroke: INK + 1.6pt, mark: (end: ">", fill: INK), ..o)
+      }
+
+      // ---------- Icons (each: (cx, cy) center) ----------
+      let ic-frames = (cx, cy, col) => {
+        for i in (0, 1, 2) {
+          let dx = 0.12 * (2 - i)
+          let dy = 0.12 * (2 - i)
+          rect((cx - 0.55 + dx, cy - 0.42 + dy), (cx + 0.35 + dx, cy + 0.42 + dy), fill: white, stroke: col + 0.9pt)
+        }
+        // little image inside front frame
+        rect((cx - 0.55, cy - 0.42), (cx + 0.35, cy + 0.42), fill: rgb("#cfe6ff"), stroke: col + 0.9pt)
+        line(
+          (cx - 0.55, cy - 0.05),
+          (cx - 0.15, cy + 0.18),
+          (cx + 0.05, cy - 0.02),
+          (cx + 0.35, cy + 0.25),
+          stroke: col + 0.8pt,
+        )
+        circle((cx + 0.12, cy + 0.22), radius: 0.07, fill: ORANGE, stroke: none)
+      }
+
+      let ic-blocks = (cx, cy, col) => {
+        let s = 0.82
+        // faint "image" background so blocks read as a picture cut up
+        rect((cx - s, cy - s), (cx + s, cy + s), fill: rgb("#eaf3fc"), stroke: col + 1.2pt)
+        // flat area on the left = one big block; detailed area on the right
+        rect((cx - s, cy - s), (cx, cy + s), fill: rgb("#cfe6ff"), stroke: col + 1pt)
+        // right half split into 4, then top-right split into 4 again (quadtree)
+        line((cx, cy - s), (cx, cy + s), stroke: col + 1pt)
+        line((cx, cy), (cx + s, cy), stroke: col + 0.9pt)
+        line((cx + s / 2, cy), (cx + s / 2, cy + s), stroke: col + 0.9pt)
+        // fine subdivision (detail) in the top-right quadrant
+        line((cx + s / 2, cy + s / 2), (cx + s, cy + s / 2), stroke: col + 0.7pt)
+        line((cx + 3 * s / 4, cy + s / 2), (cx + 3 * s / 4, cy + s), stroke: col + 0.7pt)
+        // shade the small detailed cells
+        rect((cx + s / 2, cy + s / 2), (cx + 3 * s / 4, cy + s), fill: rgb("#9cc7f0"), stroke: col + 0.6pt)
+        rect((cx + 3 * s / 4, cy + s / 2), (cx + s, cy + s), fill: rgb("#7db6e8"), stroke: col + 0.6pt)
+      }
+
+      let ic-predict = (cx, cy, col) => {
+        // ---- Panel 1 : INTRA (predict from neighbours inside the SAME image) ----
+        let lx = cx - 0.78
+        let g = 0.24
+        // 3x3 block grid
+        for i in range(3) {
+          for j in range(3) {
+            rect(
+              (lx - 1.5 * g + i * g, cy - 0.05 - 1.5 * g + j * g),
+              (lx - 1.5 * g + (i + 1) * g, cy - 0.05 - 1.5 * g + (j + 1) * g),
+              fill: white,
+              stroke: col + 0.5pt,
+            )
+          }
+        }
+        // already-decoded neighbours: top row + left column (shaded)
+        for i in range(3) {
+          rect(
+            (lx - 1.5 * g + i * g, cy - 0.05 + 0.5 * g),
+            (lx - 1.5 * g + (i + 1) * g, cy - 0.05 + 1.5 * g),
+            fill: rgb("#bcd8f2"),
+            stroke: col + 0.5pt,
+          )
+        }
+        for j in range(2) {
+          rect(
+            (lx - 1.5 * g, cy - 0.05 - 1.5 * g + j * g),
+            (lx - 1.5 * g + g, cy - 0.05 - 1.5 * g + (j + 1) * g),
+            fill: rgb("#bcd8f2"),
+            stroke: col + 0.5pt,
+          )
+        }
+        // target block (bottom-right cell) predicted from those neighbours
+        rect(
+          (lx + 0.5 * g, cy - 0.05 - 1.5 * g),
+          (lx + 1.5 * g, cy - 0.05 - 0.5 * g),
+          fill: rgb("#fbe3d2"),
+          stroke: ORANGE + 0.8pt,
+        )
+        line((lx + g, cy - 0.05 + g), (lx + g, cy - 0.05 - 0.6 * g), stroke: ORANGE + 0.9pt, mark: (
+          end: ">",
+          fill: ORANGE,
+          scale: 0.5,
+        ))
+        line((lx - g, cy - 0.05 - g), (lx + 0.4 * g, cy - 0.05 - g), stroke: ORANGE + 0.9pt, mark: (
+          end: ">",
+          fill: ORANGE,
+          scale: 0.5,
+        ))
+        content((lx, cy + 0.62), text(size: 6pt, weight: "bold", fill: col)[1 · intra])
+
+        // ---- Panel 2 : INTER (predict from a reference image + motion) ----
+        let rx = cx + 0.82
+        // reference frame (behind)
+        rect((rx - 0.42, cy - 0.42), (rx + 0.18, cy + 0.18), fill: rgb("#dcebfb"), stroke: col + 0.6pt)
+        rect((rx - 0.32, cy - 0.28), (rx - 0.02, cy + 0.02), fill: rgb("#9cc7f0"), stroke: col + 0.5pt)
+        // current frame (front)
+        rect((rx - 0.18, cy - 0.18), (rx + 0.42, cy + 0.42), fill: white, stroke: col + 0.8pt)
+        rect((rx + 0.06, cy + 0.06), (rx + 0.36, cy + 0.36), fill: rgb("#fbe3d2"), stroke: ORANGE + 0.7pt)
+        // motion vector
+        line((rx - 0.17, cy - 0.13), (rx + 0.2, cy + 0.2), stroke: ORANGE + 1pt, mark: (
+          end: ">",
+          fill: ORANGE,
+          scale: 0.6,
+        ))
+        content((rx, cy + 0.62), text(size: 6pt, weight: "bold", fill: col)[2 · inter])
+
+        // order arrow intra -> inter
+        line((lx + 1.5 * g + 0.06, cy - 0.05), (rx - 0.5, cy - 0.05), stroke: rgb("#9aa5b0") + 0.9pt, mark: (
+          end: ">",
+          fill: rgb("#9aa5b0"),
+          scale: 0.6,
+        ))
+      }
+
+      let ic-sign = (cx, cy, col, sym) => {
+        circle((cx, cy), radius: 0.42, fill: white, stroke: ORANGE + 1.4pt)
+        // minus / plus
+        line((cx - 0.22, cy), (cx + 0.22, cy), stroke: ORANGE + 1.8pt)
+        if sym == "+" {
+          line((cx, cy - 0.22), (cx, cy + 0.22), stroke: ORANGE + 1.8pt)
+        }
+      }
+
+      // small image thumbnail: kind in ("img", "pred", "res")
+      let thumb = (cx, cy, kind) => {
+        let w = 0.54
+        if kind == "res" {
+          // residual: nearly flat grey, only faint edges remain
+          rect((cx - w / 2, cy - w / 2), (cx + w / 2, cy + w / 2), fill: rgb("#e9ebee"), stroke: INK + 0.6pt)
+          line((cx - 0.14, cy + 0.1), (cx + 0.02, cy - 0.06), stroke: rgb("#9aa5b0") + 0.8pt)
+          line((cx - 0.02, cy - 0.12), (cx + 0.16, cy + 0.04), stroke: rgb("#9aa5b0") + 0.7pt)
+        } else {
+          // sky + ground + sun (an actual little picture)
+          let sky = if kind == "pred" { rgb("#cfe6ff") } else { rgb("#bfe0ff") }
+          let ground = if kind == "pred" { rgb("#a9cf96") } else { rgb("#7fae6a") }
+          let sun = if kind == "pred" { rgb("#f0b48a") } else { ORANGE }
+          rect((cx - w / 2, cy), (cx + w / 2, cy + w / 2), fill: sky, stroke: none)
+          rect((cx - w / 2, cy - w / 2), (cx + w / 2, cy), fill: ground, stroke: none)
+          let sx = if kind == "pred" { cx + 0.04 } else { cx + 0.11 }
+          circle((sx, cy + 0.13), radius: 0.06, fill: sun, stroke: none)
+        }
+        rect((cx - w / 2, cy - w / 2), (cx + w / 2, cy + w / 2), fill: none, stroke: INK + 0.7pt)
+      }
+
+      // image A (op) B = C
+      let ic-imgop = (cx, cy, aKind, sym, bKind, cKind) => {
+        thumb(cx - 1.12, cy, aKind)
+        content((cx - 0.62, cy), text(size: 11pt, weight: "bold", fill: ORANGE)[#sym])
+        thumb(cx - 0.12, cy, bKind)
+        content((cx + 0.4, cy), text(size: 10pt, weight: "bold", fill: INK)[=])
+        thumb(cx + 0.92, cy, cKind)
+      }
+
+      let ic-dct = (cx, cy, col, c0, c1, c2) => {
+        // frequency grid: strongest coefficients concentrated in TOP-LEFT
+        let n = 4
+        let s = 0.32
+        let x0 = cx - (n * s) / 2
+        let y0 = cy - (n * s) / 2
+        for i in range(n) {
+          for j in range(n) {
+            // distance from the top-left corner (i=0 column, j=n-1 top row)
+            let d = i + (n - 1 - j)
+            let fill = white
+            if d == 0 { fill = c0 } else if d == 1 { fill = c1 } else if d == 2 { fill = c2 }
+            rect((x0 + i * s, y0 + j * s), (x0 + (i + 1) * s, y0 + (j + 1) * s), fill: fill, stroke: col + 0.6pt)
+          }
+        }
+        // hint: low freq (top-left) -> high freq (bottom-right)
+        content((x0 - 0.02, y0 + n * s + 0.16), text(size: 5.5pt, fill: rgb("#7a848e"))[basses f.])
+      }
+
+      // list of "left -> right" mappings; rows = ((left, right, isZero), ...)
+      let ic-maplist = (cx, cy, col, rows) => {
+        let n = rows.len()
+        let step = 0.36
+        let y0 = cy + (n - 1) * step / 2
+        for k in range(n) {
+          let row = rows.at(k)
+          let yy = y0 - k * step
+          let rc = if row.at(2) { rgb("#9aa5b0") } else { col }
+          content((cx - 0.55, yy), text(size: 7.5pt, fill: INK)[#row.at(0)])
+          content((cx - 0.02, yy), text(size: 7.5pt, fill: rgb("#9aa5b0"))[$arrow.r$])
+          content((cx + 0.5, yy), text(size: 7.5pt, weight: "bold", fill: rc)[#row.at(1)])
+        }
+      }
+
+      let ic-entropy = (cx, cy, col, leafcol, bits) => {
+        // compact tree with 0 / 1 edge labels
+        let root = (cx, cy + 0.48)
+        let l = (cx - 0.5, cy + 0.02)
+        let r = (cx + 0.5, cy + 0.02)
+        let rl = (cx + 0.25, cy - 0.42)
+        let rr = (cx + 0.75, cy - 0.42)
+        for (a, b) in ((root, l), (root, r), (r, rl), (r, rr)) {
+          line(a, b, stroke: col + 0.8pt)
+        }
+        content(((root.at(0) + l.at(0)) / 2 - 0.1, (root.at(1) + l.at(1)) / 2 + 0.05), text(
+          size: 5.5pt,
+          fill: rgb("#7a848e"),
+        )[0])
+        content(((root.at(0) + r.at(0)) / 2 + 0.1, (root.at(1) + r.at(1)) / 2 + 0.05), text(
+          size: 5.5pt,
+          fill: rgb("#7a848e"),
+        )[1])
+        circle(root, radius: 0.13, fill: col, stroke: none)
+        circle(r, radius: 0.12, fill: col, stroke: none)
+        for p in (l, rl, rr) { circle(p, radius: 0.11, fill: leafcol, stroke: none) }
+        // resulting bitstream
+        content((cx, cy - 0.72), text(size: 7.5pt, font: "Liberation Mono", weight: "bold", fill: col)[#bits])
+      }
+
+      let ic-smooth = (cx, cy, col) => {
+        rect((cx - 0.7, cy - 0.55), (cx + 0.7, cy + 0.55), fill: rgb("#d8f0e0"), stroke: col + 0.9pt)
+        // wavy smoothing line
+        line(
+          (cx - 0.6, cy - 0.15),
+          (cx - 0.3, cy + 0.25),
+          (cx, cy - 0.15),
+          (cx + 0.3, cy + 0.25),
+          (cx + 0.6, cy - 0.15),
+          stroke: col + 1.2pt,
+        )
+      }
+
+      let ic-file = (cx, cy, col) => {
+        rect((cx - 0.5, cy - 0.6), (cx + 0.45, cy + 0.6), fill: white, stroke: col + 1.1pt)
+        // folded corner
+        line((cx + 0.2, cy + 0.6), (cx + 0.45, cy + 0.35), stroke: col + 1.1pt)
+        for k in (0.28, 0.05, -0.18, -0.4) {
+          line((cx - 0.32, cy + k), (cx + 0.27, cy + k), stroke: col + 0.7pt)
+        }
+      }
+
+      let ic-monitor = (cx, cy, col) => {
+        rect((cx - 0.75, cy - 0.35), (cx + 0.75, cy + 0.55), fill: rgb("#dbeafe"), stroke: col + 1.1pt)
+        line(
+          (cx - 0.5, cy + 0.05),
+          (cx - 0.1, cy + 0.3),
+          (cx + 0.15, cy + 0.1),
+          (cx + 0.55, cy + 0.4),
+          stroke: col + 0.8pt,
+        )
+        circle((cx + 0.2, cy + 0.35), radius: 0.06, fill: ORANGE, stroke: none)
+        line((cx - 0.2, cy - 0.35), (cx - 0.2, cy - 0.55), stroke: col + 1.1pt)
+        line((cx + 0.2, cy - 0.35), (cx + 0.2, cy - 0.55), stroke: col + 1.1pt)
+        line((cx - 0.55, cy - 0.55), (cx + 0.55, cy - 0.55), stroke: col + 1.4pt)
+      }
+
+      // ============================================================
+      // Layout (VERTICAL : deux colonnes en U, bandeaux horizontaux)
+      // ============================================================
+      let pitch = 3.15
+      let TOP = 22.0
+      let ex = 3.9 // colonne encodeur (descend)
+      let dx = 11.6 // colonne décodeur (remonte)
+
+      let ey = i => TOP - i * pitch // haut de la boîte encodeur i (0..5)
+      let dtop = s => TOP - (4 - s) * pitch // haut de la boîte décodeur d'étape s (0..4)
+
+      let midy = 20.7 // hauteur du centre de la 1re boîte (entrée / sortie)
+
+      // ----- Bandes de fond + bandeaux HORIZONTAUX en haut -----
+      let headerTop = TOP + 1.7
+      let bodyTop = TOP + 0.65
+      let encBot = ey(5) - H - 0.55
+      let decBot = dtop(0) - H - 0.55
+      // encodeur
+      rect((1.5, encBot), (6.3, headerTop), radius: 0.25, fill: ENC_BAND, stroke: ENC_STROKE + 1pt)
+      rect((1.5, bodyTop), (6.3, headerTop), radius: (north: 0.25), fill: ENC_HEAD, stroke: none)
+      content((3.9, (bodyTop + headerTop) / 2), text(size: 10.5pt, weight: "bold", fill: white)[ENCODEUR VIDÉO])
+      // décodeur
+      rect((9.2, decBot), (14.0, headerTop), radius: 0.25, fill: DEC_BAND, stroke: DEC_STROKE + 1pt)
+      rect((9.2, bodyTop), (14.0, headerTop), radius: (north: 0.25), fill: DEC_HEAD, stroke: none)
+      content((11.6, (bodyTop + headerTop) / 2), text(size: 10.5pt, weight: "bold", fill: white)[DÉCODEUR VIDÉO])
+
+      // ----- Étapes ENCODEUR (haut -> bas) -----
+      stage(ex, ey(0), ENC_STROKE, [Partitionnement en blocs], (x, y) => ic-blocks(x, y, ENC_STROKE))
+      stage(ex, ey(1), ENC_STROKE, [Prédiction Intra puis Inter], (x, y) => ic-predict(x, y, ENC_STROKE))
+      stage(ex, ey(2), ENC_STROKE, [Traitement du résidu], (x, y) => ic-imgop(x, y, "img", "−", "pred", "res"))
+      stage(ex, ey(3), ENC_STROKE, [Transformation (DCT)], (x, y) => ic-dct(
+        x,
+        y,
+        ENC_STROKE,
+        rgb("#1f6fb2"),
+        rgb("#6aa8dc"),
+        rgb("#bcd8f2"),
+      ))
+      stage(ex, ey(4), ENC_STROKE, [Quantification], (x, y) => ic-maplist(x, y, ENC_STROKE, (
+        ("7.6", "8", false),
+        ("3.2", "3", false),
+        ("0.4", "0", true),
+        ("0.1", "0", true),
+      )))
+      stage(ex, ey(5), ENC_STROKE, [Encodage entropique], (x, y) => ic-entropy(
+        x,
+        y,
+        ENC_STROKE,
+        rgb("#6aa8dc"),
+        [1011 0100 11],
+      ))
+      for i in range(5) {
+        arr((ex, ey(i) - H), (ex, ey(i + 1)))
+      }
+
+      // ----- Étapes DÉCODEUR (bas -> haut) -----
+      stage(dx, dtop(0), DEC_STROKE, [Décodage entropique], (x, y) => ic-entropy(
+        x,
+        y,
+        DEC_STROKE,
+        rgb("#7cc795"),
+        [1011 0100 11],
+      ))
+      stage(dx, dtop(1), DEC_STROKE, [Déquantification], (x, y) => ic-maplist(x, y, DEC_STROKE, (
+        ("8", "8.0", false),
+        ("3", "3.0", false),
+        ("0", "0.0", true),
+      )))
+      stage(dx, dtop(2), DEC_STROKE, [Transformation inverse], (x, y) => ic-dct(
+        x,
+        y,
+        DEC_STROKE,
+        rgb("#2e9e5b"),
+        rgb("#7cc795"),
+        rgb("#c3e6cf"),
+      ))
+      stage(dx, dtop(3), DEC_STROKE, [Reconstruction], (x, y) => ic-imgop(x, y, "res", "+", "pred", "img"))
+      stage(dx, dtop(4), DEC_STROKE, [Post-traitement], (x, y) => ic-smooth(x, y, DEC_STROKE))
+      for s in range(4) {
+        arr((dx, dtop(s)), (dx, dtop(s + 1) - H))
+      }
+
+      // ----- Entrée : vidéo brute (à gauche, entre dans la 1re boîte) -----
+      ic-frames(0.15, midy, INK)
+      content((0.15, midy - 1.15), box(width: 2.4cm)[
+        #set text(size: 7.5pt, weight: "bold")
+        #align(center)[VIDÉO BRUTE
+          #linebreak() #text(weight: "regular", size: 6.6pt)[(Séquence d'images)]]
+      ])
+      arr((0.8, midy), (ex - W / 2, midy))
+
+      // ----- Sortie : vidéo reconstituée (à droite) -----
+      ic-monitor(15.1, midy, INK)
+      content((15.1, midy - 1.2), box(width: 2.6cm)[
+        #set text(size: 7.5pt, weight: "bold")
+        #align(center)[VIDÉO#linebreak()RECONSTITUÉE
+          #linebreak() #text(weight: "regular", size: 6.6pt)[(Visible par l'utilisateur)]]
+      ])
+      arr((dx + W / 2, midy), (14.35, midy))
+
+      // ----- Pont bas : flux compressé + stockage -----
+      let by = 2.15
+      ic-file(6.6, by + 0.1, INK)
+      content((6.6, by - 1.05), box(width: 3cm)[
+        #set text(size: 7.5pt, weight: "bold")
+        #align(center)[FLUX COMPRESSÉ]
+      ])
+      rect((8.0, by - 0.55), (10.5, by + 0.55), radius: 0.12, fill: rgb("#eef1f4"), stroke: INK + 1.2pt)
+      content((9.25, by), box(width: 2.3cm)[
+        #set text(size: 7.5pt, weight: "bold")
+        #align(center)[STOCKAGE /\ TRANSMISSION]
+      ])
+      arr((ex, ey(5) - H), (6.05, by + 0.25))
+      arr((7.2, by), (8.0, by))
+      arr((10.5, by + 0.15), (dx, dtop(0) - H))
+    })
+  }),
+  caption: [Déroulement complet d'un #gls("codec", "codec"), de la vidéo brute au flux compressé (encodeur, colonne de gauche) puis du flux reçu à l'image reconstituée (décodeur, colonne de droite).],
+) <codec_pipeline>
+
 == Évaluer le contenu vidéo <contenteval>
 
 Si l'on veut optimiser une vidéo, encore faut-il pouvoir mesurer sa qualité. C'est un point central du projet, pour deux aspects, la mesure choisie servira de guide à l'apprentissage du filtre, elle se doit donc d'être un critère qui reflète la vision humaine, et durnat l'évaluation, cela conditionnera aussi la pertinence des résultats obtenus.
 
-La référence reste le jugement humain. En réunissant un panel d'utilisateurs et en moyennant leurs notes, on obtient un #gls("mos", "MOS") (_Mean Opinion Score_), considéré comme la "vérité terrain" de la qualité perçue. C'est d'ailleurs l'une des expertises reconnues de notre équipe, sollicitée pour ce type de tests par de grands acteurs du secteur. Mais ces tests sont coûteux et lents : impossible de les utiliser pour guider, image par image, l'entraînement d'un réseau de neurones qui nécessite un grand nombre d'exemples.
+La référence reste le jugement humain. En réunissant un panel d'observateurs et en moyennant leurs notes, on obtient un #gls("mos", "MOS") (_Mean Opinion Score_), considéré comme la "vérité terrain" de la qualité perçue. C'est d'ailleurs l'une des expertises reconnues de notre équipe, sollicitée pour ce type de tests par de grands acteurs du secteur. Mais ces tests sont coûteux et lents : impossible de les utiliser pour guider, image par image, l'entraînement d'un réseau de neurones qui nécessite un grand nombre d'exemples.
 
-On s'appuie donc sur des #gls("metrique", "métriques") objectives, c'est-à-dire calculées automatiquement par opposition à une évaluation subjective, réalisée par un utilisateur. 
+On s'appuie donc sur des #gls("metrique", "métriques") objectives, c'est-à-dire calculées automatiquement par opposition à une évaluation subjective, réalisée par un utilisateur.
 
 La plus ancienne, le #gls("psnr", "PSNR"), mesure simplement l'écart pixel à pixel avec la source, elle est facile à calculer, mais corrèle mal avec la perception humaine. Elle reste pourtant un indicateur intéressant pour mesurer les performances d'un codec, à quel point il reproduit exactement l'image d'origine.
 
@@ -615,17 +1056,17 @@ La plus ancienne, le #gls("psnr", "PSNR"), mesure simplement l'écart pixel à p
 
 On voit, dans cet exemple, que la mesure de fidélité de l'image au niveau des pixels ne réagit pas du tout de la même manière selon l'image : un gain de 3 DB peut être invisible ou, au contraire, grandement améliorer la qualité.
 
-D'autres métriques, comme #gls("ssim", "SSIM") ou surtout #gls("vmaf", "VMAF"), cherchent à se rapprocher du jugement humain en combinant plusieurs indicateurs. Ces métriques sont au cœur du projet, une métrique mal choisie peut conduire à optimiser dans une mauvaise direction. Elles ont aussi leurs défauts, à l'instar des codecs, elles sont rarement conçues pour être optimisées. Elles présentent des limites mathématiques et structurelles, et ne sont souvent prévues que pour juger des images classiques. Cela en fait un terrain propice à l'exploitation par une IA, qui peut apprendre à en exploiter les défauts pour améliorer le score sans réellement améliorer la qualité perçue.
+D'autres métriques, comme #gls("ssim", "SSIM"), qui cherche aussi à comprendre les différentes structures de l'image, ou #gls("vmaf", "VMAF"), qui cherche à se rapprocher du jugement humain en combinant plusieurs indicateurs. Ces métriques sont au cœur du projet, une métrique mal choisie peut conduire à optimiser dans une mauvaise direction. Elles ont aussi leurs défauts, à l'instar des codecs, elles sont rarement conçues pour des cas d'usage lié à l'apprentissage d'un réseau de neuronnes. Elles présentent des limites mathématiques et structurelles, et ne sont souvent prévues que pour juger des images classiques. Cela en fait un terrain propice à l'exploitation par une IA, qui peut apprendre à en exploiter les défauts pour améliorer le score sans réellement améliorer la qualité perçue.
 
 Enfin, il faut garder en tête que ces métriques restent des approximations et ont chacune leurs limites. La validation finale d'une optimisation, une fois les outils suffisamment matures dans la poursuite du projet, passera par de vrais utilisateurs, c'est ce qui garantit la validité du projet, et c'est précisément le type de tests que notre cellule peut mener.
 
 == Les limitations pour l'apprentissage
 
-Nous l'avons mentionné, les codecs classiques s'intègrent mal dans un apprentissage. Avant de voir comment contourner ce problème, il faut comprendre d'où viennent réellement ces limitations en reprenant des étapes clées qui dans leur version d'origine ne sont pas optimisable.
+Nous l'avons mentionné, les codecs classiques s'intègrent mal dans une chaîne d'apprentissage automatique. Avant de voir comment contourner ce problème, il faut comprendre d'où viennent réellement ces limitations en reprenant des étapes clées qui dans leur versions classiques s'intégrent mal dans une chaine d'apprentissage.
 
 === Limites mathématiques des outils pour l'apprentissage <limites_codec>
 
-Ces limites sont avant tout mathématiques. Pour qu'un réseau apprenne, chaque opération de la boucle doit indiquer dans quelle direction ajuster les paramètres, c'est le rôle du "gradient", qui donne en quelque sorte le "sens de la pente". Une opération est utilisable pour l'apprentissage si elle est différentiable, c'est à dire une fonction continu donc sans intéruptions et avec une pente pour en déduire la direction.
+Ces limites sont avant tout mathématiques. Pour qu'un réseau de neuronne, dans notre cas, un filtre, apprenne, chaque opération de la boucle doit indiquer dans quelle direction ajuster les paramètres, c'est le rôle du "gradient", qui donne en quelque sorte le "sens de la pente". Une opération est utilisable pour l'apprentissage si elle est différentiable, c'est à dire une fonction continu donc sans intéruptions et avec une pente pour en déduire la direction.
 
 #figure(
   canvas(length: 1cm, {
@@ -664,7 +1105,7 @@ Ces limites sont avant tout mathématiques. Pour qu'un réseau apprenne, chaque 
   caption: [Cas d'une fonction différentiable : en tout point, on peut calculer la pente (le gradient), qui indique dans quel sens la fonction varie, et donc dans quelle direction ajuster le paramètre.],
 ) <pente>
 
-La raison principale de l'impossibilité d'utiliser ces outils est qu'ils ne sont pas prévus pour cela, ni adaptés aux langages utilisés pour l'apprentissage. Ils sont aussi très optimisés pour des calculs rapides sur processeurs, mais bien moins dans des conditions d'entraînement. Ils possèdent de nombreux choix binaires qui constituent alors des murs à l'apprentissage, où l'on garde ou ne garde pas une information sans transition, ce qui provoque alors une cassure et impossibilité d'optimiser ces étapes.
+La raison principale de l'impossibilité d'utiliser ces outils de codage tels quels est qu'ils ne sont pas prévus pour cela, ni adaptés aux langages informatiques utilisés pour l'apprentissage. Ils sont aussi très optimisés pour des calculs rapides sur processeurs, mais bien moins dans des conditions d'entraînement. Ils possèdent de nombreux choix binaires qui constituent alors des murs à l'apprentissage, où l'on garde ou ne garde pas une information sans transition, ce qui provoque alors une cassure et une impossibilité d'optimiser ces étapes.
 
 On retrouve alors beaucoup de fonctions qui n'ont pas les propriétés adéquates. Certaines présentent des zones plates, où une petite variation de l'entrée ne change rien à la sortie : la pente y est nulle et n'indique aucune direction. D'autres présentent des cassures franches, où la pente n'est tout simplement pas définie.
 
@@ -1104,7 +1545,7 @@ Enfin, nous avons fait le choix de travailler sur des blocs de taille 8×8. Une 
 === Estimation du coût des images
 
 Dans cette implémentation, il est aussi important d'établir la manière dont on va permettre à notre outil d'estimer le coût d'un image.
-Nous l'avons vu, le papier @chadha2021dpp utilise une méthode apprise (IA), qui semble fonctionner mais la problématique de ce genre d'approche est la généralisation face aux différentes qualités possibles. 
+Nous l'avons vu, le papier @chadha2021dpp utilise une méthode apprise (IA), qui semble fonctionner mais la problématique de ce genre d'approche est la généralisation face aux différentes qualités possibles.
 
 Une autre méthode est proposée dans les travaux @isik2023sandwiched : une fonction simple, non apprise, qui reprend directement les principes présentés en @th_info.
 
@@ -1164,7 +1605,7 @@ Cette implémentation s'est révélée particulièrement intéressante pour test
 
 Nous l'avons vu, le guide d'apprentissage doit satisfaire deux exigences à la fois : être un bon simulateur de ce que percevrait un utilisateur, et rester facilement optimisable pour que les poids du filtre soient ajustés dans la bonne direction.
 
-De nombreuses combinaisons de #gls("metrique", "métriques") sont possibles, mais toutes ne peuvent pas être testées. Or, l'objectif à cette étape du projet porte avant tout sur les différentes approches de remplacement du #gls("codec", "codec") durant l'apprentissage, et non sur la recherche du guide idéal, une analyse qui est d'ailleurs réalisée par d'autres membres de  l'équipe. Il paraît donc justifié de retenir un choix simple et cohérent, respectant nos critères de départ, quitte à approfondir cet aspect dans la suite du projet. 
+De nombreuses combinaisons de #gls("metrique", "métriques") sont possibles, mais toutes ne peuvent pas être testées. Or, l'objectif à cette étape du projet porte avant tout sur les différentes approches de remplacement du #gls("codec", "codec") durant l'apprentissage, et non sur la recherche du guide idéal, une analyse qui est d'ailleurs réalisée par d'autres membres de  l'équipe. Il paraît donc justifié de retenir un choix simple et cohérent, respectant nos critères de départ, quitte à approfondir cet aspect dans la suite du projet.
 
 À cela s'ajoute une précaution méthodologique, nous l'avons évoqué dans les limites des travaux existants, certains projet entraînent le filtre sur une métrique puis évaluent les performances sur cette même métrique, ce qui fausse probablement l'analyse. Nous chercherons donc à dissocier le guide d'apprentissage des outils servant à l'évaluation finale.
 
@@ -1190,7 +1631,7 @@ On compare donc plusieurs #gls("metrique", "métriques") selon leur accord avec 
 Pour comprendre les résultats il est aussi important de présenter les différentes métriques.
 
 #gls("vmaf", "VMAF") (Video Multi-Method Assessment Fusion) est une métrique que nous avons déjà évoquée, elle possède aussi une version durcie, VMAF-NEG, qui pénalise un rehaussement du contraste, elle est reconnue pour être plus robuste à certaines conditions grâce à des limites que la version classique n'a pas.
-UVQ (Universal Video Quality) est une métrique plus récente, basée sur l'IA, qui a appris à partir de scores #gls("mos", "MOS"). #gls("lpips", "LPIPS") (Learned Perceptual Image Patch Similarity) est une métrique basée sur un réseau de neurones entraîné pour prédire la similarité perceptuelle entre deux images. 
+UVQ (Universal Video Quality) est une métrique plus récente, basée sur l'IA, qui a appris à partir de scores #gls("mos", "MOS"). #gls("lpips", "LPIPS") (Learned Perceptual Image Patch Similarity) est une métrique basée sur un réseau de neurones entraîné pour prédire la similarité perceptuelle entre deux images.
 
 Les tableaux ci-dessous ne montrent que les métriques retenues comme candidates, les autres, moins pertinentes pour notre usage, ont été écartées pour la clarté.
 
@@ -1229,7 +1670,7 @@ Le second jeu de données est basé sur des vidéos encodées avec un encodage p
     [*UVQ*], [0.803], [0.754],
     [*Delta UVQ*], [0.904], [0.850],
     [*LPIPS*], [0.881], [*0.880*],
-    [*CVVDP*], [*0.905*],[0.784],
+    [*CVVDP*], [*0.905*], [0.784],
   ),
 )
 
@@ -1332,7 +1773,7 @@ Pour rappel plus un score PSNR est haut, plus cette mesure considère l'iamge co
 
 Le proxy neuronal reconstruit les images les plus ressemblantes, en particulier sur les images prédites à partir des précédentes (colonnes _inter_), où il devance nettement toutes les autres versions en particulier avec le mode CRF. Ce réseau a été entraîné pour copier le vrai codec sur ce point, donc il excelle à cette tâche. Il est tout de même intéressant de voir que les scores PSNR ne sont pas toujours bons alors que le SSIM si, évaluant les écarts de structures. Ce qui signifie qu'il ne reproduit pas fidèlement les pixels mais conserve la structure de l'image, ce qui est finalement le but recherché. Le proxy neuronal est donc un bon imitateur du codec, en particulier au niveau structurel.
 
-Parmi nos versions simplifiées, la variante `round · softmax` est la plus proche du vrai codec, les autres réglages s'en éloignent un peu. Le softmax est la fonction que nous avions présentée, elle permet de mélanger les candidats de prédiction plutôt que d'en choisir un seul. Cela a pour effet de lisser légèrement le résultat, ce qui est apprécié par le PSNR notamment, ce qui explique ces résultats. On peut tout de même valider la pertinence du proxy simplifié, car lui n'a pas appris à reproduire fidèlement les images. 
+Parmi nos versions simplifiées, la variante `round · softmax` est la plus proche du vrai codec, les autres réglages s'en éloignent un peu. Le softmax est la fonction que nous avions présentée, elle permet de mélanger les candidats de prédiction plutôt que d'en choisir un seul. Cela a pour effet de lisser légèrement le résultat, ce qui est apprécié par le PSNR notamment, ce qui explique ces résultats. On peut tout de même valider la pertinence du proxy simplifié, car lui n'a pas appris à reproduire fidèlement les images.
 
 Il est intéressant de noter que ces performances sont obtenues à cette qualité qui est haute mais devient moins bonne si l'on choisit de traiter des images de plus basse qualité, c'est qui a été remarqué en réalisant d'autres tests. On peut expliquer cela car le proxy simplifié ne reprend pas toutes les logiques d'optimisations complexes du véritable codec, des optimisations qui vont être bénéfiques surtout sur des images de plus basse qualité. Notre simulateur fonctionne donc très bien à haute qualité, moins à basse qualité en ce qui concerne la reproduction d'image. Ce qui montre tout de même sa limite d'action et possiblement un désalignement avec le fonctionnement réel encore important. Ce constat nous a donc obligé à utiliser cet outil avec plus de précaution et rester dans une plage limité de qualité afin d'éviter de s'éloigner trop de l'outil d'origine.
 
@@ -1395,10 +1836,8 @@ Plus un point est à droite plus la vidéo coute cher, plus un point est hau ou 
   grid(
     columns: (1fr, 1fr),
     gutter: 0.5cm,
-    image("images/rd_VMAF_NEG_MEAN_N.png"),
-    image("images/rd_VMAF_MEAN_N.png"),
-    image("images/rd_UVQ_MEAN_N.png"),
-    image("images/rd_LPIPS_MEAN.png"),
+    image("images/rd_VMAF_NEG_MEAN_N.png"), image("images/rd_VMAF_MEAN_N.png"),
+    image("images/rd_UVQ_MEAN_N.png"), image("images/rd_LPIPS_MEAN.png"),
   ),
   caption: [Résultats Optimisation filtre avec proxy neuronal],
 )
@@ -1408,10 +1847,8 @@ Ces résultats montrent que le proxy neuronal optimise bien le filtre, les score
   grid(
     columns: (1fr, 1fr),
     gutter: 0.5cm,
-    image("images/rd_VMAF_NEG_MEAN_S1.png"),
-    image("images/rd_VMAF_MEAN_S1.png"),
-    image("images/rd_UVQ_MEAN_S1.png"),
-    image("images/rd_LPIPS_MEAN_ROUND.png"),
+    image("images/rd_VMAF_NEG_MEAN_S1.png"), image("images/rd_VMAF_MEAN_S1.png"),
+    image("images/rd_UVQ_MEAN_S1.png"), image("images/rd_LPIPS_MEAN_ROUND.png"),
   ),
   caption: [Résultats Optimisation filtre avec proxy simplifié version "arrondi"],
 )
@@ -1423,10 +1860,8 @@ Ces résultats montrent que le proxy simplifié optimise très peu au vu de ce c
   grid(
     columns: (1fr, 1fr),
     gutter: 0.5cm,
-    image("images/rd_VMAF_NEG_MEAN_Noise.png"),
-    image("images/rd_VMAF_MEAN_Noise.png"),
-    image("images/rd_UVQ_MEAN_Noise.png"),
-    image("images/rd_LPIPS_MEAN_NOISE.png"),
+    image("images/rd_VMAF_NEG_MEAN_Noise.png"), image("images/rd_VMAF_MEAN_Noise.png"),
+    image("images/rd_UVQ_MEAN_Noise.png"), image("images/rd_LPIPS_MEAN_NOISE.png"),
   ),
   caption: [Résultats Optimisation filtre avec proxy simplifié version "bruit"],
 )
@@ -1439,10 +1874,8 @@ Ces différents graphiques représente une moyenne sur 30 vidéos. Si l'on regar
   grid(
     columns: (1fr, 1fr),
     gutter: 0.5cm,
-    image("images/neg.png"),
-    image("images/vmaf.png"),
-    image("images/uvq.png"),
-    image("images/LPIPS.png"),
+    image("images/neg.png"), image("images/vmaf.png"),
+    image("images/uvq.png"), image("images/LPIPS.png"),
   ),
   caption: [Résultats Optimisation filtre avec proxy simplifié version "round" pour la vidéo SRC08],
 )
@@ -1633,10 +2066,19 @@ clarification et d'apprentissage dont la valeur dépasse celle des seuls résult
 #bibliography("ref.bib", style: "ieee", title: "Références bibliographiques")
 
 
-#pagebreak()
 
-= Annexes
-== Annexe 1 : Étude sur les plus gros challenges du secteur VOD/Streaming <challengesVOD>
+})
+
+#counter(heading).update(0)
+#set heading(
+  supplement: none, // pour que @planning affiche « Annexe B » et non « Chapitre Annexe B »
+  numbering: (..n) => {
+    let p = n.pos()
+    if p.len() == 1 { "Annexe " + numbering("A", p.first()) } else { numbering("A.1", ..p) }
+  },
+)
+
+= Étude sur les plus gros challenges du secteur VOD/Streaming <challengesVOD>
 #align(center)[
   #figure(
     image("images/prioriteEtude.png", width: 100%, height: 450pt),
@@ -1644,20 +2086,7 @@ clarification et d'apprentissage dont la valeur dépasse celle des seuls résult
   )
 ]
 
-#page(flipped: true)[
-  #set align(center + horizon)
-
-  == Annexe 2 : Planning prévisionnel du projet <planning>
-
-  #v(1cm)
-
-  #figure(
-    image("images/planning.png", width: 110%, height: 255pt),
-    caption: [Planning global du projet (2026-2027)],
-  )
-]
-
-== Annexe 3 : Architecture du filtre neuronal <archi>
+= Architecture du filtre neuronal <archi>
 
 #figure(
   grid(
