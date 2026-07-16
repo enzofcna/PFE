@@ -2031,76 +2031,74 @@ Pour illuster cela voici un exemple d'un vidéo qui semble avoir fonctionnée su
   caption: [Courbes des résultats pour les métriques retenues pour la vidéo SRC05 (version "Arrondi")],
 )
 
-Cela montre aussi que les résultats dépendent grandement du contenus, ce qui prouve l'importance, des données d'entrainement qui doivent être représentative d'une large diversité de contenus afin d'obtenir un outil polyvalent.
+Cet exemple montre aussi que les résultats dépendent grandement du contenus, ce qui prouve l'importance, des données d'entrainement, qui doivent être représentative d'une large diversité de contenus afin d'obtenir un outil polyvalent.
 
 == Test visuel
 Afin d'avoir une idée des effets du filtre sur les images voici quelques exemples où l'ont voir de différences intéressantes à analyser. Ces images proviennent bien sûr des images de test et pas celles utilisées durant l'apprentissage.
 Il est possible que certains détails ne soient visible qu'en zoomant.
-On a l'information de la version et la taille de l'image en kilo-octet, une mesure informatique, plus la valeur est basse plus l'image est légère.
-L'ordre des images reste le même, on a l'image d'origine, puis la version compression classique, et les tests de filtre dans l'ordre : "round" "neuronal" et "bruit"
+Afin d'avoir des exemples de taille suffisante, le choix a été fait de ne garder qu'un filtre parmi les deux "Bruit" et "Arrondi" comme la différence visuelle est souvent minime voire absente. La version "Arrondi" a été conservée
 
-#align(center)[
-  #figure(
-    image("images/_montagecrf37SRC08.png", width: 125%),
-    caption: [Exemple CRF 37, SRC 8],
-  ) <crf37src8>
-]
-On retrouve ici la vidéo présentée qui valide les différentes métriques, on voit que la vidéo d'origine semble très bruitée, ce qui pourrait expliquer une plus forte amélioration, la qualité est bien meilleure les artefacts liés à la compression sont moins présents pour un coût réduit.
-
-#align(center)[
-  #figure(
-    image("images/src5CRF32Fonctionnepasmal.png", width: 125%),
-    caption: [Exemple CRF 32, SRC 5],
-  ) <crf32src5>
-]
-
-Dans ce premier exemple on peut notamment voir que certaines textures du mur sont mieux concervées par le filtre simplifié tout en diminuant le coût de l'image.
+Dans ces images, on retrouve l'information de la version et la taille de l'image en kilo-octet, une mesure informatique, plus la valeur est basse plus l'image est légère.
 
 
 #align(center)[
   #figure(
-    image("images/retireBruiteCRF37SRC05.png", width: 125%),
-    caption: [Exemple CRF 37, SRC 5],
+    image("images/exemplvisu/SRC05_CRF37.png", width: 125%),
+    caption: [Exemple CRF 37 (basse qualité)],
   ) <crf37src5>
 ]
-Cet exemple met en avant l'effet débruitage du filtre les artefacts de compression visibles à bassse qualité sont atténués par les différents filtres, cela s'accompagne aussi d'un gain en poids.
+
+On retrouve ici l'exemple où les différentes métriques se sont accordées pour un gain, on voit que le filtre a permi d'éviter d'avoir un bruit de compression important, visuellement on peut aussi confirmer ce gain.
 
 #align(center)[
   #figure(
-    image("images/debruitesimplifieCRF37SRC14.png", width: 125%),
-    caption: [Exemple CRF 37, SRC 14],
+    image("images/exemplvisu/CRF37SRC14.png", width: 125%),
+    caption: [Exemple CRF 37 (basse qualité)],
   ) <crf37src14>
 ]
-Ici le premier filtre semble bien mieux conserver les textures liés au vetement, cependant on remarque une perte d'intensité lumineuse. Ici encore le coût est réduit.
+
+Cet exemple montre un comportement similaire où le filtre semble avoir fonctionné et permis de garder des textures plus naturelles.
+Ici non plus pas de contradiction entre les différentes mesures pour ce niveau de qualité.
 
 #align(center)[
   #figure(
-    image("images/cielbleuExempleCRF22SRC13.png", width: 125%),
-    caption: [Exemple CRF 22, SRC 13],
-  ) <crf22src13>
+    image("images/exemplvisu/A008CRF37.png", width: 125%),
+    caption: [Exemple CRF 37 (basse qualité)],
+  ) <crf37srcA008>
 ]
 
-Cet exemple reprend un ciel bleu exemple typique que nous avions évoqué, ici encore le coût diminue malgré une scène simple.
+Cet exemple est intérressant car il montre un désacord entre le résultat visuel qui semble avoir permi d'éviter un bruit de compression important et génant et le résultat de la métrique UVQ qui voit ici une baisse de qualité. Le reste des métriques s'accordent pour un gain.
+
 
 #align(center)[
   #figure(
-    image("images/neuronalFlouteSRC18CRF22.png", width: 125%),
-    caption: [Exemple CRF 22, SRC 18],
-  ) <crf22src18>
+    image("images/exemplvisu/SRC28CRF27.png", width: 125%),
+    caption: [Exemple CRF 27 (qualité moyenne)],
+  ) <crf27src28>
 ]
 
-Cet exemple met en avant aussi les dérives, ici on voit le filtre neuronal qui vient flouter assez visiblement le personnage, ce qui est un effet indésirable. Le coût diminue mais la qualité perçue aussi.
+Cet exemple est aussi parlant, la métrique UVQ semble en désacord avec le gain visuel, le reste des métriques s'accordent pour un gain minime, seul LPIPS donne un score bien plus important.
+
+
+#align(center)[
+  #figure(
+    image("images/exemplvisu/W051CRF27.png", width: 125%),
+    caption: [Exemple CRF 27 (qualité moyenne)],
+  ) <crf27srcW051>
+]
+
+On voit ici que le filtre "Neuro" apporte un flou important, cependant la métrique VMAF y voit un gain, ce qui montre une incohénrence avec le résultat visuel.
 
 == Limites et perspectives
-Les résultats ne montrent pas une optimisation claire, visuellement certains exemples montrent tout de même une modification qui semble pertinente quand on regarde les détails, au regard des exemples visuels et des métriques qui s'accordent plutôt pour dire qu'à basse qualité le filtre a un intérêt pour conserver certaines textures ou limiter le bruit de compression. Cette limite pourrait comme évoqué plus tôt venir du jeu de données utilisé qui comporte aussi des images de moins bonne qualité, ce qui s'éloigne donc de la cible d'optimisation.
-Nous sommes encore à stade précoce du projet et ne pas avoir de résultats clairs est normal l'objectif ici était aussi de mettre en avant les différences face aux outils que l'on a mis en place et de voir comment ils se comportent.
+Les résultats ne permettent pas d'établir une optimisation claire, visuellement certains exemples montre quelques modifications qui semblent pertinentes quand on regarde les détails. Au regard des exemples visuels et des métriques qui s'accordent plutôt pour dire qu'à basse qualité le filtre a un intérêt pour conserver certaines textures ou limiter le bruit de compression.
+Nous sommes encore à stade précoce du projet et ne pas avoir de résultats clairs semble normal, l'objectif ici était aussi de mettre en avant les différences entre les outils que l'on a mis en place et de voir comment ils se comportent.
 
 Par la suite il faudra alors voir s'il est possible d'utiliser d'autres mesures afin de guider au mieux l'apprentissage car il semble assez clair que le choix simple utilisé ici pour guider l'apprentissage n'est pas suffisant pour obtenir un gain net.
-Les deux options offrent tout de même des possibilités différentes, le proxy simplifié pourra largement être modifié afin d'obtenir des performances plus intéressantes en repliquant par exemple des méthodes plus avancées, mais les scores obtenus pour sa fidélité d'image montrent tout de même que l'implémentation et les choix sont valides les différences liés aux deux options retenus ne sont pas significative.
+Les deux options offrent tout de même des possibilités différentes. Le proxy simplifié pourra largement être modifié afin d'obtenir des performances plus intéressantes en repliquant par exemple des méthodes plus avancées, mais les scores obtenus pour sa fidélité d'image montrent tout de même que l'implémentation et les choix sont valides. Enfin les différences liés aux deux options retenus ne sont pas significative, il est donc difficile d'établir quel choix est le meilleur.
 
-Il semble aussi assez clair que la majorité de la tâche se trouvera dans le choix du guide d'apprentissage, ici assez simple, il faudra trouver des méthodes plus robustes pour guider l'apprentissage et obtenir un gain net. Cela passe aussi par le choix des paramètres qui viennent définir le ratio entra qualité et coût. Il faudra aussi voir si les métriques utilisées sont suffisantes pour juger de la qualité des images, car il semble que certaines ne soient pas assez sensibles aux modifications apportées par le filtre.
 
 = Conclusion
+
 Ce projet de fin d'études s'attaque à une question concrète : peut-on, à l'aide de l'IA, optimiser la compression vidéo en amont d'un codec existant comme #gls("hevc", "H.265") ? Le cœur du travail a consisté à lever le principal verrou technique, l'impossibilité d'apprendre directement à travers un codec classique, en étudiant, adaptant et évaluant différentes approches de #gls("proxy", "proxy"). Deux voies ont été explorées : un proxy par codage neuronal et un codec simplifié différentiable, chacune avec ses forces et ses limites théoriques, le but était aussi d'évaluer leur pertinence sur un cas d'usage concret.
 
 Les résultats ont montré que ces outils sont de bons imitateurs de la cible #gls("hevc", "H.265"), en particulier pour reproduire des images de bonne qualité.
