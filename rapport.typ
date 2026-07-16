@@ -280,9 +280,9 @@ Le choix d'une cible d'optimisation réaliste et qui prend en compte ces différ
 === Apprentissage et filtre
 
 
-Nous avons donc vu qu'une optimisation serait intéressante économiquement. Il semble aussi assez clair que les contraintes matérielles nous pousse à orienter les solutions pour qu'elles soient au début de la boucle de transmission, c'est à dire avant le transfert des contenus, la partie maitrisée par les diffuseurs.
+Nous avons donc vu qu'une optimisation serait intéressante économiquement. Il semble aussi assez clair que les contraintes matérielles nous poussent à orienter les solutions pour qu'elles soient au début de la boucle de transmission, c'est-à-dire avant le transfert des contenus, la partie maîtrisée par les diffuseurs.
 
-Ce sujet va mélanger différents éléments techniques, lié à la compression vidéo mais aussi à l'apprentissage d'un réseau de neurones : ici d'un filtre intelligent permettant de possibles optimisations. Il semble donc important d'introduire certaines notions liées à l'apprentissage de réseaux de neurones et comprendre en quoi il pourrait être intéressant pour accompagner les outils de compressions classiques.
+Ce sujet va mélanger différents éléments techniques, liés à la compression vidéo mais aussi à l'apprentissage d'un réseau de neurones : ici d'un filtre intelligent permettant de possibles optimisations. Il semble donc important d'introduire certaines notions liées à l'apprentissage de réseaux de neurones et comprendre en quoi il pourrait être intéressant pour accompagner les outils de compressions classiques.
 
 Tout d'abord, un réseau de neurones peut se voir comme un ensemble de paramètres réglables qui se combinent pour répondre à une tache. Il reçoit une entrée, ici une image, la fait passer à travers différentes couches de calcul, qui contiennent des "neurones". Le but de ces étapes est de produire une sortie, dans notre cas une nouvelle image qui sera possiblement plus simple à transmettre. Chaque connexion entre deux neurones porte un poids, que l'on peut ajuster, ce sont ces poids qui déterminent le comportement d'un réseau (@nn_schema).
 
@@ -360,9 +360,9 @@ L'entraînement consiste à montrer un grand nombre d'exemples au réseau, compa
 
 Dans ce projet, ce réseau prend la forme d'un filtre appliqué à l'image. On peut imaginer que deux emplacements sont possibles (@filtre_prepost). Un filtre de prétraitement agit sur l'image avant la compression, côté diffuseur, pour la rendre plus facile à compresser. Un filtre de post-traitement agit après la décompression, côté utilisateur, pour corriger l'image reconstruite. Les contraintes matérielles côté utilisateur rendent le post-traitement difficile à déployer. Ce projet se concentre donc sur le prétraitement. L'objectif de l'apprentissage devient alors concret : ajuster les poids du filtre pour qu'une fois l'image compressée, son poids diminue sans que l'utilisateur ne perçoive de perte de qualité.
 
-Pour ce faire il est important que le filtre apprenne à régler ses paramètres dans un envirronement réaliste. Ce qui lui permettra de s'adapter aux limites des outils de compressions existants et donc possiblement rendre l'image plus simple à encoder.
+Pour ce faire il est important que le filtre apprenne à régler ses paramètres dans un environnement réaliste. Ce qui lui permettra de s'adapter aux limites des outils de compressions existants et donc possiblement rendre l'image plus simple à encoder.
 
-On peut imaginer qu'un réseau de neurones soit intéressant pour ce genre d'objectif car les échanges et opérations entre neurones représentent une forme "d'intelligence", permettant de s'adapter au contenu et comprendre des représentations complexes liées aux images afin de les traiter au mieux. Par exemple le filtre pourrait comprendre qu'une texture d'image complexe à traiter pour un codec et donc coûteuse pour le poids total d'une vidéo, n'a que très peu d'importance concernant la qualité vidéo perçue, dans ce cas, la modifier devient très intéressant.
+On peut imaginer qu'un réseau de neurones soit intéressant pour ce genre d'objectif car les échanges et opérations entre neurones représentent une forme "d'intelligence", permettant de s'adapter au contenu et comprendre des représentations complexes liées aux images afin de les traiter au mieux. Par exemple le filtre pourrait comprendre qu'une texture d'image complexe à traiter pour un codec, et donc coûteuse pour le poids total d'une vidéo, n'a que très peu d'importance concernant la qualité vidéo perçue, dans ce cas, la modifier devient très intéressant.
 
 #figure(
   canvas(length: 1cm, {
@@ -416,7 +416,7 @@ On peut imaginer qu'un réseau de neurones soit intéressant pour ce genre d'obj
 ) <filtre_prepost>
 
 
-Derrière ces différentes étapes d'optimisation se cachent des opérations mathématiques. Nous verrons dans la suite de ce document que c'est un défi majeur lié au sujet, definir des opérations fidèles aux objectifs : envirronement d'apprentissage et mesure de l'erreur, qui soient aussi propices à ces opérations mathématiques.
+Derrière ces différentes étapes d'optimisation se cachent des opérations mathématiques. Nous verrons dans la suite de ce document que c'est un défi majeur lié au sujet, définir des opérations fidèles aux objectifs : environnement d'apprentissage et mesure de l'erreur, qui soient aussi propices à ces opérations mathématiques.
 
 
 
@@ -675,7 +675,7 @@ Nous verrons dans la section suivante que ce résidu n'est pas transmis tel quel
 
 Au-delà de la redondance entre images et au sein d'une image, la compression exploite une autre source d'économie : les limites de la perception humaine. L'idée est simple, si l'œil ne perçoit pas une information, il est inutile de la transmettre fidèlement.
 
-Deux mécanismes illustrent bien cette logique. Le premier repose sur la #gls("dct", "DCT") (transformée en cosinus discrète), qui réorganise l'information d'un bloc par fréquences. Les zones lisses se concentrent dans les basses fréquences, les détails fins dans les hautes fréquences. Pour comprendre mieux la logique plus l'information (les pixels) changent rapidement dans une zone plus la fréquence sera haute. Or, l'œil est bien moins sensible à ces hautes fréquences, on peut donc les représenter plus grossièrement lors de la #gls("quantification", "quantification"), sans dégradation visible, ce qui allège fortement le poids du fichier.
+Deux mécanismes illustrent bien cette logique. Le premier repose sur la #gls("dct", "DCT") (transformée en cosinus discrète), qui réorganise l'information d'un bloc par fréquences. Les zones lisses se concentrent dans les basses fréquences, les détails fins dans les hautes fréquences. Pour comprendre mieux la logique plus l'information (les pixels) change rapidement dans une zone plus la fréquence sera haute. Or, l'œil est bien moins sensible à ces hautes fréquences, on peut donc les représenter plus grossièrement lors de la #gls("quantification", "quantification"), sans dégradation visible, ce qui allège fortement le poids du fichier.
 Cette importance peut être simplement évoquée par des exemples visuels, plus on monte dans les fréquences, moins l'information semble essentielle.
 
 #align(center)[
@@ -1205,11 +1205,11 @@ Enfin, il faut garder en tête que ces métriques restent des approximations et 
 
 == Les limitations pour l'apprentissage
 
-Nous l'avons mentionné, les codecs classiques s'intègrent mal dans une chaîne d'apprentissage automatique. Avant de voir comment contourner ce problème, il faut omprendre d'où viennent ces limitations, en reprenant les étapes clés qui, dans leur version d'origine, ne peuvent pas faire parti d'un environnement d'apprentissage d'un réseau de neurones.
+Nous l'avons mentionné, les codecs classiques s'intègrent mal dans une chaîne d'apprentissage automatique. Avant de voir comment contourner ce problème, il faut comprendre d'où viennent ces limitations, en reprenant les étapes clés qui, dans leur version d'origine, ne peuvent pas faire partie d'un environnement d'apprentissage d'un réseau de neurones.
 
 === Limites mathématiques des outils pour l'apprentissage <limites_codec>
 
-Ces limites sont avant tout mathématiques. Pour qu'un réseau de neuronne, dans notre cas, un filtre, apprenne, chaque opération de la boucle doit indiquer dans quelle direction ajuster les paramètres, c'est le rôle du "gradient", qui donne en quelque sorte le "sens de la pente". Une opération est utilisable pour l'apprentissage si elle est différentiable, c'est à dire une fonction continue donc sans intérruptions et avec une pente pour en déduire la direction.
+Ces limites sont avant tout mathématiques. Pour qu'un réseau de neurone, dans notre cas, un filtre, apprenne, chaque opération de la boucle doit indiquer dans quelle direction ajuster les paramètres, c'est le rôle du "gradient", qui donne en quelque sorte le "sens de la pente". Une opération est utilisable pour l'apprentissage si elle est différentiable, c'est-à-dire une fonction continue donc sans interruptions et avec une pente pour en déduire la direction.
 
 #figure(
   canvas(length: 1cm, {
@@ -1536,7 +1536,7 @@ Ce fonctionnement a deux conséquences. D'abord, ces deux branches doivent être
 
 Ces différents aspects se traduisent par plusieurs points de contrôle dans la construction de la pipeline d'entraînement. Il faut d'abord faire du codec neuronal un bon imitateur de notre codec cible, en deux temps : on l'entraîne d'abord à reproduire visuellement les images produites par #gls("hevc", "H.265") (avec ses défauts), puis on aligne son estimation de débit pour qu'il renvoie un coût proche de celui de #gls("hevc", "H.265"). Ce pré-entraînement en deux étapes est relativement coûteux.
 
-Vient ensuite l'entraînement du filtre lui-même. Là, une difficulté apparaît : le filtre modifie les images, or le codec neuronal a appris à imiter #gls("hevc", "H.265") sur des images "normales". Il risque donc de mal se comporter face à ces images modifiées, et de dériver. Pour limiter ce problème, nous avons retenu deux précautions. La première est de faire en sorte que le filtre se comporte au départ comme une fonction neutre, c'est-à-dire qu'il reproduise quasiment son image d'entrée, cela évite d'être confronté d'emblée à des images trop différentes issues d'un filtre encore aléatoire. La seconde, reprise de la méthodologie de @khan2025neural, consiste à réaligner régulièrement le codec sur les images filtrées pour compenser cette dérive. Nous avons toutefois fait le choix de réaligner le codec à chaque epoch (étape d'apprentissage), c'est à dire au bout d'un certain nombre d'itérations plutôt qu'à chaque itération, l'entraînement s'avérant plus stable et plus rapide de cette manière.
+Vient ensuite l'entraînement du filtre lui-même. Là, une difficulté apparaît : le filtre modifie les images, or le codec neuronal a appris à imiter #gls("hevc", "H.265") sur des images "normales". Il risque donc de mal se comporter face à ces images modifiées, et de dériver. Pour limiter ce problème, nous avons retenu deux précautions. La première est de faire en sorte que le filtre se comporte au départ comme une fonction neutre, c'est-à-dire qu'il reproduise quasiment son image d'entrée, cela évite d'être confronté d'emblée à des images trop différentes issues d'un filtre encore aléatoire. La seconde, reprise de la méthodologie de @khan2025neural, consiste à réaligner régulièrement le codec sur les images filtrées pour compenser cette dérive. Nous avons toutefois fait le choix de réaligner le codec à chaque epoch (étape d'apprentissage), c'est-à-dire au bout d'un certain nombre d'itérations plutôt qu'à chaque itération, l'entraînement s'avérant plus stable et plus rapide de cette manière.
 
 Reste la question de la qualité, puisque le codec encode à un niveau fixe. La logique du projet étant de se rapprocher des standards de la #gls("vod", "VOD"), nous avons choisi de travailler à un #gls("crf-qp", "CRF") (_Constant Rate Factor_) de 22, un bon compromis. À ce niveau, le filtre est entraîné sur une qualité élevée : il ne peut donc pas détruire massivement l'image, puisqu'il doit préserver cette qualité tout en réduisant le débit. On peut alors espérer que son comportement reste intéressant à plus basse qualité. Un entraînement à basse qualité aurait pu se justifier si la cible était explicitement les vidéos peu compressées, mais le filtre risquerait alors d'apprendre à sacrifier certains détails pour mieux préserver l'image globalement, un comportement qui ne serait probablement pas du tout apprécié à haute qualité.
 
@@ -1592,7 +1592,7 @@ Nous avons aussi retenu une autre approche : plutôt que de sélectionner un uni
 
 === Zone de recherche et prédiction
 
-Pour rester exécutable sur carte graphique malgré le coût des recherches de blocs, @chadha2021dpp propose une méthodologie reproduisant la complexité des opérations de prédictions pour les images clés, tout en respectant les contraintes mémoire. Nous reprenons alors une logique de la prédiction inter (@intermotion), mais en l'appliquant aussi au cas d'une seule image, la zone de recherche y est restreinte à ce qui est théoriquement déjà connu dans l'image en cours de décodage, c'est-à-dire la partie située au-dessus du bloc courant et à sa gauche (@zonecausale). Cette contrainte causale est essentielle, un décodeur ne dispose jamais des blocs "futurs", et l'ignorer reviendrait à entraîner le filtre sur une information indisponible à la reconstruction réelle. Cette méthode permet alors de reproduire des transformations complexes pour un coût minime, il serait presque impossible de réaliser des opérations classiques de manière conditionnelle comme le ferait un vrai codec et ces opérations non optimisables mise bout à bout rendraient le terrain d'apprentissage très pauvre. Cette méthode semble donc être un bon compromis entre faisabilité et respect de la complexité des méthodes d'origine.
+Pour rester exécutable sur carte graphique malgré le coût des recherches de blocs, @chadha2021dpp propose une méthodologie reproduisant la complexité des opérations de prédictions pour les images clés, tout en respectant les contraintes mémoire. Nous reprenons alors une logique de la prédiction inter (@intermotion), mais en l'appliquant aussi au cas d'une seule image, la zone de recherche y est restreinte à ce qui est théoriquement déjà connu dans l'image en cours de décodage, c'est-à-dire la partie située au-dessus du bloc courant et à sa gauche (@zonecausale). Cette contrainte causale est essentielle, un décodeur ne dispose jamais des blocs "futurs", et l'ignorer reviendrait à entraîner le filtre sur une information indisponible à la reconstruction réelle. Cette méthode permet alors de reproduire des transformations complexes pour un coût minime, il serait presque impossible de réaliser des opérations classiques de manière conditionnelle comme le ferait un vrai codec et ces opérations non optimisables mises bout à bout rendraient le terrain d'apprentissage très pauvre. Cette méthode semble donc être un bon compromis entre faisabilité et respect de la complexité des méthodes d'origine.
 
 #figure(
   canvas(length: 0.62cm, {
@@ -1671,7 +1671,7 @@ Une autre étape clé identifiée précédemment est la #gls("quantification", "
     arrow((1.55, 0.45), (0.6, 0.98))
     content((1.9, 0.35), text(size: 8pt)[palier plat (pente nulle)])
   }),
-  caption: [Arrondi dur (escalier, en pointillés) et sa version adoucie continue (_soft round_).],
+  caption: [Arrondi dur (escalier, en pointillés) et sa version adoucie continue (_arrondi doux_).],
 ) <softround>
 
 L'arrondi réel a un gradient nul presque partout, la version adoucie suit les mêmes marches tout en gardant une légère pente, ce qui rend cette fonction optimisable.
@@ -1736,12 +1736,12 @@ Ce choix est fait car obtenir la probabilité d'un coefficient est difficile, en
 === Essais et échec d'implémentation
 Durant le projet de nombreux tests ont été réalisés, beaucoup n'ont pas permis d'aboutir à une solution fiable mais ce sont aussi ces tests qui ont permis de continuer à rentrer plus en détail dans le sujet. Il existe un grand nombre de possibilités et établir les meilleures options est un problème complexe qui demande aussi une connaissance dans le domaine très poussée. Parfois certaines tentatives sont aussi des pertes de temps sèches, j'ai fini par les éviter le plus possible en me fixant des limites et en repartant parfois de choses plus simples mais établies afin de ne pas me perdre dans des solutions inutiles.
 
-Il est important aussi de préciser que certains tests n'ont pas réellement été des echecs mais la temporalité lié au projet de fin d'études limite le champs d'action, certaines idées ou améliorations prendront alors place pour le futur du projet selon leur pertinence.
+Il est important aussi de préciser que certains tests n'ont pas réellement été des échecs mais la temporalité liée au projet de fin d'études limite le champ d'action, certaines idées ou améliorations prendront alors place pour le futur du projet selon leur pertinence.
 
 
 === Bilan de l'implémentation
 
-Cette implémentation s'est révélée particulièrement intéressante pour tester différents mécanismes et mettre en relation la théorie évoqué dans le document avec des cas d'utilisation concrets. Durant son développement, plusieurs essais rapides n'ont apportés aucune amélioration nette, voire ont entraîné de fortes pertes, ce qui a permis de converger vers les choix présentés ci-dessus. L'objectif étant précisément de définir les bonnes méthodes pour fiabiliser un tel outil, des études comparant ces différentes méthodes sont présentées en @resultats.
+Cette implémentation s'est révélée particulièrement intéressante pour tester différents mécanismes et mettre en relation la théorie évoquée dans le document avec des cas d'utilisation concrets. Durant son développement, plusieurs essais rapides n'ont apporté aucune amélioration nette, voire ont entraîné de fortes pertes, ce qui a permis de converger vers les choix présentés ci-dessus. L'objectif étant précisément de définir les bonnes méthodes pour fiabiliser un tel outil, des études comparant ces différentes méthodes sont présentées en @resultats.
 
 
 == Guide d'optimisation
@@ -1750,13 +1750,13 @@ Nous l'avons vu, le guide d'apprentissage doit satisfaire deux exigences à la f
 
 De nombreuses combinaisons de #gls("metrique", "métriques") sont possibles, mais toutes ne peuvent pas être testées. Or, l'objectif à cette étape du projet porte avant tout sur les différentes approches de remplacement du #gls("codec", "codec") durant l'apprentissage, et non sur la recherche du guide idéal, une analyse qui est d'ailleurs réalisée par d'autres membres de  l'équipe. Il paraît donc justifié de retenir un choix simple et cohérent, respectant nos critères de départ, quitte à approfondir cet aspect dans la suite du projet.
 
-À cela s'ajoute une précaution méthodologique, nous l'avons évoqué dans les limites des travaux existants, certains projet entraînent le filtre sur une métrique puis évaluent les performances sur cette même métrique, ce qui fausse probablement l'analyse. Nous chercherons donc à dissocier le guide d'apprentissage des outils servant à l'évaluation finale.
+À cela s'ajoute une précaution méthodologique, nous l'avons évoqué dans les limites des travaux existants, certains projets entraînent le filtre sur une métrique puis évaluent les performances sur cette même métrique, ce qui fausse probablement l'analyse. Nous chercherons donc à dissocier le guide d'apprentissage des outils servant à l'évaluation finale.
 
 Le guide retenu cherche un compromis entre simplicité et fidélité à la perception humaine. Il associe deux composantes : une perte L1 et la métrique #gls("dists", "DISTS").
 
 La perte L1 est une fonction simple, orientée fidélité : elle mesure l'écart direct entre l'image filtrée et l'image source, dans le même esprit que le #gls("psnr", "PSNR") évoqué plus tôt, peu précis perceptuellement mais facile à optimiser. Elle joue ici le rôle de garde-fou, en empêchant le filtre de trop s'éloigner de l'image d'origine un rôle essentiel pour éviter des dérives venant d'une métrique plus complexe.
 
-#gls("dists", "DISTS") apporte la dimension perceptuelle. Elle s'appuie sur un réseau de neurones (IA) et est calibré sur des jugements humains de similarité. Entraîné à partir de paires d'images, elle est théoriquement capable de savoir si une texture différente au niveau des pixels est acceptable pour un utilisateur. Ce qui rend #gls("dists", "DISTS") pertinent ici est donc sa tolérance aux textures. Autrement dit, elle laisse au filtre la liberté de modifier l'image au niveau du détail, sans le pénaliser tant que la satisfaction de l'utilisateur n'est pas affectée. C'est exactement le type de souplesse que l'on recherche pour réduire le débit sans dégrader la qualité perçue. De plus elle a été conçue pour ce type de projet de modification d'images.
+#gls("dists", "DISTS") apporte la dimension perceptuelle. Elle s'appuie sur un réseau de neurones (IA) et est calibrée sur des jugements humains de similarité. Entraînée à partir de paires d'images, elle est théoriquement capable de savoir si une texture différente au niveau des pixels est acceptable pour un utilisateur. Ce qui rend #gls("dists", "DISTS") pertinent ici est donc sa tolérance aux textures. Autrement dit, elle laisse au filtre la liberté de modifier l'image au niveau du détail, sans le pénaliser tant que la satisfaction de l'utilisateur n'est pas affectée. C'est exactement le type de souplesse que l'on recherche pour réduire le débit sans dégrader la qualité perçue. De plus elle a été conçue pour ce type de projet de modification d'images.
 
 L1 et #gls("dists", "DISTS") sont donc complémentaires : la première ancre le résultat sur la source et évite les dérives, la seconde guide les modifications dans une direction compatible avec la perception humaine.
 
@@ -1890,11 +1890,11 @@ Pour rappel plus un score PSNR est haut, plus cette mesure considère l'image co
     stroke: 0.5pt + rgb("#888"),
     inset: 6pt,
     table.header([], [*PSNR intra* ↑], [*SSIM intra* ↑], [*PSNR inter* ↑], [*SSIM inter* ↑]),
-    [*round · softmax*], [*40.41*], [0.9574], [39.52], [0.9507],
-    [*round · argmin*], [39.43], [0.9453], [38.35], [0.9319],
-    [*noise · softmax*], [37.82], [0.9184], [37.22], [0.9110],
-    [*noise · argmin*], [37.83], [0.9184], [37.22], [0.9110],
-    [*neuronal*], [36.85], [*0.9769*], [*40.68*], [*0.9805*],
+    [*Arrondi · softmax*], [*40.41*], [0.9574], [39.52], [0.9507],
+    [*Arrondi · argmin*], [39.43], [0.9453], [38.35], [0.9319],
+    [*Bruit · softmax*], [37.82], [0.9184], [37.22], [0.9110],
+    [*Bruit · argmin*], [37.83], [0.9184], [37.22], [0.9110],
+    [*Neuronal*], [36.85], [*0.9769*], [*40.68*], [*0.9805*],
   ),
 )
 
@@ -1906,17 +1906,17 @@ Pour rappel plus un score PSNR est haut, plus cette mesure considère l'image co
     stroke: 0.5pt + rgb("#888"),
     inset: 6pt,
     table.header([], [*PSNR intra* ↑], [*SSIM intra* ↑], [*PSNR inter* ↑], [*SSIM inter* ↑]),
-    [*round · softmax*], [*42.70*], [0.9738], [*41.57*], [0.9664],
-    [*round · argmin*], [41.41], [0.9627], [40.00], [0.9480],
-    [*noise · softmax*], [39.40], [0.9363], [38.66], [0.9272],
-    [*noise · argmin*], [39.40], [0.9363], [38.66], [0.9272],
-    [*neuronal*], [36.97], [*0.9756*], [41.17], [*0.9817*],
+    [*Arrondi · softmax*], [*42.70*], [0.9738], [*41.57*], [0.9664],
+    [*Arrondi · argmin*], [41.41], [0.9627], [40.00], [0.9480],
+    [*Bruit · softmax*], [39.40], [0.9363], [38.66], [0.9272],
+    [*Bruit · argmin*], [39.40], [0.9363], [38.66], [0.9272],
+    [*Neuronal*], [36.97], [*0.9756*], [41.17], [*0.9817*],
   ),
 )
 
 Le proxy neuronal reconstruit les images les plus ressemblantes, en particulier sur les images prédites à partir des précédentes (colonnes _inter_), où il devance nettement toutes les autres versions en particulier avec le mode CRF. Ce réseau a été entraîné pour copier le vrai codec sur ce point, donc il excelle à cette tâche. Il est tout de même intéressant de voir que les scores PSNR ne sont pas toujours bons alors que le SSIM si, évaluant les écarts de structures. Ce qui signifie qu'il ne reproduit pas fidèlement les pixels mais conserve la structure de l'image, ce qui est finalement le but recherché. Le proxy neuronal est donc un bon imitateur du codec, en particulier au niveau structurel.
 
-Parmi nos versions simplifiées, la variante `round · softmax` est la plus proche du vrai codec, les autres réglages s'en éloignent un peu. Le softmax est la fonction que nous avions présentée, elle permet de mélanger les candidats de prédiction plutôt que d'en choisir un seul. Cela a pour effet de lisser légèrement le résultat, ce qui est apprécié par le PSNR notamment, ce qui explique ces résultats. On peut tout de même valider la pertinence du proxy simplifié, car lui n'a pas appris à reproduire fidèlement les images.
+Parmi nos versions simplifiées, la variante `arrondi · softmax` est la plus proche du vrai codec, les autres réglages s'en éloignent un peu. Le softmax est la fonction que nous avions présentée, elle permet de mélanger les candidats de prédiction plutôt que d'en choisir un seul. Cela a pour effet de lisser légèrement le résultat, ce qui est apprécié par le PSNR notamment, ce qui explique ces résultats. On peut tout de même valider la pertinence du proxy simplifié, car lui n'a pas appris à reproduire fidèlement les images.
 
 Il est intéressant de noter que ces performances sont obtenues à cette qualité qui est haute mais devient moins bonne si l'on choisit de traiter des images de plus basse qualité, c'est qui a été remarqué en réalisant d'autres tests. On peut expliquer cela car le proxy simplifié ne reprend pas toutes les logiques d'optimisations complexes du véritable codec, des optimisations qui vont être bénéfiques surtout sur des images de plus basse qualité. Notre simulateur fonctionne donc très bien à haute qualité, moins à basse qualité en ce qui concerne la reproduction d'image. Ce qui montre tout de même sa limite d'action et possiblement un désalignement avec le fonctionnement réel encore important. Ce constat nous a donc obligé à utiliser cet outil avec plus de précaution et rester dans une plage limitée de qualité afin d'éviter de s'éloigner trop de l'outil d'origine.
 
@@ -1966,7 +1966,7 @@ Comme simple imitateur du vrai codec, le proxy neuronal semble le meilleur, il r
 
 Notre proxy simplifié, lui, fonctionne comme un vrai codec, il découpe l'image en blocs et les compresse à la manière de #gls("hevc", "H.265"). Cette proximité lui donne de vrais atouts. Il estime le poids des fichiers presque aussi bien que le proxy neuronal, il reste compréhensible, et surtout il s'adapte à tous les niveaux de qualité, même s'il devient moins fidèle quand on descend en basse qualité, là où le proxy neuronal est bloqué sur un seul niveau. Ces points en font donc un bon candidat pour guider l'apprentissage d'un filtre.
 
-De par notre implémentation présenté dans @filtreGlobale, les deux proxy possèdent une architecture commune qui prend la version de H265 en évaluation de la qualité d'image dans la boucle, et va cependant calculer les poids sur le proxy, ce qui a aussi été expliqué dans le papier @khan2025neural et dans le schéma @filtreGlobale, cela permet notament d'éviter de travailler sur un domaine trop éloigné de la cible, les images évaluées sortent alors du vrai codec. Cela signifie donc que la fidélité d'image importe moins directement notre architecture et au niveau de comment le réseau va apprendre les options seront similaire, c'est le but de cette conception. Le point essentiel se trouve donc plutôt dans l'estimation de débit. Pour le proxy simplifié, les meilleurs scores sont obtenus avec la version "ste-argmin", qui est la version où l'estimation de débit reçoit bien le choix d'un bloc unique et pas un mélange de blocs mais va bien apprendre sur ce mélange de blocs. Pour la suite, fort de ce constat nous testerons alors uniquement le paramètres concernant la modification de l'arrondi, c'est à dire le choix entre produire un bruit aléatoire pour simuler la quantification ou réaliser cette quantifiaction et ne pas apprendre sur cette étape. Deux paramètres notés ici "arrondi" et "bruit".
+De par notre implémentation présentée dans @filtreGlobale, les deux proxy possèdent une architecture commune qui prend la version de H265 en évaluation de la qualité d'image dans la boucle, et va cependant calculer les poids sur le proxy, ce qui a aussi été expliqué dans le papier @khan2025neural et dans le schéma @filtreGlobale, cela permet notament d'éviter de travailler sur un domaine trop éloigné de la cible, les images évaluées sortent alors du vrai codec. Cela signifie donc que la fidélité d'image importe moins directement dans notre architecture, concernant la manière dont le réseau apprend, les options restent similaires, c'est le but de cette conception. Le point essentiel se trouve donc plutôt dans l'estimation de débit. Pour le proxy simplifié, les meilleurs scores sont obtenus avec la version "ste-argmin", qui est la version où l'estimation de débit reçoit bien le choix d'un bloc unique et pas un mélange de blocs mais va bien apprendre sur ce mélange de blocs. Pour la suite, fort de ce constat nous testerons alors uniquement le paramètre concernant la modification de l'arrondi, c'est-à-dire le choix entre produire un bruit aléatoire pour simuler la quantification ou réaliser cette quantification et ne pas apprendre sur cette étape. Deux paramètres notés ici "arrondi" et "bruit".
 
 
 == Résultats face aux #gls("metrique", "métriques")
@@ -1974,7 +1974,7 @@ Dans cette section, nous verrons comment les différentes versions ont réagi du
 
 Pour quantifier le gain d'une optimisation, on utilise le #gls("bdrate", "BD-rate"). L'idée repose sur les courbes débit-distorsion : pour une vidéo, on trace la qualité obtenue en fonction du débit (le poids), à plusieurs niveaux de compression. On obtient une courbe pour la version sans filtre et une autre pour les versions filtrées. Le BD-rate mesure alors l'écart horizontal moyen entre ces deux courbes, c'est-à-dire l'économie de débit à qualité égale. Un BD-rate de −5 % signifie que, pour une même qualité perçue, la version filtrée nécessite en moyenne 5 % de débit en moins. Plus la valeur est négative, meilleure est l'optimisation ; une valeur positive indique au contraire une dégradation.
 
-Dans un premier temps voici les courbes qui montrent visuellement les écarts entre les différentes implémentations. Il est important de noter que la métrique LPIPS est orientée differrement des autres, plus le point est bas, plus la qualitée prédite est bonne, on retrouve aussi l'information sur cette direction sur chacun des graphiques.
+Dans un premier temps voici les courbes qui montrent visuellement les écarts entre les différentes implémentations. Il est important de noter que la métrique LPIPS est orientée différrement des autres, plus le point est bas, plus la qualité prédite est bonne, on retrouve aussi l'information sur cette direction sur chacun des graphiques.
 
 #figure(
   grid(
@@ -1990,8 +1990,8 @@ Dans un premier temps voici les courbes qui montrent visuellement les écarts en
 )
 
 Ces courbes montrent bien une forte différence entre la version du filtre obtenu via l'entrainement sur la version neuronale et les deux versions du codec simplifié.
-On observe aussi un contradiction VMAF semble apprécier les résultats obtenus par la version "Neuro" alors que les autres métriques non.
-Concernant les deux versions du proxy simplifié on peut voir que les différences sont assez minime.
+On observe aussi une contradiction VMAF semble apprécier les résultats obtenus par la version "Neuro" alors que les autres métriques non.
+Concernant les deux versions du proxy simplifié on peut voir que les différences sont assez minimes.
 
 #figure(
   caption: [Gains de #gls("bdrate", "BD-rate") (%) par métrique et par proxy. ↓ : plus bas (négatif) = meilleur.],
@@ -2009,13 +2009,13 @@ Concernant les deux versions du proxy simplifié on peut voir que les différenc
   ),
 ) <bdrate_resultats>
 
-Ce tableau reprend les informations que l'on pouvait lire sur les courbes mais de manière plus précise, ce qui permet de mettre en avant les différences entre les deux versions issue du codec simplifié.
-On remarque encore cette contradiction entre VMAF et le reste des métriques où la version "round" semble satisfaire majoritairement VMAF en comparaison à la version "Bruit" qui semble satisfaire les autres mesures.
-Cependant ces résultats montrent tout de même que la majorité des métriques semblent apprécier les effets du filtre obtenu par les version "Bruit" et "Arrondi" sur les images, en particulier à basse qualité (les points à gauche dans les graphiques).
-Mais les contradictions entre ces différentes mesures montrent la difficulté d'analyse des résultats pour notre cas d'usage. Il semble aussi important de préciser que les différences étant faible, on peut aussi imaginer qu'on reste parfois dans une zone d'erreur de ces différentes mesures, ce qui remet en question ces résultats au vu de la faible différence.
+Ce tableau reprend les informations que l'on pouvait lire sur les courbes mais de manière plus précise, ce qui permet de mettre en avant les différences entre les deux versions issues du codec simplifié.
+On remarque encore cette contradiction entre VMAF et le reste des métriques où la version "Arrondi" semble satisfaire majoritairement VMAF en comparaison à la version "Bruit" qui semble satisfaire les autres mesures.
+Cependant ces résultats montrent tout de même que la majorité des métriques semblent apprécier les effets du filtre obtenu par les version "Bruit" et "Arrondi" sur les images, en particulier à basse qualité (les points à gauche dans les graphiques précédents).
+Mais les contradictions entre ces différentes mesures montrent la difficulté d'analyse des résultats pour notre cas d'usage. Il semble aussi important de préciser que les différences étant faibles, on peut aussi imaginer que ces écarts se trouvent parfois dans la zone d'erreur de ces différentes mesures, ce qui remet en question ces résultats au vu de la faible différence.
 
 Ces résultats proviennent de la moyenne des différents contenus, mais les différentes vidéos ne réagissent pas de la même manière face à au filtre.
-Pour illuster cela voici un exemple d'un vidéo qui semble avoir fonctionnée sur les différentes mesures étudiées.
+Pour illustrer cela voici un exemple d'une vidéo qui semble avoir fonctionné sur les différentes mesures étudiées.
 
 
 #figure(
@@ -2031,11 +2031,11 @@ Pour illuster cela voici un exemple d'un vidéo qui semble avoir fonctionnée su
   caption: [Courbes des résultats pour les métriques retenues pour la vidéo SRC05 (version "Arrondi")],
 )
 
-Cet exemple montre aussi que les résultats dépendent grandement du contenus, ce qui prouve l'importance, des données d'entrainement, qui doivent être représentative d'une large diversité de contenus afin d'obtenir un outil polyvalent.
+Cet exemple montre aussi que les résultats dépendent grandement du contenu, ce qui prouve l'importance, des données d'entrainement, qui doivent être représentatives d'une large diversité de contenus afin d'obtenir un outil polyvalent.
 
 == Test visuel
-Afin d'avoir une idée des effets du filtre sur les images voici quelques exemples où l'ont voir de différences intéressantes à analyser. Ces images proviennent bien sûr des images de test et pas celles utilisées durant l'apprentissage.
-Il est possible que certains détails ne soient visible qu'en zoomant.
+Afin d'avoir une idée des effets du filtre sur les images voici quelques exemples où l'on voit des différences intéressantes à analyser. Ces images proviennent bien sûr des images de test et pas celles utilisées durant l'apprentissage.
+Il est possible que certains détails ne soient visibles qu'en zoomant.
 Afin d'avoir des exemples de taille suffisante, le choix a été fait de ne garder qu'un filtre parmi les deux "Bruit" et "Arrondi" comme la différence visuelle est souvent minime voire absente. La version "Arrondi" a été conservée
 
 Dans ces images, on retrouve l'information de la version et la taille de l'image en kilo-octet, une mesure informatique, plus la valeur est basse plus l'image est légère.
@@ -2048,7 +2048,7 @@ Dans ces images, on retrouve l'information de la version et la taille de l'image
   ) <crf37src5>
 ]
 
-On retrouve ici l'exemple où les différentes métriques se sont accordées pour un gain, on voit que le filtre a permi d'éviter d'avoir un bruit de compression important, visuellement on peut aussi confirmer ce gain.
+On retrouve ici l'exemple où les différentes métriques se sont accordées pour un gain, on voit que le filtre a permis d'éviter d'avoir un bruit de compression important, visuellement on peut aussi confirmer ce gain.
 
 #align(center)[
   #figure(
@@ -2067,7 +2067,7 @@ Ici non plus pas de contradiction entre les différentes mesures pour ce niveau 
   ) <crf37srcA008>
 ]
 
-Cet exemple est intérressant car il montre un désacord entre le résultat visuel qui semble avoir permi d'éviter un bruit de compression important et génant et le résultat de la métrique UVQ qui voit ici une baisse de qualité. Le reste des métriques s'accordent pour un gain.
+Cet exemple est intéressant car il montre un désaccord entre le résultat visuel qui semble avoir permis d'éviter un bruit de compression important et gênant et le résultat de la métrique UVQ qui voit ici une baisse de qualité. Le reste des métriques s'accordent pour un gain.
 
 
 #align(center)[
@@ -2077,7 +2077,7 @@ Cet exemple est intérressant car il montre un désacord entre le résultat visu
   ) <crf27src28>
 ]
 
-Cet exemple est aussi parlant, la métrique UVQ semble en désacord avec le gain visuel, le reste des métriques s'accordent pour un gain minime, seul LPIPS donne un score bien plus important.
+Cet exemple est aussi parlant, la métrique UVQ semble en désaccord avec le gain visuel, le reste des métriques s'accordent pour un gain minime, seul LPIPS donne un score bien plus important.
 
 
 #align(center)[
@@ -2087,14 +2087,15 @@ Cet exemple est aussi parlant, la métrique UVQ semble en désacord avec le gain
   ) <crf27srcW051>
 ]
 
-On voit ici que le filtre "Neuro" apporte un flou important, cependant la métrique VMAF y voit un gain, ce qui montre une incohénrence avec le résultat visuel.
+On voit ici que le filtre "Neuro" apporte un flou important, cependant la métrique VMAF y voit un gain, ce qui montre une incohérence avec le résultat visuel.
 
 == Limites et perspectives
-Les résultats ne permettent pas d'établir une optimisation claire, visuellement certains exemples montre quelques modifications qui semblent pertinentes quand on regarde les détails. Au regard des exemples visuels et des métriques qui s'accordent plutôt pour dire qu'à basse qualité le filtre a un intérêt pour conserver certaines textures ou limiter le bruit de compression.
-Nous sommes encore à stade précoce du projet et ne pas avoir de résultats clairs semble normal, l'objectif ici était aussi de mettre en avant les différences entre les outils que l'on a mis en place et de voir comment ils se comportent.
+
+Les résultats ne permettent pas d'établir une optimisation claire, visuellement certains exemples montrent quelques modifications qui semblent pertinentes quand on regarde les détails. Au regard des exemples visuels et des métriques, on peut pense qu'à basse qualité le filtre a un intérêt pour conserver certaines textures ou limiter le bruit de compression.
+Nous sommes encore à un stade précoce du projet et ne pas avoir de résultats clairs semble normal, l'objectif ici était aussi de mettre en avant les différences entre les outils que l'on a mis en place et de voir comment ils se comportent.
 
 Par la suite il faudra alors voir s'il est possible d'utiliser d'autres mesures afin de guider au mieux l'apprentissage car il semble assez clair que le choix simple utilisé ici pour guider l'apprentissage n'est pas suffisant pour obtenir un gain net.
-Les deux options offrent tout de même des possibilités différentes. Le proxy simplifié pourra largement être modifié afin d'obtenir des performances plus intéressantes en repliquant par exemple des méthodes plus avancées, mais les scores obtenus pour sa fidélité d'image montrent tout de même que l'implémentation et les choix sont valides. Enfin les différences liés aux deux options retenus ne sont pas significative, il est donc difficile d'établir quel choix est le meilleur.
+Les deux options offrent tout de même des possibilités différentes. Le proxy simplifié pourra largement être modifié afin d'obtenir des performances plus intéressantes en repliquant par exemple des méthodes plus avancées, mais les scores obtenus pour sa fidélité d'image montrent tout de même que l'implémentation et les choix sont valides. Enfin les différences liées aux deux options retenues ne sont pas significative, il est donc difficile d'établir quel choix est le meilleur.
 
 
 = Conclusion
@@ -2105,7 +2106,7 @@ Les résultats ont montré que ces outils sont de bons imitateurs de la cible #g
 
 Face aux métriques, ils font apparaître de légères optimisations à basse qualité, mais les écarts restent faibles, ce qui tient aussi à la difficulté de la tâche. Une limite doit d'ailleurs être posée. Les métriques actuelles ne sont pas assurément fiables pour notre cas d'usage, des images transformées par IA. On remarque cependant, sur plusieurs exemples visuels, que les modifications permettent parfois de préserver certaines textures ou de limiter le bruit de compression, ce qui montre qu'une optimisation de ce type semble possible avec ces outils. Il reste à en amplifier les effets pour obtenir des gains plus nets.
 
-Ce travail s'accompagne d'un constat important : la qualité d'une optimisation dépend de nombreux éléments, le proxy, la #gls("metrique", "métrique") qui guide l'apprentissage, mais aussi les données utilisées ce qui rend le champs des possibilités immense.
+Ce travail s'accompagne d'un constat important : la qualité d'une optimisation dépend de nombreux éléments, le proxy, la #gls("metrique", "métrique") qui guide l'apprentissage, mais aussi les données utilisées ce qui rend le champ des possibilités immense.
 
 Au-delà de l'aspect technique, ce rapport aura cherché à répondre à trois questions transversales. Sur le plan économique, on retiendra que les enjeux de la #gls("vod", "VOD"), bande passante, stockage, énergie, rendent toute optimisation en amont directement profitable aux acteurs du secteur, et donc à notre cellule dans une logique de partenariat et donc de projets futurs. Sur le plan organisationnel, le projet illustre comment une petite structure, à l'interface d'un laboratoire et d'une entreprise, s'organise autour de réunions régulières et de ressources mutualisées et une adaptation au quotidien pour mener à bien ce projet. Sur le plan humain, enfin, il montre qu'une équipe jeune compense un certain manque d'expérience par une réelle capacité d'adaptation, une veille constante et un partage de connaissances au quotidien, autant d'atouts pour aborder des sujets de pointe.
 
@@ -2133,12 +2134,12 @@ pointus, et sur une durée longue, n'est pas toujours évident. La complexité d
 domaine demande un effort de concentration soutenu, c'est ce qui
 rend l'organisation et la discipline de travail d'autant plus importantes.
 
-Avec du recul je pense qu'il aurait été plus sûr de rester sur une seule solution pour débuter ce qui aurait faciliter les différents tests mais ce choix aura permis d'avoir plus d'outils pour la suite du projet.
+Avec du recul je pense qu'il aurait été plus sûr de rester sur une seule solution pour débuter ce qui aurait facilité les différents tests mais ce choix aura permis d'avoir plus d'outils pour la suite du projet.
 
 J'ai par ailleurs conscience que les résultats obtenus restent, à ce stade,
-encore peu aboutis. Ce constat n'est pas un échec, il correspond aussi à la période du projet, qui est encore jeune, et il ouvre à des perspectives pour la suite. Ce PFE constitue donc un point d'étape important
-il aura permis de mettre au clair les idées, de développer les premiers outils et
-de dégager les directions qui guideront la poursuite du projet un travail de
+encore peu aboutis. Ce constat n'est pas un échec, il correspond aussi à la période du projet, qui est encore jeune, et il ouvre à des perspectives pour la suite. Ce PFE constitue donc un point d'étape important.
+Il aura permis de mettre au clair les idées, de développer les premiers outils et
+de dégager les directions qui guideront la poursuite du projet. C'est un travail de
 clarification et d'apprentissage dont la valeur dépasse celle des seuls résultats chiffrés.
 
 
@@ -2160,7 +2161,7 @@ clarification et d'apprentissage dont la valeur dépasse celle des seuls résult
 
 / Codec neuronal <codec_neuronal>: Codec dont les étapes de compression et de décompression sont réalisées par des réseaux de neurones. Entièrement différentiable/optimisable, il peut servir de #gls("proxy", "proxy") au sein d'un apprentissage, contrairement à un codec classique.
 
-/ CRF / QP <crf-qp>: *Constant Rate Factor / Quantization Parameter.* Paramètres réglant l'intensité de la compression : plus leur valeur est élevée, plus la quantification est forte, donc plus la vidéo est légère mais dégradée. Le QP fixe un niveau de quantification rigide, ce qui aura un imapct différent en fonction des zones de l'image.Le CRF vise une qualité constante, en essayant donc d'adapter la quantification à la spécificité de la zone.
+/ CRF / QP <crf-qp>: *Constant Rate Factor / Quantization Parameter.* Paramètres réglant l'intensité de la compression : plus leur valeur est élevée, plus la quantification est forte, donc plus la vidéo est légère mais dégradée. Le QP fixe un niveau de quantification rigide, ce qui aura un impact différent en fonction des zones de l'image.Le CRF vise une qualité constante, en essayant donc d'adapter la quantification à la spécificité de la zone.
 
 / CVVDP <cvvdp>: *ColorVideoVDP.* Métrique de qualité perceptuelle, modélisant la vision humaine (sensibilité au contraste, à la couleur et au mouvement) pour prédire la qualité perçue d'une vidéo. Contrairement à des mesures plus simples, elle traite les dimensions spatiale (détails dans l'image), temporelle (évolution entre les images) et chromatique (couleur), ce qui la rend particulièrement adaptée à l'évaluation de contenus dégradés ou modifiés.
 
