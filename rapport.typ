@@ -172,7 +172,7 @@
 
 == Contexte
 Le secteur de la #gls("vod", "vidéo à la demande (VOD)") a connu un essor très important, notamment avec l'arrivée de nombreuses plateformes de contenu. Contrairement à la TNT, où une seule antenne émet un signal capté par un grand nombre de foyers sans coût énergétique supplémentaire par spectateur, la #gls("vod", "VOD") nécessite une connexion point à point. Chaque clic sur "Play" sur Netflix ou Amazon Prime génère un flux dédié depuis un serveur (souvent via un #gls("cdn", "Content Delivery Network, CDN")), augmentant fortement la consommation de bande passante et d'énergie.
-On comprend alors que, dans ce contexte, les algorithmes de compression visant à diminuer la taille de l'information transmise de manière optimisée : les #gls("codec", "codecs"), deviennent de plus en plus importants. L'évolution de leurs performances a permis de rendre ces services accessibles à de nombreuses personnes. Mais la difficulté d'évolution des architectures rend l'adoption des nouvelles versions plus complexe, ce qui pousse souvent à l'utilisation d'outils qui ne sont pas les plus optimisés.
+On comprend alors que, dans ce contexte, les algorithmes de compression visant à diminuer la taille de l'information transmise de manière optimisée, les #gls("codec", "codecs"), deviennent donc de plus en plus importants. L'évolution de leurs performances a permis de rendre ces services accessibles à de nombreuses personnes. Mais la difficulté d'évolution des architectures rend l'adoption des nouvelles versions plus complexe, ce qui pousse souvent à l'utilisation d'outils qui ne sont pas les plus optimisés.
 
 
 === Du diffuseur jusqu'au salon <vod_circuit>
@@ -219,12 +219,12 @@ Ce poids dans le trafic s'accompagne d'un marché en forte croissance. Le segmen
   ) <svodmarket>
 ]
 
-Ce graphique montre la tendance du secteur, il semble important de préciser que le secteur de la vidéo ne s'arrête pas là. Ces données excluent les plateformes financées par la publicité comme YouTube, qui n'apparaît donc pas dans ce marché alors qu'elle représente à elle seule plus de 10 % de la bande passante internet mondiale @applogic2025gipr. Or, ces plateformes s'appuient sur des outils de compression similaires, l'enjeu des optimisations liée s à la compression dépasse donc largement le seul périmètre du marché SVOD chiffré ici.
+Ce graphique montre la tendance du secteur, il semble important de préciser que le secteur de la vidéo ne s'arrête pas là. Ces données excluent les plateformes financées par la publicité comme YouTube, qui n'apparaît donc pas dans ce marché alors qu'elle représente à elle seule plus de 10 % de la bande passante internet mondiale @applogic2025gipr. Or, ces plateformes s'appuient sur des outils de compression similaires, l'enjeu des optimisations liées à la compression dépasse donc largement le seul périmètre du marché SVOD chiffré ici.
 
 #align(center)[
   #figure(
     image("images/ademeVOD.png", width: 100%),
-    caption: [Répartition des usages numériques et de leur impact environnemental, @arcom_ademe_2024],
+    caption: [ADEME : Répartition des usages numériques et de leur impact environnemental, @arcom_ademe_2024],
   ) <ademe>
 ]
 
@@ -238,7 +238,7 @@ Les acteurs concernés par ce secteur sont parmi les plus gros du numérique, Ne
 
 Les défis remontés par le secteur confortent l'intérêt d'une optimisation agissant directement sur le poids des fichiers, une étude récente place le stockage comme premier défi des entreprises de streaming interrogées (@challengesVOD). Réduire le poids des fichiers agit directement sur ce poste, et donc sur les coûts à différents points de la chaîne.
 
-Enfin, un point mérite d'être souligné, l'écosystème open source et open access joue un rôle clé dans ce domaine. Il permet de faire évoluer les outils de compression, mais donne aussi accès à des outils de mesure de qualité vidéo complexes, parfois développés en interne par ces entreprises, et dont la disponibilité conditionne en grande partie la recherche dans ce domaine. Cela semble parfois en contradiction avec la volonté générale des entreprises technologiques, qui cherchent à protéger leurs outils pour ne pas aider la concurrence. Cependant, dans ce cas précis, ces entreprises profitent aussi d'une communauté très active autour des contenus vidéo. Des utilisateurs ou des groupes de recherche s'emparent de leurs outils et proposent des améliorations que leurs équipes internes ne pourraient pas toutes réaliser. Faire évoluer le secteur permet à ces entreprises d'en tirer profit. Nous l'avons vu, le secteur est en forte hausse, chaque optimisation compte et cette aide externe, gratuite, est intéressante. C'est aussi la raison de l'intérêt de ces entreprises à financer différents projets de recherche. On peut toutefois illustrer la limite de cette logique. Ces entreprises partagent peu, voire pas, leurs données, y compris celles utilisées pour produire ou entraîner des outils qui seront ensuite mis en accès libre. Cela montre que cette volonté de partage reste ciblée, éloignée d'une générosité soudaine qui ne correspondrait pas à une logique économique.
+Enfin, un point mérite d'être souligné, l'écosystème open source et open access (libre d'accès) joue un rôle clé dans ce domaine. Il permet de faire évoluer les outils de compression, mais donne aussi accès à des outils de mesure de qualité vidéo complexes, parfois développés en interne par ces entreprises, et dont la disponibilité conditionne en grande partie la recherche dans ce domaine. Cela semble parfois en contradiction avec la volonté générale des entreprises technologiques, qui cherchent à protéger leurs outils pour ne pas aider la concurrence. Cependant, dans ce cas précis, ces entreprises profitent aussi d'une communauté très active autour des contenus vidéo. Des utilisateurs ou des groupes de recherche s'emparent de leurs outils et proposent des améliorations que leurs équipes internes ne pourraient pas toutes réaliser. Faire évoluer le secteur permet à ces entreprises d'en tirer profit. Nous l'avons vu, le secteur est en forte hausse, chaque optimisation compte et cette aide externe, gratuite, est intéressante. C'est aussi la raison de l'intérêt de ces entreprises à financer différents projets de recherche. On peut toutefois illustrer la limite de cette logique. Ces entreprises partagent peu, voire pas, leurs données, y compris celles utilisées pour produire ou entraîner des outils qui seront ensuite mis en accès libre. Cela montre que cette volonté de partage reste ciblée, éloignée d'une générosité soudaine qui ne correspondrait pas à une logique économique.
 
 
 
@@ -282,9 +282,9 @@ Le choix d'une cible d'optimisation réaliste et qui prend en compte ces différ
 
 Nous avons donc vu qu'une optimisation serait intéressante économiquement. Il semble aussi assez clair que les contraintes matérielles nous poussent à orienter les solutions pour qu'elles soient au début de la boucle de transmission, c'est-à-dire avant le transfert des contenus, la partie maîtrisée par les diffuseurs.
 
-Ce sujet va mélanger différents éléments techniques, liés à la compression vidéo mais aussi à l'apprentissage d'un réseau de neurones : ici d'un filtre intelligent permettant de possibles optimisations. Il semble donc important d'introduire certaines notions liées à l'apprentissage de réseaux de neurones et comprendre en quoi il pourrait être intéressant pour accompagner les outils de compressions classiques.
+Ce sujet va mélanger différents éléments techniques, liés à la compression vidéo mais aussi à l'apprentissage d'un réseau de neurones qui ici sera un filtre intelligent permettant de possibles optimisations en modifiant l'image qui sera encodée. Il semble donc important d'introduire certaines notions liées à l'apprentissage de réseaux de neurones et comprendre en quoi il pourrait être intéressant pour accompagner les outils de compressions classiques.
 
-Tout d'abord, un réseau de neurones peut se voir comme un ensemble de paramètres réglables qui se combinent pour répondre à une tache. Il reçoit une entrée, ici une image, la fait passer à travers différentes couches de calcul, qui contiennent des "neurones". Le but de ces étapes est de produire une sortie, dans notre cas une nouvelle image qui sera possiblement plus simple à transmettre. Chaque connexion entre deux neurones porte un poids, que l'on peut ajuster, ce sont ces poids qui déterminent le comportement d'un réseau (@nn_schema).
+Tout d'abord, un réseau de neurones peut se voir comme un ensemble de paramètres réglables qui se combinent pour répondre à une tâche. Il reçoit une entrée, ici une image, la fait passer à travers différentes couches de calcul, qui contiennent des "neurones". Le but de ces étapes est de produire une sortie, dans notre cas une nouvelle image qui sera possiblement plus simple à transmettre. Chaque connexion entre deux neurones porte un poids, que l'on peut ajuster, ce sont ces poids qui déterminent le comportement d'un réseau (@nn_schema).
 
 #figure(
   canvas(length: 1cm, {
@@ -317,9 +317,9 @@ Tout d'abord, un réseau de neurones peut se voir comme un ensemble de paramètr
   caption: [Un réseau de neurones : des couches de neurones reliés par des connexions, chacune portant un poids ajustable.],
 ) <nn_schema>
 
-Ajuster ces poids est primordial, c'est pourquoi on parle d'apprentissage, un entrainement permet d'apprendre une tache à un réseau de neurones en ajustant au mieux ces nombreux paramètres (poids).
+Ajuster ces poids est primordial, c'est pourquoi on parle d'apprentissage : un entrainement qui permet d'apprendre une tâche à un réseau de neurones en ajustant au mieux ces nombreux paramètres (poids).
 
-L'entraînement consiste à montrer un grand nombre d'exemples au réseau, comparer sa sortie au résultat attendu, mesurer l'écart (l' erreur), puis ajuster légèrement les poids pour réduire cette erreur. Répétée un très grand nombre de fois, cette boucle fait converger le réseau (@nn_train). C'est précisément ce que l'on appelle _optimiser_ le réseau : chercher les poids qui minimisent l'erreur. L'erreur dépend du contexte d'apprentissage, il est donc important d'avoir une mesure qui suit la logique de l'objectif final, on peut voir cette mesure de l'erreur comme un guide de l'optimisation.
+L'entraînement consiste à montrer un grand nombre d'exemples au réseau, comparer sa sortie au résultat attendu, mesurer l'écart (l' erreur), puis ajuster légèrement les poids pour réduire cette erreur. Répétée un très grand nombre de fois, cette boucle fait converger le réseau(@nn_train). C'est précisément ce que l'on appelle optimiser le réseau : chercher les poids qui minimisent l'erreur (convergence vers une solution optimale). L'erreur dépend du contexte d'apprentissage, il est donc important d'avoir une mesure qui suit la logique de l'objectif final, on peut voir cette mesure de l'erreur comme un guide de l'optimisation. Dans notre cas ce guide doit être le garant de la qualité d'image qui sera transmise à l'utilisateur.
 
 #figure(
   canvas(length: 1cm, {
@@ -360,9 +360,9 @@ L'entraînement consiste à montrer un grand nombre d'exemples au réseau, compa
 
 Dans ce projet, ce réseau prend la forme d'un filtre appliqué à l'image. On peut imaginer que deux emplacements sont possibles (@filtre_prepost). Un filtre de prétraitement agit sur l'image avant la compression, côté diffuseur, pour la rendre plus facile à compresser. Un filtre de post-traitement agit après la décompression, côté utilisateur, pour corriger l'image reconstruite. Les contraintes matérielles côté utilisateur rendent le post-traitement difficile à déployer. Ce projet se concentre donc sur le prétraitement. L'objectif de l'apprentissage devient alors concret : ajuster les poids du filtre pour qu'une fois l'image compressée, son poids diminue sans que l'utilisateur ne perçoive de perte de qualité.
 
-Pour ce faire il est important que le filtre apprenne à régler ses paramètres dans un environnement réaliste. Ce qui lui permettra de s'adapter aux limites des outils de compressions existants et donc possiblement rendre l'image plus simple à encoder.
+Pour ce faire, il est important que le filtre apprenne à régler ses paramètres dans un environnement réaliste. Ce qui lui permettra de s'adapter aux limites des outils de compressions existants et donc possiblement rendre l'image plus simple à encoder.
 
-On peut imaginer qu'un réseau de neurones soit intéressant pour ce genre d'objectif car les échanges et opérations entre neurones représentent une forme "d'intelligence", permettant de s'adapter au contenu et comprendre des représentations complexes liées aux images afin de les traiter au mieux. Par exemple le filtre pourrait comprendre qu'une texture d'image complexe à traiter pour un codec, et donc coûteuse pour le poids total d'une vidéo, n'a que très peu d'importance concernant la qualité vidéo perçue, dans ce cas, la modifier devient très intéressant.
+On peut imaginer qu'un réseau de neurones soit intéressant pour ce genre d'objectif car les échanges et opérations entre neurones représentent une forme "d'intelligence", permettant de s'adapter au contenu et comprendre des représentations complexes liées aux images afin de les traiter au mieux. Par exemple, le filtre pourrait comprendre qu'une texture d'image complexe à traiter pour un codec, et donc coûteuse pour le poids total d'une vidéo, n'a que très peu d'importance concernant la qualité vidéo perçue, dans ce cas, la modifier devient très intéressant.
 
 #figure(
   canvas(length: 1cm, {
@@ -416,7 +416,7 @@ On peut imaginer qu'un réseau de neurones soit intéressant pour ce genre d'obj
 ) <filtre_prepost>
 
 
-Derrière ces différentes étapes d'optimisation se cachent des opérations mathématiques. Nous verrons dans la suite de ce document que c'est un défi majeur lié au sujet, définir des opérations fidèles aux objectifs : environnement d'apprentissage et mesure de l'erreur, qui soient aussi propices à ces opérations mathématiques.
+Derrière ces différentes étapes d'optimisation se cachent des opérations mathématiques. Nous verrons dans la suite de ce document que définir des opérations fidèles aux objectifs et utilisables dans une boucle d'apprentissage est un défi majeur du projet. Notamment, en utilisant un environnement de simulation de la compression fiable et un moyen de mesurer la qualité de l'image (l'erreur).
 
 
 
@@ -619,7 +619,7 @@ Une vidéo est une suite d'images qui défilent, souvent très rapidement (plusi
 
 Pour bien comprendre les différents concepts, il faut aussi avoir en tête qu'une images est décomposée en petits blocs, qui peuvent être de taille variable pour une même image. Dans les exemples, nous garderons une taille fixe pour faciliter la compréhension.
 
-Pour illustrer ce mécanisme, voici un exemple simple qui permet de comprendre la logique utilisée.
+Pour illustrer un premier mécanisme utilisé pour exploiter le mouvement dans les vidéos, voici un exemple simple qui permet de comprendre la logique utilisée :
 
 #align(center)[
   #figure(
@@ -627,8 +627,8 @@ Pour illustrer ce mécanisme, voici un exemple simple qui permet de comprendre l
     caption: [Exemple de mouvement prédit @moreira2022digitalvideo],
   ) <intermotion>
 ]
-
-Le premier point est la principale optimisation, qui utilise une répétition d'informations, mais il faut tout d'abord transmettre une image clé, qui servira de point d'ancrage pour réaliser cette prédiction de mouvement. Une image clé est transmise pour chaque groupe d'images (#gls("gop", "GOP")).
+Cet exemple met en avant l'utilisation des différentes images d'une vidéo, on utilise alors les images précédentes pour prédire la position des éléments de l'image actuelle. Ici l'image change très peu, la boule est alors déplacée, et le reste de l'image sera réutilisé.
+Le premier point est la principale optimisation, qui utilise cette répétition d'informations, mais il faut tout d'abord transmettre une image clé, qui servira de point d'ancrage pour réaliser les prédictions suivantes. Une image clé est transmise pour chaque groupe d'images (#gls("gop", "GOP")).
 Ces images clés doivent être transmises entièrement, ce qui peut parfois avoir un coût important. On utilise alors une autre forme de redondance, au sein d'une même image, des zones simples comme un ciel bleu pourront être transmises simplement, car les blocs voisins se ressemblent.
 Pour ce faire, il faut dérouler à partir des informations connues de l'image, qui sont déjà prédites. Le bloc en haut à gauche est transmis en premier, il servira alors de base pour la suite des prédictions qui vont dérouler jusqu'à terminer l'image.
 
@@ -750,7 +750,7 @@ C'est là qu'intervient le codage entropique, l'outil qui transforme réellement
 
 On voit alors pourquoi avoir des valeurs simples est si important. Une suite de valeurs proches, répétées ou nulles est très prédictible, le #gls("cabac", "CABAC") lui attribue une forte probabilité et la code sur très peu de bits. À l'inverse, des valeurs dispersées et imprévisibles coûtent cher. C'est précisément ce levier que l'on cherche à exploiter, si l'on parvient, en amont, à rendre l'image plus simple à représenter une fois transformée et quantifiée (davantage de zéros, des coefficients plus réguliers), alors le codage final devient moins coûteux, à qualité visuelle comparable. C'est tout l'enjeu de l'optimisation visée dans ce projet.
 
-== Comprendre le déroulement
+== Comprendre le déroulement entier
 
 
 Les sections précédentes ont détaillé chaque mécanisme isolément. La figure
@@ -1209,7 +1209,7 @@ Nous l'avons mentionné, les codecs classiques s'intègrent mal dans une chaîne
 
 === Limites mathématiques des outils pour l'apprentissage <limites_codec>
 
-Ces limites sont avant tout mathématiques. Pour qu'un réseau de neurone, dans notre cas, un filtre, apprenne, chaque opération de la boucle doit indiquer dans quelle direction ajuster les paramètres, c'est le rôle du "gradient", qui donne en quelque sorte le "sens de la pente". Une opération est utilisable pour l'apprentissage si elle est différentiable, c'est-à-dire une fonction continue donc sans interruptions et avec une pente pour en déduire la direction.
+Ces limites sont avant tout mathématiques. Pour qu'un réseau de neurone, dans notre cas, un filtre, apprenne, chaque opération de la boucle doit indiquer dans quelle direction ajuster les paramètres, c'est le rôle du "gradient", qui donne en quelque sorte le sens de la pente. Une opération est utilisable pour l'apprentissage si elle est différentiable, c'est-à-dire une fonction continue (sans interruptions et avec une pente pour en déduire la direction).
 
 #figure(
   canvas(length: 1cm, {
@@ -1248,11 +1248,11 @@ Ces limites sont avant tout mathématiques. Pour qu'un réseau de neurone, dans 
   caption: [Cas d'une fonction différentiable : en tout point, on peut calculer la pente (le gradient), qui indique dans quel sens la fonction varie, et donc dans quelle direction ajuster le paramètre.],
 ) <pente>
 
-La raison principale de l'impossibilité d'utiliser ces outils de codage tels quels est qu'ils ne sont pas prévus pour cela, ni adaptés aux langages informatiques utilisés pour l'apprentissage. Ils sont aussi très optimisés pour des calculs rapides sur processeurs, mais bien moins dans des conditions d'entraînement. Ils possèdent de nombreux choix binaires qui constituent alors des murs à l'apprentissage, où l'on garde ou ne garde pas une information sans transition, ce qui provoque alors une cassure et une impossibilité d'optimiser ces étapes.
+La raison principale de l'impossibilité d'utiliser ces outils de codage tels quels est qu'ils ne sont pas prévus pour cela, pas adaptés aux langages informatiques utilisés pour l'apprentissage. Ils sont aussi très optimisés pour des calculs rapides sur processeurs, mais bien moins dans des conditions d'entraînement. Ils possèdent de nombreux choix binaires qui constituent alors des murs à l'apprentissage, où l'on garde ou ne garde pas une information sans transition, ce qui provoque alors une cassure dans les fonctions et donc une impossibilité d'utiliser ces étapes dans une boucle complète d'apprentissage des poids d'un réseau.
 
-On retrouve alors beaucoup de fonctions qui n'ont pas les propriétés adéquates. Certaines présentent des zones plates, où une petite variation de l'entrée ne change rien à la sortie : la pente y est nulle et n'indique aucune direction. D'autres présentent des cassures franches, où la pente n'est tout simplement pas définie.
+On retrouve alors beaucoup de fonctions qui n'ont pas les propriétés adéquates. Certaines présentent des zones plates, où une petite variation de l'entrée ne change rien à la sortie, la pente y est nulle et n'indique aucune direction. D'autres présentent des cassures franches, où la pente n'est tout simplement pas définie.
 
-Les #gls("codec", "codecs") vidéo regorgent de ce type d'opérations. La #gls("quantification", "quantification"), par exemple, repose sur un arrondi, sa courbe est un escalier, plat entre deux marches, donc de gradient nul presque partout. La sélection du meilleur bloc lors de la prédiction repose, elle, sur ce qu'on argmin, un choix qui choisit une solution unique parmi des candidats distincts et qui ne fournit donc aucune pente exploitable.
+Les #gls("codec", "codecs") vidéo regorgent de ce type d'opérations. La #gls("quantification", "quantification"), par exemple, repose sur un arrondi, sa courbe est un escalier, plat entre deux marches, donc de gradient nul presque partout. La sélection du meilleur bloc lors de la prédiction repose, elle, sur ce qu'on appelle un "argmin", un choix qui ne garde qu'une unique solution parmi des candidats distincts et qui ne fournit donc aucune pente exploitable.
 
 #figure(
   grid(
@@ -1338,7 +1338,7 @@ Le défi majeur se trouve donc dans la création d'une version repoussant ces li
 
 == Solutions existantes
 
-La mise en place d'un terrain d'optimisation fiable : un #gls("proxy", "proxy") ou jumeau du codec cible est un des piliers du projet, c'est lui qui permettra d'entraîner correctement le filtre et, plus tard, possiblement d'autres outils destinés à assister la compression. Tester différentes méthodologies de proxy était donc un premier point d'étape essentiel, et cela s'intègre naturellement dans le cadre d'un projet de fin d'études. La partie scientifique de ce projet de fin d'études se penchera donc en particulier sur ce point en apportant aussi d'autres aspects du projets mais à ce stade précoce, il est d'abord essentiel de comprendre les différentes possibilités avant de se définir la méthode qui sera utilisée pour l'implémentation finale, ce qui demande de réaliser des analyses comparatives.
+La mise en place d'un terrain d'optimisation fiable : un #gls("proxy", "proxy") ou jumeau du codec cible est un des piliers du projet, c'est lui qui permettra d'entraîner correctement le filtre et, plus tard, possiblement d'autres outils destinés à assister la compression. Tester différentes méthodologies de proxy était donc un premier point d'étape essentiel, cela s'intègre naturellement dans le cadre d'un projet de fin d'études. La partie scientifique se penchera donc en particulier sur ce point en apportant aussi d'autres aspects du projets mais à ce stade précoce, il est d'abord essentiel de comprendre les différentes possibilités avant de se définir la méthode qui sera utilisée pour l'implémentation finale, ce qui demande de réaliser des analyses comparatives.
 Dans cette section nous verrons différentes solutions existantes qui serviront de références pour les tests mis en place.
 
 === Deep learning et méthodes de remplacement
@@ -1782,7 +1782,6 @@ Les deux tests suivants sont ciblés. Le premier jeu de données est basé sur d
 
 Le second jeu de données est basé sur des vidéos encodées avec un encodage par régions d'intérêt (ROI), c'est-à-dire que certaines zones de l'image sont encodées avec plus de qualité que d'autres, ce qui est un cas proche d'un filtrage IA. Avoir une métrique qui réagit de manière pertinente face à ces vidéos est aussi un bon indicateur de son utilité pour notre projet.
 
-//TODO Ajouter CVVDP
 #figure(
   caption: [Accord avec la référence sur différents encodages #gls("hevc", "H.265"). ↑ : plus haut = meilleur.],
   table(
@@ -1871,7 +1870,7 @@ Cette première évaluation permet aussi de mettre en avant les différentes app
 Les deux méthodes étant différentes, cette évaluation se fera donc sur un point de qualité qui peut être atteignable par les différentes options.
 Pour rappel, le proxy neuronal est entraîné à reproduire une qualité fixe (#gls("crf-qp", "CRF") 22 dans notre cas), pour le comparer avec la seconde approche il faut alors se placer à #gls("crf-qp", "QP") 22, ce qui va légèrement différer mais permet tout de même de voir à quel point ces outils sont pertinents ou non, pour en valider les résultats, nous verrons aussi les résultats à (#gls("crf-qp", "CRF") 22.
 
-Ces tests seront réalisés sur des vidéos du dataset MCL-JCV, qui est un dataset de référence pour l'évaluation de la compression vidéo.//TODO AJouter le dataset HEVC et expliquer
+Ces tests seront réalisés sur des vidéos du dataset MCL-JCV, qui est un dataset de référence pour l'évaluation de la compression vidéo.
 L'objectif est de ne pas utiliser des vidéos similaires à celles qui ont permis d'entraîner le proxy neuronal, afin de ne pas biaiser les résultats. Le dataset MCL-JCV est composé de 30 vidéos HD, ce qui suffit pour obtenir des résultats fiables. Il est aussi intéressant de noter que ce dataset est composé de vidéos très différentes, ce qui permet d'avoir une idée plus précise de la pertinence des outils sur différents types de contenus.
 
 == Fidélité de reconstruction
@@ -2134,7 +2133,7 @@ pointus, et sur une durée longue, n'est pas toujours évident. La complexité d
 domaine demande un effort de concentration soutenu, c'est ce qui
 rend l'organisation et la discipline de travail d'autant plus importantes.
 
-Avec du recul je pense qu'il aurait été plus sûr de rester sur une seule solution pour débuter ce qui aurait facilité les différents tests mais ce choix aura permis d'avoir plus d'outils pour la suite du projet.
+Avec du recul, je pense qu'il aurait été plus sûr de rester sur une seule solution pour débuter, ce qui aurait facilité les différents tests, mais ce choix aura permis d'avoir plus d'outils pour la suite du projet.
 
 J'ai par ailleurs conscience que les résultats obtenus restent, à ce stade,
 encore peu aboutis. Ce constat n'est pas un échec, il correspond aussi à la période du projet, qui est encore jeune, et il ouvre à des perspectives pour la suite. Ce PFE constitue donc un point d'étape important.
