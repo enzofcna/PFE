@@ -1972,58 +1972,66 @@ De par notre implémentation présenté dans @filtreGlobale, les deux proxy poss
 == Résultats face aux #gls("metrique", "métriques")
 Dans cette section, nous verrons comment les différentes versions ont réagi durant l'apprentissage du filtre et donc les résultats obtenus grâce au filtre, ce qui permettra d'avoir une idée de la pertinence de chaque méthode.
 
-Les courbes présentées permettent de comparer la version de la vidéo sans filtrage et celle avec, on compare à un niveau de qualité similaire les deux versions.
-Plus un point est à droite plus la vidéo coûte cher, plus un point est hau ou bas en fonction de la mesure(le sens est indiqué sur les différents graphiques), plus sa qualité est bonne. Dans le cas des métriques testées seul LPIPS est à lire dans le sens inverse (plus bas = meilleur).
+Pour quantifier le gain d'une optimisation, on utilise le #gls("bdrate", "BD-rate"). L'idée repose sur les courbes débit-distorsion : pour une vidéo, on trace la qualité obtenue en fonction du débit (le poids), à plusieurs niveaux de compression. On obtient une courbe pour la version sans filtre et une autre pour les versions filtrées. Le BD-rate mesure alors l'écart horizontal moyen entre ces deux courbes, c'est-à-dire l'économie de débit à qualité égale. Un BD-rate de −5 % signifie que, pour une même qualité perçue, la version filtrée nécessite en moyenne 5 % de débit en moins. Plus la valeur est négative, meilleure est l'optimisation ; une valeur positive indique au contraire une dégradation.
+
+Dans un premier temps voici les courbes qui montrent visuellement les écarts entre les différentes implémentations. Il est important de noter que la métrique LPIPS est orientée differrement des autres, plus le point est bas, plus la qualitée prédite est bonne, on retrouve aussi l'information sur cette direction sur chacun des graphiques.
 
 #figure(
   grid(
     columns: (1fr, 1fr),
     gutter: 0.5cm,
-    image("images/rd_VMAF_NEG_MEAN_N.png"), image("images/rd_VMAF_MEAN_N.png"),
-    image("images/rd_UVQ_MEAN_N.png"), image("images/rd_LPIPS_MEAN.png"),
+    image("images/rd_VMAF_MEAN.png"), image("images/rd_VMAF_NEG_MEAN.png"),
+    image("images/rd_LPIPS_MEAN.png"), image("images/rd_UVQ_MEAN.png"),
+    grid.cell(colspan: 2)[
+      #align(center)[#image("images/rd_CVVDP_MEAN.png", width: 50%)]
+    ],
   ),
-  caption: [Résultats Optimisation filtre avec proxy neuronal],
+  caption: [Courbes des résultats pour les métriques retenues des différentes implémentations testées],
 )
-Ces résultats montrent que le proxy neuronal optimise bien le filtre, les scores VMAF et VMAF-NEG sont assez parlant et montrent un gain assez net (2.5 points VMAF par exemple pour le premier point en basse qualité). Cependant on remarque une contradiction la métrique UVQ semble ne pas apprécier les modifications du filtre, ce qui est un point à creuser pour comprendre pourquoi cette métrique ne réagit pas comme les autres, elle reste tout de même inchangé à basse qualité.
+
+Ces courbes montrent bien une forte différence entre la version du filtre obtenu via l'entrainement sur la version neuronale et les deux versions du codec simplifié.
+On observe aussi un contradiction VMAF semble apprécier les résultats obtenus par la version "Neuro" alors que les autres métriques non.
+Concernant les deux versions du proxy simplifié on peut voir que les différences sont assez minime.
+
+#figure(
+  caption: [Gains de #gls("bdrate", "BD-rate") (%) par métrique et par proxy. ↓ : plus bas (négatif) = meilleur.],
+  table(
+    columns: (auto, 1fr, 1fr, 1fr),
+    align: (left, center, center, center),
+    stroke: 0.5pt + rgb("#888"),
+    inset: 6pt,
+    table.header([*Métrique*], [*Bruit* ↓], [*Simplifié* ↓], [*Neuronal* ↓]),
+    [*CVVDP*], [*−7.94*], [−7.28], [9.96],
+    [*UVQ*], [*1.61*], [2.88], [18.13],
+    [*LPIPS*], [*−3.55*], [−1.15], [17.62],
+    [*VMAF*], [−4.98], [−8.96], [*−23.33*],
+    [*NEG*], [−4.83], [−7.27], [*−16.63*],
+  ),
+) <bdrate_resultats>
+
+Ce tableau reprend les informations que l'on pouvait lire sur les courbes mais de manière plus précise, ce qui permet de mettre en avant les différences entre les deux versions issue du codec simplifié.
+On remarque encore cette contradiction entre VMAF et le reste des métriques où la version "round" semble satisfaire majoritairement VMAF en comparaison à la version "Bruit" qui semble satisfaire les autres mesures.
+Cependant ces résultats montrent tout de même que la majorité des métriques semblent apprécier les effets du filtre obtenu par les version "Bruit" et "Arrondi" sur les images, en particulier à basse qualité (les points à gauche dans les graphiques).
+Mais les contradictions entre ces différentes mesures montrent la difficulté d'analyse des résultats pour notre cas d'usage. Il semble aussi important de préciser que les différences étant faible, on peut aussi imaginer qu'on reste parfois dans une zone d'erreur de ces différentes mesures, ce qui remet en question ces résultats au vu de la faible différence.
+
+Ces résultats proviennent de la moyenne des différents contenus, mais les différentes vidéos ne réagissent pas de la même manière face à au filtre.
+Pour illuster cela voici un exemple d'un vidéo qui semble avoir fonctionnée sur les différentes mesures étudiées.
+
 
 #figure(
   grid(
     columns: (1fr, 1fr),
     gutter: 0.5cm,
-    image("images/rd_VMAF_NEG_MEAN_S1.png"), image("images/rd_VMAF_MEAN_S1.png"),
-    image("images/rd_UVQ_MEAN_S1.png"), image("images/rd_LPIPS_MEAN_ROUND.png"),
+    image("images/rd_VMAF.png"), image("images/rd_VMAF_NEG.png"),
+    image("images/rd_LPIPS.png"), image("images/rd_UVQ.png"),
+    grid.cell(colspan: 2)[
+      #align(center)[#image("images/rd_CVVDP.png", width: 50%)]
+    ],
   ),
-  caption: [Résultats Optimisation filtre avec proxy simplifié version "arrondi"],
+  caption: [Courbes des résultats pour les métriques retenues pour la vidéo SRC05 (version "Arrondi")],
 )
 
-Ces résultats montrent que le proxy simplifié optimise très peu au vu de ce contenu, les différences restent dans les marges d'erreurs des métriques on ne pas pas spécifier de gain mais un accord semble tout de même exister à basse qualité où les trois métriques s'accordent sur un possible gain minime du filtre.
-
-
-#figure(
-  grid(
-    columns: (1fr, 1fr),
-    gutter: 0.5cm,
-    image("images/rd_VMAF_NEG_MEAN_Noise.png"), image("images/rd_VMAF_MEAN_Noise.png"),
-    image("images/rd_UVQ_MEAN_Noise.png"), image("images/rd_LPIPS_MEAN_NOISE.png"),
-  ),
-  caption: [Résultats Optimisation filtre avec proxy simplifié version "bruit"],
-)
-
-Cette version n'a pas donné de résultats très intéressants non plus, le coût des vidéos évolue mais n'apporte pas de bénéfice face à un encode classique selon ces mesures, on voit par exemple à haute qualité que le coût a largement diminué mais reste dans ce que pourrait déjà faire le codec sans ce filtre. On voit cependant qu'à basse qualité le point gardant un coût (bpp) similaire est au dessus sur toutes les mesures, ce qui pourrait définir que cette méthode permet aussi un gain minime à basse qualité.
-
-Ces différents graphiques représente une moyenne sur 30 vidéos. Si l'on regarde les résultats plus en détail certains contenus vidéos semblent mieux réagir à cette optimisation, pour illuster cela voici un exemple où toutes les mesures s'accordent pour une optimisation au moins à basse qualité (point plus à gauche).
-
-#figure(
-  grid(
-    columns: (1fr, 1fr),
-    gutter: 0.5cm,
-    image("images/neg.png"), image("images/vmaf.png"),
-    image("images/uvq.png"), image("images/LPIPS.png"),
-  ),
-  caption: [Résultats Optimisation filtre avec proxy simplifié version "round" pour la vidéo SRC08],
-)
-
-Cela montre aussi que les résultats dépendent grandement du contenus, ce qui prouve l'importance, des données d'entrainement qui doivent être représentative d'un large panel de contenus afin d'obtenir un outil polyvalent.
+Cela montre aussi que les résultats dépendent grandement du contenus, ce qui prouve l'importance, des données d'entrainement qui doivent être représentative d'une large diversité de contenus afin d'obtenir un outil polyvalent.
 
 == Test visuel
 Afin d'avoir une idée des effets du filtre sur les images voici quelques exemples où l'ont voir de différences intéressantes à analyser. Ces images proviennent bien sûr des images de test et pas celles utilisées durant l'apprentissage.

@@ -1,17 +1,19 @@
 
 
 => Rajouter CVVDP ? (bien rajouter dans le tableau plus résultat dans ce cas)
-=> faire en sorte de ranger le glossaire apr ordre alphabétique
 
+
+=> faire en sorte de ranger le glossaire apr ordre alphabétique
 
 => Bien répondre aux questions dans la conclusion
 
 => terminer la section résultats et visuel pour la rendre plus simple à comprendre
 
-+>
+
+
 La section résultat
 Mettre en avant qu'après différents tests les options lié au proxy n'apportent pas grand chose et pour simplifier la lecture on garde qu'une version de référence
-qui semblait être celle qui fonctionnait légèrement mieux
+qui semblait être celle qui fonctionnait légèrement mieux (analyse visuel en tout cas)
 
 Mettre les scores face aux métriques
 
