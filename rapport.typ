@@ -584,7 +584,7 @@ En apparence anodins, ces moments illustrent assez bien ce que la littérature e
 
 == Limites et adaptation
 
-La première limite est celle de la connaissance. Bien que des bases existaient en compression vidéo et en apprentissage automatique grâce aux projets et cours précédents, les deux domaines réunis représentaient un gap important à combler. Une partie du travail a donc consisté à réaliser de la bibliographie, des tests et inévitablement des erreurs, qui font partie du processus d'apprentissage.
+La première limite est celle de la connaissance. Bien que des bases existaient en compression vidéo et en apprentissage automatique grâce aux projets précédents et cours suivis, les connaissances liées à ces deux domaines réunis représentaient un gap important à combler. Une partie du travail a donc consisté à réaliser de la bibliographie, des tests et inévitablement des erreurs, qui font partie du processus d'apprentissage.
 
 La première étape a donc été d'étudier les solutions existantes et de comprendre le domaine. Cette compréhension ne s'est pas arrêtée là, elle s'est aussi construite au fil du projet, au fur et à mesure des implémentations et des résultats.
 
@@ -628,7 +628,7 @@ Pour illustrer un premier mécanisme utilisé pour exploiter le mouvement dans l
   ) <intermotion>
 ]
 Cet exemple met en avant l'utilisation des différentes images d'une vidéo, on utilise alors les images précédentes pour prédire la position des éléments de l'image actuelle. Ici l'image change très peu, la boule est alors déplacée, et le reste de l'image sera réutilisé.
-Le premier point est la principale optimisation, qui utilise cette répétition d'informations, mais il faut tout d'abord transmettre une image clé, qui servira de point d'ancrage pour réaliser les prédictions suivantes. Une image clé est transmise pour chaque groupe d'images (#gls("gop", "GOP")).
+Le premier point est la principale optimisation, elle utilise cette répétition d'informations, mais il faut tout d'abord transmettre une image clé, qui servira de point d'ancrage pour réaliser les prédictions suivantes. Une image clé ou "intra" est transmise pour chaque groupe d'images (#gls("gop", "GOP")).
 Ces images clés doivent être transmises entièrement, ce qui peut parfois avoir un coût important. On utilise alors une autre forme de redondance, au sein d'une même image, des zones simples comme un ciel bleu pourront être transmises simplement, car les blocs voisins se ressemblent.
 Pour ce faire, il faut dérouler à partir des informations connues de l'image, qui sont déjà prédites. Le bloc en haut à gauche est transmis en premier, il servira alors de base pour la suite des prédictions qui vont dérouler jusqu'à terminer l'image.
 
@@ -1886,7 +1886,7 @@ On sépare ici les images intra des images inter car nous utilisons des méthode
 #let hi = rgb("#e8f0fb")
 
 #figure(
-  caption: [Fidélité proxy vs h265, mode CRF. ↑ : plus haut = meilleur.],
+  caption: [Fidélité proxy vs H.265, mode CRF. ↑ : plus haut = meilleur.],
   table(
     columns: (auto, 1fr, 1fr, 1fr, 1fr),
     align: (left, center, center, center, center),
@@ -1902,7 +1902,7 @@ On sépare ici les images intra des images inter car nous utilisons des méthode
 )
 
 #figure(
-  caption: [Fidélité proxy vs x265, mode QP constant. ↑ : plus haut = meilleur.],
+  caption: [Fidélité proxy vs H.265, mode QP constant. ↑ : plus haut = meilleur.],
   table(
     columns: (auto, 1fr, 1fr, 1fr, 1fr),
     align: (left, center, center, center, center),
@@ -1979,6 +1979,8 @@ Pour quantifier le gain d'une optimisation, on utilise le #gls("bdrate", "BD-rat
 
 Dans un premier temps voici les courbes qui montrent visuellement les écarts entre les différentes implémentations. Il est important de noter que la métrique LPIPS est orientée différrement des autres, plus le point est bas, plus la qualité prédite est bonne, on retrouve aussi l'information sur cette direction sur chacun des graphiques.
 
+On retrouve en bleu la version "Neuro", en rouge la version "Arrondi", en vert la version "Bruit" et en pointillés la version sans filtre.
+
 #figure(
   grid(
     columns: (1fr, 1fr),
@@ -2037,16 +2039,16 @@ Pour illustrer cela voici un exemple d'une vidéo qui semble avoir fonctionné s
 Cet exemple montre aussi que les résultats dépendent grandement du contenu, ce qui prouve l'importance, des données d'entrainement, qui doivent être représentatives d'une large diversité de contenus afin d'obtenir un outil polyvalent.
 
 == Test visuel
-Afin d'avoir une idée des effets du filtre sur les images voici quelques exemples où l'on voit des différences intéressantes à analyser. Ces images proviennent bien sûr des images de test et pas celles utilisées durant l'apprentissage.
+Afin d'avoir une idée des effets du filtre sur les images voici quelques exemples où l'on voit des différences intéressantes à analyser. Ces images proviennent bien sûr des données de test et pas celles utilisées durant l'apprentissage.
 Il est possible que certains détails ne soient visibles qu'en zoomant.
-Afin d'avoir des exemples de taille suffisante, le choix a été fait de ne garder qu'un filtre parmi les deux "Bruit" et "Arrondi" comme la différence visuelle est souvent minime voire absente. La version "Arrondi" a été conservée
+Afin d'avoir des exemples de taille suffisante, le choix a été fait de ne garder qu'un filtre parmi les deux "Bruit" et "Arrondi" comme la différence visuelle est souvent minime voire absente. La version "Arrondi" a été conservée.
 
-Dans ces images, on retrouve l'information de la version et la taille de l'image en kilo-octet, une mesure informatique, plus la valeur est basse plus l'image est légère.
+Dans ces images, on retrouve l'information de la version et la taille de l'image en kilo-octet, une mesure informatique, plus la valeur est basse plus la vidéo est légère.
 
 
 #align(center)[
   #figure(
-    image("images/exemplvisu/SRC05_CRF37.png", width: 125%),
+    image("images/exemplvisu/SRC05_CRF37.png", width: 110%),
     caption: [Exemple CRF 37 (basse qualité)],
   ) <crf37src5>
 ]
@@ -2055,7 +2057,7 @@ On retrouve ici l'exemple où les différentes métriques se sont accordées pou
 
 #align(center)[
   #figure(
-    image("images/exemplvisu/CRF37SRC14.png", width: 125%),
+    image("images/exemplvisu/CRF37SRC14.png", width: 110%),
     caption: [Exemple CRF 37 (basse qualité)],
   ) <crf37src14>
 ]
@@ -2065,7 +2067,7 @@ Ici non plus pas de contradiction entre les différentes mesures pour ce niveau 
 
 #align(center)[
   #figure(
-    image("images/exemplvisu/A008CRF37.png", width: 125%),
+    image("images/exemplvisu/A008CRF37.png", width: 110%),
     caption: [Exemple CRF 37 (basse qualité)],
   ) <crf37srcA008>
 ]
@@ -2073,19 +2075,10 @@ Ici non plus pas de contradiction entre les différentes mesures pour ce niveau 
 Cet exemple est intéressant car il montre un désaccord entre le résultat visuel qui semble avoir permis d'éviter un bruit de compression important et gênant et le résultat de la métrique UVQ qui voit ici une baisse de qualité. Le reste des métriques s'accordent pour un gain.
 
 
-#align(center)[
-  #figure(
-    image("images/exemplvisu/SRC28CRF27.png", width: 125%),
-    caption: [Exemple CRF 27 (qualité moyenne)],
-  ) <crf27src28>
-]
-
-Cet exemple est aussi parlant, la métrique UVQ semble en désaccord avec le gain visuel, le reste des métriques s'accordent pour un gain minime, seul LPIPS donne un score bien plus important.
-
 
 #align(center)[
   #figure(
-    image("images/exemplvisu/W051CRF27.png", width: 125%),
+    image("images/exemplvisu/W051CRF27.png", width: 110%),
     caption: [Exemple CRF 27 (qualité moyenne)],
   ) <crf27srcW051>
 ]
